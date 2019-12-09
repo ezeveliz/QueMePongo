@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow">
+    <a class="navbar-brand" href="/home">Que Me Pongo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="/calendar">
+                    <i class="fal fa-calendar-alt"></i>
+                    <span class="nav-link-text">Calendario</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-no-instant="">
+                    <i class="fal fa-scarf"></i>
+                    <span class="nav-link-text">Guardarropas</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item " href="/evaluacion?id=20" data-instant="">
+                        <span class="nav-link-text">1° A Cs Naturales</span>
+                    </a>
+                    <a class="dropdown-item " href="/evaluacion?id=24" data-instant="">
+                        <span class="nav-link-text">1° A Matematica</span>
+                    </a>
+                    <a class="dropdown-item " href="/evaluacion?id=30" data-instant="">
+                        <span class="nav-link-text">2° A Ed. Fisica</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fal fa-user"></i> Admin Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <form action="/logout" method="POST" class="form-inline centered">
+                        <button type="submit" class="dropdown-item text-danger"><i class="fal fa-sign-out-alt"></i> Salir
+                        </button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

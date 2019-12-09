@@ -1,5 +1,6 @@
 package Server;
 
+import Controllers.Calendar;
 import Controllers.Home;
 import Controllers.Inicio;
 import Utils.BooleanHelper;
@@ -33,6 +34,7 @@ public class Router {
         //Instancio los controladores necesarios
         Inicio inicioController = new Inicio();
         Home homeController = new Home();
+        Calendar calendarController = new Calendar();
 
         //UsuarioController usuarioController = new UsuarioController();
 
@@ -57,6 +59,8 @@ public class Router {
         post("/register", inicioController::register, Router.engine);
 
         get("/home", homeController::inicio, Router.engine);
+
+        get("/calendar", calendarController::calendarView, Router.engine);
 
         //get("/", (req, res) -> new Inicio().inicio());
 
