@@ -36,7 +36,7 @@ public class Inicio {
         //Si ya estoy loggeado redirijo al home
         if(request.session().attribute("logged")){
 
-            return new ModelAndView(parametros, "Home.hbs");
+            response.redirect("/home");
 
         //Si habia un error de loggeo,
         } else if(request.session().attribute("logError")){
@@ -68,8 +68,7 @@ public class Inicio {
             request.session().removeAttribute("logError");
             request.session().removeAttribute("oldEmail");
             request.session().removeAttribute("oldPass");
-            parametros.put("section", "Inicio");
-            return new ModelAndView(parametros, "Home.hbs");
+            response.redirect("/home");
 
         //Redirigir a home
         } else {
@@ -80,6 +79,13 @@ public class Inicio {
             request.session().attribute("oldPass", password);
             response.redirect("/login");
         }
+        return new ModelAndView(parametros, "");
+    }
+
+    public ModelAndView logout(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        request.session().invalidate();
+        response.redirect("/");
         return new ModelAndView(parametros, "");
     }
 

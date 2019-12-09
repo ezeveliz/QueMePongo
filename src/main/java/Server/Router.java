@@ -1,5 +1,6 @@
 package Server;
 
+import Controllers.Home;
 import Controllers.Inicio;
 import Utils.BooleanHelper;
 import Utils.HandlebarsTemplateEngineBuilder;
@@ -31,6 +32,7 @@ public class Router {
 
         //Instancio los controladores necesarios
         Inicio inicioController = new Inicio();
+        Home homeController = new Home();
 
         //UsuarioController usuarioController = new UsuarioController();
 
@@ -50,8 +52,11 @@ public class Router {
         get("/", inicioController::inicio, Router.engine);
         get("/login", inicioController::loginView, Router.engine);
         post("/login", inicioController::login, Router.engine);
+        post("/logout", inicioController::logout, Router.engine);
         get("/register", inicioController::registerView, Router.engine);
         post("/register", inicioController::register, Router.engine);
+
+        get("/home", homeController::inicio, Router.engine);
 
         //get("/", (req, res) -> new Inicio().inicio());
 
