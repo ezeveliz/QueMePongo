@@ -47,6 +47,7 @@ public class Router {
 
         //Rutas
         get("/", inicioController::inicio, Router.engine);
+        get("/login", inicioController::iniciarSesion, Router.engine);
 
         //get("/", (req, res) -> new Inicio().inicio());
 
