@@ -1,0 +1,30 @@
+{{#partial "content" }}
+    </head>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+        <a class="navbar-brand" href="/"><i class="fal fa-scarf"></i> Que Me Pongo</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fal fa-user"></i> Admin Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#"><i class="fal fa-sign-out"></i> Salir</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <body class="text-center sticky-footer">
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb shadow">
+                <li class="breadcrumb-item">
+                    <a href="#">Que Me Pongo</a>
+                </li>
+                <li class="breadcrumb-item active">{{section}}</li>
+            </ol>
+        </div>
+    </div>
+{{/partial}}
+
+{{> base.hbs}}

@@ -22,7 +22,7 @@ public class Inicio {
             request.session().attribute("logError", false);
         }
         parametros.put("logged", request.session().attribute("logged"));
-        parametros.put("section", "Inicio");
+        parametros.put("section", "Bienvenido");
         return new ModelAndView(parametros, "Inicio.hbs");
     }
 
@@ -62,12 +62,13 @@ public class Inicio {
         Map<String, Object> parametros = new HashMap<>();
 
         //TODO: hacer un login real
-        if(email.equals("admin") && password.equals("admin")){
+        if(email.equals("admin@admin.com") && password.equals("admin")){
 
             request.session().attribute("logged", true);
             request.session().removeAttribute("logError");
             request.session().removeAttribute("oldEmail");
             request.session().removeAttribute("oldPass");
+            parametros.put("section", "Inicio");
             return new ModelAndView(parametros, "Home.hbs");
 
         //Redirigir a home
