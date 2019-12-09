@@ -7,15 +7,28 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-light bg-light static-top shadow">
-    <div class="container">
-        <a class="navbar-brand" href="#">Que Me Pongo</a>
-        {{#if logged}}
-        <a class="btn btn-primary" href="#">Entrar</a>
-        {{else}}
-        <a class="btn btn-primary" href="/login">Inicar sesion</a>
-        {{/if}}
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+    <a class="navbar-brand" href="/"><i class="fal fa-scarf"></i> Que Me Pongo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            {{#if logged}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Entrar</a>
+                </li>
+            {{else}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/login">Iniciar sesion</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/register">Registrarse</a>
+                </li>
+            {{/if}}
+        </ul>
     </div>
 </nav>
 

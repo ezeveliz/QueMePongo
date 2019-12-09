@@ -1,16 +1,27 @@
 {{#partial "content" }}
 </head>
-
+<style>
+    .field-icon {
+        float: right;
+        margin-top: -27px;
+        margin-right: 10px;
+        position: relative;
+        z-index: 2;
+    }
+</style>
 <!-- Navigation -->
-<nav class="navbar navbar-light bg-light static-top shadow">
-    <div class="container">
-        <a class="navbar-brand" href="/">Que Me Pongo</a>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+    <a class="navbar-brand" href="/"><i class="fal fa-scarf"></i> Que Me Pongo</a>
 </nav>
-<body class="text-center">
-
+<body class="text-center sticky-footer">
 <div class="content-wrapper">
     <div class="container-fluid">
+        <ol class="breadcrumb shadow">
+            <li class="breadcrumb-item">
+                <a href="#">Que Me Pongo</a>
+            </li>
+            <li class="breadcrumb-item active">{{section}}</li>
+        </ol>
         <div class="row justify-content-center">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
                 <div class="card text-center shadow">
@@ -24,15 +35,18 @@
                         </ul>
                     </div>
                     <form action="" method="post"
-                          class="form-signin">
+                          class="">
                         <div class="card-body p-2">
                             <div class="form-group">
                                 <div>
                                     <label for="user">Usuario:</label>
                                     <input aria-label="usuario" id="user" type="text"
-                                           class="form-control"
+                                           class="form-control {{#if logError}} is-invalid {{/if}}"
                                            name="user"
-                                           value="" required autofocus placeholder="Usuario" oninput="this.value=this.value.toLowerCase()">
+                                           value="{{oldUser}}" required autofocus placeholder="Usuario" oninput="this.value=this.value.toLowerCase()">
+                                    <div class="invalid-feedback">
+                                        <strong>Las credenciales ingresadas no se encuentran</strong>
+                                    </div>
 
                                 </div>
                             </div>
@@ -42,6 +56,7 @@
                                     <input aria-label="contraseña" id="password" type="password"
                                            class="form-control"
                                            name="password"
+                                           value="{{oldPass}}"
                                            required placeholder="Contraseña">
                                     <span id="toggle-password" class="fal fa-eye field-icon" onclick="togglePass()"></span>
                                 </div>
@@ -59,7 +74,18 @@
         </div>
     </div>
 </div>
-
+<script>
+    function togglePass(){
+        let toggleIcon = $('#toggle-password');
+        toggleIcon.toggleClass("fa-eye fa-eye-slash");
+        let input = $('#password');
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    }
+</script>
 {{/partial}}
 
 {{> base.hbs}}

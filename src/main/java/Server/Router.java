@@ -7,6 +7,7 @@ import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 public class Router {
 
@@ -48,6 +49,9 @@ public class Router {
         //Rutas
         get("/", inicioController::inicio, Router.engine);
         get("/login", inicioController::iniciarSesion, Router.engine);
+        post("/login", inicioController::login, Router.engine);
+        get("/register", inicioController::iniciarSesion, Router.engine);
+        post("/register", inicioController::iniciarSesion, Router.engine);
 
         //get("/", (req, res) -> new Inicio().inicio());
 
