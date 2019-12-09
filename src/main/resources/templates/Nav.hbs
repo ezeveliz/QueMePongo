@@ -17,15 +17,10 @@
                     <span class="nav-link-text">Guardarropas</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item " href="/evaluacion?id=20" data-instant="">
-                        <span class="nav-link-text">1° A Cs Naturales</span>
+                    <a class="dropdown-item " href="#" data-instant="">
+                        <span class="nav-link-text">Pepe</span>
                     </a>
-                    <a class="dropdown-item " href="/evaluacion?id=24" data-instant="">
-                        <span class="nav-link-text">1° A Matematica</span>
-                    </a>
-                    <a class="dropdown-item " href="/evaluacion?id=30" data-instant="">
-                        <span class="nav-link-text">2° A Ed. Fisica</span>
-                    </a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addWardrobe">Agregar Guardarropa</a>
                 </div>
             </li>
         </ul>
@@ -44,3 +39,24 @@
         </ul>
     </div>
 </nav>
+<div class="modal fade" id="addWardrobe" tabindex="-1" role="dialog" aria-labelledby="addWardrobeLabel" aria-hidden="true">
+    <div class="border-dark modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="addWardrobeLabel">Agregar guardarropa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-block" onclick="enviarMensaje()">
+                    <i class="fal fa-plus"></i>
+                    Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
