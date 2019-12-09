@@ -100,6 +100,12 @@ public class Inicio {
         return new ModelAndView(parametros, "");
     }
 
+    public ModelAndView notFound(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("section", "Error 404");
+        return new ModelAndView(parametros, "404.hbs");
+    }
+
     private static Map<String, String> toMap(List<NameValuePair> pairs){
         Map<String, String> map = new HashMap<>();
         for (NameValuePair pair : pairs) {

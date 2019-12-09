@@ -8,8 +8,7 @@ import Utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 public class Router {
 
@@ -53,6 +52,7 @@ public class Router {
         //Rutas
         get("/", inicioController::inicio, Router.engine);
         get("/login", inicioController::loginView, Router.engine);
+        get("/404", inicioController::notFound, Router.engine);
         post("/login", inicioController::login, Router.engine);
         post("/logout", inicioController::logout, Router.engine);
         get("/register", inicioController::registerView, Router.engine);
@@ -61,6 +61,11 @@ public class Router {
         get("/home", homeController::inicio, Router.engine);
 
         get("/calendar", calendarController::calendarView, Router.engine);
+
+        notFound((req, res) -> {
+            res.redirect("/404");
+            return "{\"message\":\"Custom 404\"}";
+        });
 
         //get("/", (req, res) -> new Inicio().inicio());
 
