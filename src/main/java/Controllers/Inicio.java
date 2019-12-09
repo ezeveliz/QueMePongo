@@ -26,7 +26,7 @@ public class Inicio {
         return new ModelAndView(parametros, "Inicio.hbs");
     }
 
-    public ModelAndView iniciarSesion(Request request, Response response) {
+    public ModelAndView loginView(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if(request.session().isNew()){
             request.session(true);
@@ -41,12 +41,12 @@ public class Inicio {
         //Si habia un error de loggeo,
         } else if(request.session().attribute("logError")){
             parametros.put("logError", true);
-            parametros.put("oldUser", request.session().attribute("oldUser"));
+            parametros.put("oldEmail", request.session().attribute("oldEmail"));
             parametros.put("oldPass", request.session().attribute("oldPass"));
 
         } else {
 
-            parametros.put("oldUser", "");
+            parametros.put("oldEmail", "");
             parametros.put("oldPass", "");
         }
         parametros.put("section", "Iniciar sesion");
@@ -56,17 +56,17 @@ public class Inicio {
     public ModelAndView login(Request request, Response response) {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
         Map<String, String> params = toMap(pairs);
-        String user = params.get("user");
+        String email = params.get("email");
         String password = params.get("password");
 
         Map<String, Object> parametros = new HashMap<>();
 
         //TODO: hacer un login real
-        if(user.equals("admin") && password.equals("admin")){
+        if(email.equals("admin") && password.equals("admin")){
 
             request.session().attribute("logged", true);
             request.session().removeAttribute("logError");
-            request.session().removeAttribute("oldUser");
+            request.session().removeAttribute("oldEmail");
             request.session().removeAttribute("oldPass");
             return new ModelAndView(parametros, "Home.hbs");
 
@@ -75,11 +75,21 @@ public class Inicio {
 
             //Redirigir a Iniciar sesion
             request.session().attribute("logError", true);
-            request.session().attribute("oldUser", user);
+            request.session().attribute("oldEmail", email);
             request.session().attribute("oldPass", password);
             response.redirect("/login");
-            //return new ModelAndView(parametros, "IniciarSesion.hbs");
         }
+        return new ModelAndView(parametros, "");
+    }
+
+    public ModelAndView registerView(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("section", "Registrarse");
+        return new ModelAndView(parametros, "Register.hbs");
+    }
+
+    public ModelAndView register(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros, "");
     }
 

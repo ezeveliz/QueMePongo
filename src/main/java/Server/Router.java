@@ -48,10 +48,10 @@ public class Router {
 
         //Rutas
         get("/", inicioController::inicio, Router.engine);
-        get("/login", inicioController::iniciarSesion, Router.engine);
+        get("/login", inicioController::loginView, Router.engine);
         post("/login", inicioController::login, Router.engine);
-        get("/register", inicioController::iniciarSesion, Router.engine);
-        post("/register", inicioController::iniciarSesion, Router.engine);
+        get("/register", inicioController::registerView, Router.engine);
+        post("/register", inicioController::register, Router.engine);
 
         //get("/", (req, res) -> new Inicio().inicio());
 
