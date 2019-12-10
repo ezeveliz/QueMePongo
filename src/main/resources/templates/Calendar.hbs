@@ -1,5 +1,5 @@
 {{#partial "content" }}
-    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="/css/calendar.css">
     </head>
     <!-- Navigation -->
     {{> Nav.hbs}}
@@ -77,19 +77,19 @@
             <div class="card text-center shadow">
                 <div class="card-header">
                     <div class="nav-container" style="position: relative">
-                        <button class="btn btn-sm btn-success" id="myBtn" title="Mes anterior" data-toggle="modal" data-target="#addEvent" style="position:absolute; left:1rem; top:50%; transform:translateY(-50%);">
+                        <a title="Mes anterior" onclick="prevMonth()" style="position:absolute; left:0.1rem; top:50%; transform:translateY(-50%); color: white; cursor: pointer">
                             <i class="fal fa-arrow-left"></i>
-                        </button>
+                        </a>
                         <ol class="nav nav-pills nav-fill card-header-pills">
                             <li class="nav-item">
-                                <p class="nav-link active mb-0">
-                                    Noviembre 2017
+                                <p class="nav-link active mb-0" id="calendarDate" data-year="{{year}}" data-month="{{monthNumber}}">
+                                    {{monthName}} {{year}}
                                 </p>
                             </li>
                         </ol>
-                        <button class="btn btn-sm btn-success" id="myBtn" title="Mes siguiente" data-toggle="modal" data-target="#addEvent" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%);">
+                        <a title="Mes siguiente" onclick="nextMonth()" style="position:absolute; right:0.1rem; top:50%; transform:translateY(-50%); color: white; cursor: pointer">
                             <i class="fal fa-arrow-right"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="container-fluid">
@@ -453,6 +453,46 @@
         </div>
     </div>
     <br>
+    <script>
+        let calendarDate = document.getElementById('calendarDate');
+        let actualMonth = parseInt(calendarDate.dataset.month);
+        let actualYear = parseInt(calendarDate.dataset.year);
+
+        function prevMonth() {
+            let prevMonth;
+            let prevYear;
+
+            if((actualMonth - 1) === -1){
+                prevMonth = 11;
+                prevYear = actualYear - 1;
+            } else {
+                prevMonth = actualMonth - 1;
+                prevYear = actualYear;
+            }
+
+            goTo(prevMonth, prevYear);
+        }
+
+        function nextMonth(){
+            let nextMonth;
+            let nextYear;
+
+            if((actualMonth + 1) === 12){
+                nextMonth = 0;
+                nextYear = actualYear + 1;
+            } else {
+                nextMonth = actualMonth + 1;
+                nextYear = actualYear;
+            }
+
+            goTo(nextMonth, nextYear);
+        }
+
+        function goTo(month, year){
+            let url = location.protocol + '//' + location.host + '/calendar';
+            window.location.href = url + "/" + month + "/" + year;
+        }
+    </script>
 {{/partial}}
 
 {{> base.hbs}}

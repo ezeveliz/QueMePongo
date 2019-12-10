@@ -1,6 +1,6 @@
 package Server;
 
-import Controllers.Calendar;
+import Controllers.Calendario;
 import Controllers.Home;
 import Controllers.Inicio;
 import Utils.BooleanHelper;
@@ -33,7 +33,7 @@ public class Router {
         //Instancio los controladores necesarios
         Inicio inicioController = new Inicio();
         Home homeController = new Home();
-        Calendar calendarController = new Calendar();
+        Calendario calendarioController = new Calendario();
 
         //UsuarioController usuarioController = new UsuarioController();
 
@@ -60,7 +60,8 @@ public class Router {
 
         get("/home", homeController::inicio, Router.engine);
 
-        get("/calendar", calendarController::calendarView, Router.engine);
+        get("/calendar", calendarioController::calendarView, Router.engine);
+        get("/calendar/:month/:year", calendarioController::customizedCalendarView, Router.engine);
 
         notFound((req, res) -> {
             res.redirect("/404");
