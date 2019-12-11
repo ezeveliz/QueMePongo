@@ -1,9 +1,6 @@
 package Server;
 
-import Controllers.CalendarioController;
-import Controllers.GuardarropaController;
-import Controllers.HomeController;
-import Controllers.InicioController;
+import Controllers.*;
 import Utils.BooleanHelper;
 import Utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -36,7 +33,7 @@ public class Router {
         HomeController home = new HomeController();
         CalendarioController calendario = new CalendarioController();
         GuardarropaController guardarropa = new GuardarropaController();
-
+        EventoController evento = new EventoController();
 
         //UsuarioController usuarioController = new UsuarioController();
 
@@ -67,6 +64,8 @@ public class Router {
         get("/calendar/:month/:year", calendario::customizedCalendarView, Router.engine);
 
         get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
+
+        get("/evento/:id", evento::mostrar, Router.engine);
 
         notFound((req, res) -> {
             res.redirect("/404");
