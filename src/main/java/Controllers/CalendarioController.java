@@ -7,19 +7,10 @@ import spark.Response;
 
 import java.util.*;
 
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
-
-public class Calendario {
+public class CalendarioController {
     public ModelAndView calendarView(Request request, Response response) {
-        //TODO: ver si se puede implementar esta garompa como un middleware para no tener que copiarlo en todos lados
+        Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
-        if(request.session().isNew()){
-            request.session(true);
-            request.session().attribute("logged", false);
-            request.session().attribute("logError", false);
-            response.redirect("/login");
-        }
         Calendar cal = Calendar.getInstance();
         int monthNumber = cal.get(Calendar.MONTH);
         String monthName = this.monthName(monthNumber);
@@ -33,13 +24,8 @@ public class Calendario {
     }
 
     public ModelAndView customizedCalendarView(Request request, Response response) {
+        Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
-        if(request.session().isNew()){
-            request.session(true);
-            request.session().attribute("logged", false);
-            request.session().attribute("logError", false);
-            response.redirect("/login");
-        }
         int monthNumber = Integer.parseInt(request.params("month"));
         int yearNumber = Integer.parseInt(request.params("year"));
         if (monthNumber < 0 || monthNumber > 11 || yearNumber < 0){
@@ -66,8 +52,8 @@ public class Calendario {
 
         Calendar month = Calendar.getInstance();
         month.clear();
-        month.set(YEAR, yearNumber);
-        month.set(MONTH, monthNumber);
+        month.set(Calendar.YEAR, yearNumber);
+        month.set(Calendar.MONTH, monthNumber);
 
         //Obtengo el ultimo dia del mes solicitado
         int lastMonthDay = month.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -86,8 +72,8 @@ public class Calendario {
 
         Calendar prevMonth = Calendar.getInstance();
         prevMonth.clear();
-        prevMonth.set(YEAR, prevYearNumber);
-        prevMonth.set(MONTH, prevMonthNumber);
+        prevMonth.set(Calendar.YEAR, prevYearNumber);
+        prevMonth.set(Calendar.MONTH, prevMonthNumber);
 
         //Obtengo el ultimo dia del mes anterior al solicitado
         int lastPrevMonthDay = prevMonth.getActualMaximum(Calendar.DAY_OF_MONTH);

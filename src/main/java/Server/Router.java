@@ -1,8 +1,9 @@
 package Server;
 
-import Controllers.Calendario;
-import Controllers.Home;
-import Controllers.Inicio;
+import Controllers.CalendarioController;
+import Controllers.GuardarropaController;
+import Controllers.HomeController;
+import Controllers.InicioController;
 import Utils.BooleanHelper;
 import Utils.HandlebarsTemplateEngineBuilder;
 import spark.Spark;
@@ -31,9 +32,11 @@ public class Router {
     private static void configure(){
 
         //Instancio los controladores necesarios
-        Inicio inicioController = new Inicio();
-        Home homeController = new Home();
-        Calendario calendarioController = new Calendario();
+        InicioController inicio = new InicioController();
+        HomeController home = new HomeController();
+        CalendarioController calendario = new CalendarioController();
+        GuardarropaController guardarropa = new GuardarropaController();
+
 
         //UsuarioController usuarioController = new UsuarioController();
 
@@ -50,18 +53,20 @@ public class Router {
         //Spark.delete("/usuario/:id", usuarioController::eliminar);
 
         //Rutas
-        get("/", inicioController::inicio, Router.engine);
-        get("/login", inicioController::loginView, Router.engine);
-        get("/404", inicioController::notFound, Router.engine);
-        post("/login", inicioController::login, Router.engine);
-        post("/logout", inicioController::logout, Router.engine);
-        get("/register", inicioController::registerView, Router.engine);
-        post("/register", inicioController::register, Router.engine);
+        get("/", inicio::inicio, Router.engine);
+        get("/login", inicio::loginView, Router.engine);
+        get("/404", inicio::notFound, Router.engine);
+        post("/login", inicio::login, Router.engine);
+        post("/logout", inicio::logout, Router.engine);
+        get("/register", inicio::registerView, Router.engine);
+        post("/register", inicio::register, Router.engine);
 
-        get("/home", homeController::inicio, Router.engine);
+        get("/home", home::inicio, Router.engine);
 
-        get("/calendar", calendarioController::calendarView, Router.engine);
-        get("/calendar/:month/:year", calendarioController::customizedCalendarView, Router.engine);
+        get("/calendar", calendario::calendarView, Router.engine);
+        get("/calendar/:month/:year", calendario::customizedCalendarView, Router.engine);
+
+        get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
 
         notFound((req, res) -> {
             res.redirect("/404");

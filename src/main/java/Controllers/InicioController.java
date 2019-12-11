@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Inicio {
+public class InicioController {
 
     public ModelAndView inicio(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();

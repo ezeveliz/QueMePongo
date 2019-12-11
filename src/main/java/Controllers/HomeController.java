@@ -7,7 +7,7 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Home {
+public class HomeController {
     public ModelAndView inicio(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if(request.session().isNew()){

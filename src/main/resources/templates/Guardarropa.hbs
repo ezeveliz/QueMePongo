@@ -1,0 +1,188 @@
+{{#partial "content" }}
+    </head>
+    <!-- Navigation -->
+    {{> Nav.hbs}}
+    <body class="sticky-footer">
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div class="nav-container" style="position: relative">
+                <ol class="breadcrumb shadow">
+                    <li class="breadcrumb-item">
+                        <a href="/home">Que Me Pongo</a>
+                    </li>
+                    <li class="breadcrumb-item active">{{section}}</li>
+                </ol>
+                <button class="btn btn-sm btn-success" id="myBtn" title="Agregar prenda" data-toggle="modal" data-target="#addEvent" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%);">
+                    <i class="fal fa-scarf"></i>
+                </button>
+            </div>
+            <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
+                <div class="border-dark modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="addEventLabel">Agregar prenda</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">Paso 1 de 2</div>
+                            </div>
+                            <br>
+                            <div id="datosBasicos">
+                                <div class="form-row">
+                                    <label for="nombrePrenda">Nombre</label>
+                                    <input id="nombrePrenda" type="text" class="form-control form-control-sm" placeholder="Nombre">
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col-md">
+                                        <label for="categoriaPrenda">Ubicacion:</label>
+                                        <select id="categoriaPrenda" class="custom-select custom-select-sm">
+                                            <option selected>Seleccione una ubicacion</option>
+                                            <option value="torso">Torso</option>
+                                            <option value="piernas">Piernas</option>
+                                            <option value="pies">Pies</option>
+                                            <option value="cabeza">Cabeza</option>
+                                            <option value="cuello">Cuello</option>
+                                            <option value="manos">Manos</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <label for="tipoPrenda">Tipo</label>
+                                        <select id="tipoPrenda" class="custom-select custom-select-sm">
+                                            <option selected>Seleccione un tipo</option>
+                                            <option value="abrigo">Abrigo</option>
+                                            <option value="no abrigo">No abrigo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <label>Uso:</label>
+                                <div class="form-group">
+                                    <div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" id="customCheckCasual" name="customCheckCasual" class="custom-control-input">
+                                            <label class="custom-control-label" for="customCheckCasual">Casual</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" id="customCheckFormal" name="customCheckFormal" class="custom-control-input">
+                                            <label class="custom-control-label" for="customCheckFormal">Formal</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" id="customCheckFiesta" name="customCheckFiesta" class="custom-control-input">
+                                            <label class="custom-control-label" for="customCheckFiesta">Fiesta</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" id="customCheckDeportes" name="customCheckDeportes" class="custom-control-input">
+                                            <label class="custom-control-label" for="customCheckDeportes">Deportes</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="datosComplementarios" class="d-none">
+                                <div class="form-row">
+                                    <div class="col-md">
+                                        <label for="telaPrenda">Tela</label>
+                                        <input id="telaPrenda" type="text" class="form-control" placeholder="Tela">
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="custom-file">
+                                            <label>Seleccionar Foto</label>
+                                            <input type="file" class="custom-file-input" id="imagenPrenda" lang="es" onchange="showName()">
+                                            <label id="imagenPrendaLabel" class="custom-file-label" for="imagenPrenda" style="top: 2rem" data-browse="Elegir">Seleccionar Foto</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col-md">
+                                        <label for="color1Prenda">Color uno</label>
+                                        <input id="color1Prenda" type="text" class="form-control" placeholder="Color uno">
+                                    </div>
+                                    <div class="col-md">
+                                        <label for="color2Prenda">Color dos</label>
+                                        <input id="color2Prenda" type="text" class="form-control" placeholder="Color dos">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="botonDatosBasicos" type="button" class="btn btn-primary btn-block" onclick="siguientePantalla()">
+                                <i class="fal fa-chevron-right"></i>
+                                Siguiente
+                            </button>
+                            <button id="botonCargarDatos" type="button" class="btn btn-primary btn-block d-none" onclick="cargarPrenda()">
+                                <i class="fal fa-plus"></i>
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-center shadow">
+                <div class="card-header">
+                    <ul class="nav nav-pills nav-fill card-header-pills">
+                        <li class="nav-item">
+                            <p class="nav-link active mb-0">
+                                Prendas
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-2">
+                    <div class="card-deck">
+                        <div class="card">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <script>
+    function siguientePantalla() {
+        document.getElementById('datosBasicos').className += "d-none";
+        document.getElementById('botonDatosBasicos').className += " d-none";
+        document.getElementById('datosComplementarios').classList.remove("d-none");
+        document.getElementById('botonCargarDatos').classList.remove("d-none");
+        let barra = document.getElementById('progressBar');
+        barra.innerHTML = "Paso 2 de 2";
+        barra.style.width = "100%";
+        barra.setAttribute('aria-valuenow', "100");
+    }
+    
+    function showName() {
+        document.getElementById('imagenPrendaLabel').innerHTML = document.getElementById('imagenPrenda').value.replace('C:\\fakepath\\', " ").substring(1, 20);
+    }
+
+    function cargarPrenda() {
+
+    }
+    </script>
+{{/partial}}
+
+{{> base.hbs}}

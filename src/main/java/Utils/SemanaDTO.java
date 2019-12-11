@@ -29,14 +29,20 @@ public class SemanaDTO {
         return sabado;
     }
 
-    public int domingo;
-    public int lunes;
-    public int martes;
-    public int miercoles;
-    public int jueves;
-    public int viernes;
-    public int sabado;
+    private int domingo;
+    private int lunes;
+    private int martes;
+    private int miercoles;
+    private int jueves;
+    private int viernes;
+    private int sabado;
 
+    /**
+     * Creo la primera semana del mes
+     * @param firstMonthDayOfWeek dia en el que empieza la semana
+     * @param lastPrevMonthDay dia en el que termina el mes anterior
+     * @return cantidad de dias del mes seleccionado en la primera semana
+     */
     public int startingWeek(int firstMonthDayOfWeek, int lastPrevMonthDay) {
         int day;
         switch (firstMonthDayOfWeek) {
@@ -118,9 +124,9 @@ public class SemanaDTO {
     }
 
     /**
-     * Long life to Spaghetti Code
-     * @param day
-     * @param lastMonthDay
+     * Creo las semanas que no sean la primera https://i1.wp.com/www.undeaddev.com/wp-content/uploads/2016/03/kitty-string.jpg
+     * @param day cantidad de dias acumulados hasta ahora
+     * @param lastMonthDay dia en el que termina el mes
      * @return cant de dias agregados
      */
     public int normalWeek(int day, int lastMonthDay) {
