@@ -72,7 +72,7 @@
             <div class="card text-center shadow">
                 <div class="card-header">
                     <div class="nav-container" style="position: relative">
-                        <a title="Mes anterior" onclick="prevMonth()" style="position:absolute; left:0.1rem; top:50%; transform:translateY(-50%); color: white; cursor: pointer">
+                        <a id="prevMonth" href="#" title="Mes anterior" style="position:absolute; left:0.1rem; top:50%; transform:translateY(-50%); color: white; cursor: pointer">
                             <i class="fal fa-arrow-left"></i>
                         </a>
                         <ol class="nav nav-pills nav-fill card-header-pills">
@@ -82,7 +82,7 @@
                                 </p>
                             </li>
                         </ol>
-                        <a title="Mes siguiente" onclick="nextMonth()" style="position:absolute; right:0.1rem; top:50%; transform:translateY(-50%); color: white; cursor: pointer">
+                        <a id="nextMonth" href="#" title="Mes siguiente" style="position:absolute; right:0.1rem; top:50%; transform:translateY(-50%); color: white; cursor: pointer">
                             <i class="fal fa-arrow-right"></i>
                         </a>
                     </div>
@@ -172,6 +172,10 @@
         Array.from(document.querySelectorAll("[data-week='0']")).filter(div => div.dataset.day > 7).forEach(div => div.className += " d-none d-sm-inline-block bg-light text-muted");
         let maxWeek = Math.max(...Array.from(document.querySelectorAll("[data-week]")).map(div => parseInt(div.dataset.week)));
         Array.from(document.querySelectorAll("[data-week='" + maxWeek + "']")).filter(div => div.dataset.day < 7).forEach(div => div.className += " d-none d-sm-inline-block bg-light text-muted");
+
+        function completeLink(id, month, year) {
+            document.getElementById(id).href = location.protocol + '//' + location.host + '/calendar/' + month + '/' + year;
+        }
         function prevMonth() {
             let prevMonth;
             let prevYear;
@@ -183,8 +187,7 @@
                 prevMonth = actualMonth - 1;
                 prevYear = actualYear;
             }
-
-            goTo(prevMonth, prevYear);
+            completeLink('prevMonth', prevMonth, prevYear);
         }
 
         function nextMonth(){
@@ -198,14 +201,10 @@
                 nextMonth = actualMonth + 1;
                 nextYear = actualYear;
             }
-
-            goTo(nextMonth, nextYear);
+            completeLink('nextMonth', nextMonth, nextYear);
         }
-
-        function goTo(month, year){
-            let url = location.protocol + '//' + location.host + '/calendar';
-            window.location.href = url + "/" + month + "/" + year;
-        }
+        prevMonth();
+        nextMonth();
     </script>
 {{/partial}}
 
