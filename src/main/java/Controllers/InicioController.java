@@ -26,8 +26,13 @@ public class InicioController {
             request.session(true);
             request.session().attribute("logged", false);
             request.session().attribute("logError", false);
+        }  else if (!(Boolean)request.session().attribute("logged")){
+            parametros.put("logged", false);
+        } else {
+            parametros.put("logged", true);
+            //TODO: aca colocar la id del usuario en sesion
+            parametros.put("idUser", 1);
         }
-        parametros.put("logged", request.session().attribute("logged"));
         parametros.put("section", "Bienvenido");
         return new ModelAndView(parametros, "Inicio.hbs");
     }
@@ -100,7 +105,7 @@ public class InicioController {
     }
 
     /**
-     * Delogueo al usuario en sesion
+     * Deslogueo al usuario en sesion
      * @param request request
      * @param response response
      * @return redirijo a la pagina de login
