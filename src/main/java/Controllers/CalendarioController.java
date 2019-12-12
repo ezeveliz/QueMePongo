@@ -20,6 +20,8 @@ public class CalendarioController {
         parametros.put("monthNumber", monthNumber);
         parametros.put("year", yearNumber);
         parametros.put("semanas", createSemanas(yearNumber, monthNumber));
+        //TODO: aca colocar la id del usuario en sesion
+        parametros.put("idUser", 1);
         return new ModelAndView(parametros, "Calendar.hbs");
     }
 
@@ -38,6 +40,8 @@ public class CalendarioController {
         parametros.put("monthNumber", monthNumber);
         parametros.put("year", yearNumber);
         parametros.put("semanas", createSemanas(yearNumber, monthNumber));
+        //TODO: aca colocar la id del usuario en sesion
+        parametros.put("idUser", 1);
         return new ModelAndView(parametros, "Calendar.hbs");
     }
 

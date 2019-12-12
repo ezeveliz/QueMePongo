@@ -14,6 +14,12 @@ import java.util.Map;
 
 public class InicioController {
 
+    /**
+     * Muestro la pagina ppal
+     * @param request request
+     * @param response response
+     * @return vista de la pagina ppal
+     */
     public ModelAndView inicio(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if(request.session().isNew()){
@@ -26,6 +32,12 @@ public class InicioController {
         return new ModelAndView(parametros, "Inicio.hbs");
     }
 
+    /**
+     * Muestro la vista para hacer el login
+     * @param request request
+     * @param response response
+     * @return vista del login
+     */
     public ModelAndView loginView(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         if(request.session().isNew()){
@@ -53,13 +65,17 @@ public class InicioController {
         return new ModelAndView(parametros, "IniciarSesion.hbs");
     }
 
-    public ModelAndView login(Request request, Response response) {
+    /**
+     * Verifico si los datos ingresados coinciden con algun usuario del sistema y redirijo a donde corresponda
+     * @param request request
+     * @param response response
+     * @return vista del home si los datos corresponden, vista de login si no
+     */
+    public Object login(Request request, Response response) {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
         Map<String, String> params = toMap(pairs);
         String email = params.get("email");
         String password = params.get("password");
-
-        Map<String, Object> parametros = new HashMap<>();
 
         //TODO: hacer un login real
         if(email.equals("admin@admin.com") && password.equals("admin")){
@@ -68,7 +84,8 @@ public class InicioController {
             request.session().removeAttribute("logError");
             request.session().removeAttribute("oldEmail");
             request.session().removeAttribute("oldPass");
-            response.redirect("/home");
+            //TODO: cargar al usuario en la sesion y redirigir a /usuario/id
+            response.redirect("/usuario/1");
 
         //Redirigir a home
         } else {
@@ -79,39 +96,76 @@ public class InicioController {
             request.session().attribute("oldPass", password);
             response.redirect("/login");
         }
-        return new ModelAndView(parametros, "");
+        return response;
     }
 
-    public ModelAndView logout(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
+    /**
+     * Delogueo al usuario en sesion
+     * @param request request
+     * @param response response
+     * @return redirijo a la pagina de login
+     */
+    public Object logout(Request request, Response response) {
         request.session().invalidate();
         response.redirect("/");
-        return new ModelAndView(parametros, "");
+        return response;
     }
 
+    /**
+     * Muestro la vista para registrar un nuevo usuario
+     * @param request request
+     * @param response response
+     * @return vista de registro
+     */
     public ModelAndView registerView(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("section", "Registrarse");
         return new ModelAndView(parametros, "Register.hbs");
     }
 
-    public ModelAndView register(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros, "");
+    /**
+     * Agrego al nuevo usuario a la DB
+     * @param request request
+     * @param response response
+     * @return redirijo al home
+     */
+    public Object register(Request request, Response response) {
+        return response;
     }
 
+    /**
+     * Si el usuario quiere navegar a una pagina que no existe, se redirije a una pagina especial que le informa
+     * @param request request
+     * @param response response
+     * @return vista de error 404
+     */
     public ModelAndView notFound(Request request, Response response) {
+
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("section", "Error 404");
+        if (request.session().isNew()){
+            parametros.put("logged", false);
+        } else if (!(Boolean)request.session().attribute("logged")){
+            parametros.put("logged", false);
+        } else {
+            parametros.put("logged", true);
+            //TODO: aca colocar la id del usuario en sesion
+            parametros.put("idUser", 1);
+        }
+
         return new ModelAndView(parametros, "404.hbs");
     }
 
+    /**
+     * Mapeo los parametros enviados como query string a un map con el que puedo trabajar
+     * @param pairs pares de clave - valor
+     * @return query string mapeado
+     */
     private static Map<String, String> toMap(List<NameValuePair> pairs){
         Map<String, String> map = new HashMap<>();
         for (NameValuePair pair : pairs) {
             map.put(pair.getName(), pair.getValue());
         }
         return map;
-
     }
 }

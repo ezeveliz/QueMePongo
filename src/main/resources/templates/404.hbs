@@ -1,14 +1,5 @@
 {{#partial "content" }}
     </head>
-    <style>
-        .field-icon {
-            float: right;
-            margin-top: -27px;
-            margin-right: 10px;
-            position: relative;
-            z-index: 2;
-        }
-    </style>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow">
         <a class="navbar-brand" href="/">Que Me Pongo</a>
@@ -29,7 +20,7 @@
                 </h4>
                 <p>Si crees que es un error comunícate con nosotros mediante nuestro exclusivo <a href="https://www.expansion.com/fueradeserie/cuerpo/2016/04/04/56fbbd35268e3e56228b4597.html">servicio de palomas mensajeras</a>.</p>
                 <br>
-                <a href="/home">
+                <a href="/{{#if logged}}usuario/{{idUser}}{{/if}}">
                     <i class="fal fa-arrow-left"></i>
                     Volver al inicio
                 </a>

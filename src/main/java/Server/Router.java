@@ -30,7 +30,7 @@ public class Router {
 
         //Instancio los controladores necesarios
         InicioController inicio = new InicioController();
-        HomeController home = new HomeController();
+        UsuarioController usuario = new UsuarioController();
         CalendarioController calendario = new CalendarioController();
         GuardarropaController guardarropa = new GuardarropaController();
         EventoController evento = new EventoController();
@@ -52,13 +52,12 @@ public class Router {
         //Rutas
         get("/", inicio::inicio, Router.engine);
         get("/login", inicio::loginView, Router.engine);
-        get("/404", inicio::notFound, Router.engine);
-        post("/login", inicio::login, Router.engine);
-        post("/logout", inicio::logout, Router.engine);
+        post("/login", inicio::login);
+        post("/logout", inicio::logout);
         get("/register", inicio::registerView, Router.engine);
-        post("/register", inicio::register, Router.engine);
+        post("/register", inicio::register);
 
-        get("/home", home::inicio, Router.engine);
+        get("/usuario/:id", usuario::inicio, Router.engine);
 
         get("/calendar", calendario::calendarView, Router.engine);
         get("/calendar/:month/:year", calendario::customizedCalendarView, Router.engine);
@@ -67,6 +66,7 @@ public class Router {
 
         get("/evento/:id", evento::mostrar, Router.engine);
 
+        get("/404", inicio::notFound, Router.engine);
         notFound((req, res) -> {
             res.redirect("/404");
             return "{\"message\":\"Custom 404\"}";
