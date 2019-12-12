@@ -161,6 +161,12 @@ public class InicioController {
         return new ModelAndView(parametros, "404.hbs");
     }
 
+    public ModelAndView offline(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("section", "Pagina no cacheada");
+        return new ModelAndView(parametros, "Offline.hbs");
+    }
+
     /**
      * Mapeo los parametros enviados como query string a un map con el que puedo trabajar
      * @param pairs pares de clave - valor

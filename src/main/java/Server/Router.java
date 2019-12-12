@@ -66,6 +66,7 @@ public class Router {
 
         get("/evento/:id", evento::mostrar, Router.engine);
 
+        get("/offline", inicio::offline, Router.engine);
         get("/404", inicio::notFound, Router.engine);
         notFound((req, res) -> {
             res.redirect("/404");

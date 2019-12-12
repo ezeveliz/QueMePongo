@@ -48,8 +48,9 @@
             "type": "image/png"
         }
     ],
+    "description": "Sistema capaz de sugerir atuendos para un evento dado en un momento dado.",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "start_url": "https://que-me-pongo2.herokuapp.com/",
+    "start_url": "/",
     "display": "standalone"
 }
