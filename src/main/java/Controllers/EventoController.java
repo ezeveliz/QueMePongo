@@ -16,6 +16,8 @@ public class EventoController {
         parametros.put("section", "Evento 20/12/2019 - Formal");
         //TODO: aca colocar la id del usuario en sesion
         parametros.put("idUser", 1);
+        parametros.put("nombre", "Admin");
+        parametros.put("apellido", "Admin");
         return new ModelAndView(parametros, "Evento.hbs");
     }
 }

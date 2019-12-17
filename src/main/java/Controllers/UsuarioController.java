@@ -17,6 +17,8 @@ public class UsuarioController {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("section", "Inicio");
         parametros.put("idUser", id);
+        parametros.put("nombre", "Admin");
+        parametros.put("apellido", "Admin");
         return new ModelAndView(parametros, "Usuario.hbs");
     }
 }

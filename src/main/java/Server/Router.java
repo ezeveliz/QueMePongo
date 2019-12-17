@@ -34,20 +34,8 @@ public class Router {
         CalendarioController calendario = new CalendarioController();
         GuardarropaController guardarropa = new GuardarropaController();
         EventoController evento = new EventoController();
-
-        //UsuarioController usuarioController = new UsuarioController();
-
-        //Spark.get("/usuarios", usuarioController::mostrarTodos, Router.engine);
-
-        //Spark.get("/usuario/:id", usuarioController::mostrar, Router.engine);
-
-        //Spark.get("/usuario", usuarioController::crear, Router.engine);
-
-        //Spark.post("/usuario/:id", usuarioController::modificar);
-
-        //Spark.post("/usuario", usuarioController::guardar);
-
-        //Spark.delete("/usuario/:id", usuarioController::eliminar);
+        PerfilController perfil = new PerfilController();
+        PreferenciasController preferencias = new PreferenciasController();
 
         //Rutas
         get("/", inicio::inicio, Router.engine);
@@ -65,6 +53,10 @@ public class Router {
         get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
 
         get("/evento/:id", evento::mostrar, Router.engine);
+
+        get("/preferencias/:id", preferencias::mostrar, Router.engine);
+
+        get("/perfil/:id", perfil::mostrar, Router.engine);
 
         get("/offline", inicio::offline, Router.engine);
         get("/404", inicio::notFound, Router.engine);

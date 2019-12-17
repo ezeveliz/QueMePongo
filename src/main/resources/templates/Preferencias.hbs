@@ -1,0 +1,18 @@
+{{#partial "content" }}
+    </head>
+    <!-- Navigation -->
+    {{> Nav.hbs}}
+    <body class="text-center sticky-footer">
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb shadow">
+                <li class="breadcrumb-item">
+                    <a href="/usuario/{{idUser}}">Que Me Pongo</a>
+                </li>
+                <li class="breadcrumb-item active">{{section}}</li>
+            </ol>
+        </div>
+    </div>
+{{/partial}}
+
+{{> base.hbs}}

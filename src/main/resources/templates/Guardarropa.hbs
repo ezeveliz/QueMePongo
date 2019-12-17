@@ -15,6 +15,9 @@
                 <button class="btn btn-sm btn-success" id="myBtn" title="Agregar prenda" data-toggle="modal" data-target="#addEvent" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%);">
                     <i class="fal fa-scarf"></i>
                 </button>
+                <button class="btn btn-sm btn-success" id="shareWardrobeBtn" title="Compartir guardarropa" data-toggle="modal" data-target="#shareWardrobe" style="position:absolute; right:4rem; top:50%; transform:translateY(-50%);">
+                    <i class="fal fa-share-alt"></i>
+                </button>
             </div>
             <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
                 <div class="border-dark modal-dialog" role="document">
@@ -117,6 +120,41 @@
                                 <i class="fal fa-plus"></i>
                                 Agregar
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="shareWardrobe" tabindex="-1" role="dialog" aria-labelledby="shareWardrobeLabel" aria-hidden="true">
+                <div class="border-dark modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="shareWardrobeLabel">Compartir guardarropa</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form accept-charset="utf-8">
+                                <div class="form-row justify-content-center p-2">
+                                    <div class="col-auto justify-content-center">
+                                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fal fa-search"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Usuario"
+                                                   aria-label="Username" aria-describedby="basic-addon1"
+                                                   maxlength="30" autocomplete="off" onKeyUp="buscar();"
+                                                   name="busqueda" id="busqueda" autofocus>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="resultadoBusqueda" class="text-center"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
