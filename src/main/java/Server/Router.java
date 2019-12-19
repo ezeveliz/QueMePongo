@@ -53,6 +53,8 @@ public class Router {
         get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
 
         get("/evento/:id", evento::mostrar, Router.engine);
+        get("/eventos/:month/:year", evento::getEventos);
+        post("/evento", evento::nuevoEvento);
 
         get("/preferencias/:id", preferencias::mostrar, Router.engine);
 

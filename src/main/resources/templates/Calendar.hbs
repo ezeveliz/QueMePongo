@@ -61,7 +61,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-block" onclick="enviarMensaje()">
+                            <button type="button" class="btn btn-primary btn-block" onclick="agregarEvento();">
                                 <i class="fal fa-plus"></i>
                                 Agregar
                             </button>
@@ -172,6 +172,19 @@
         Array.from(document.querySelectorAll("[data-week='0']")).filter(div => div.dataset.day > 7).forEach(div => div.className += " d-none d-sm-inline-block bg-light text-muted");
         let maxWeek = Math.max(...Array.from(document.querySelectorAll("[data-week]")).map(div => parseInt(div.dataset.week)));
         Array.from(document.querySelectorAll("[data-week='" + maxWeek + "']")).filter(div => div.dataset.day < 7).forEach(div => div.className += " d-none d-sm-inline-block bg-light text-muted");
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+        let todayString = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('fechaEvento').setAttribute('min', todayString);
 
         function completeLink(id, month, year) {
             document.getElementById(id).href = location.protocol + '//' + location.host + '/calendar/' + month + '/' + year;
@@ -205,6 +218,65 @@
         }
         prevMonth();
         nextMonth();
+
+        function agregarEvento() {
+            let fecha = document.getElementById('fechaEvento').value;
+            let tipo = document.getElementById('tipoEvento').value;
+            let descripcion = document.getElementById('descripcion').value;
+            if (fecha === ""){
+                toast('Debe completar la fecha y hora del evento', 'error');
+            } else {
+                if (tipo === "Seleccione uno"){
+                    toast('Debe seleccionar un tipo de evento', 'error');
+                } else {
+                    if (descripcion === ""){
+                        toast('Debe completar la descripcion del evento.', 'error');
+                    } else {
+                        let noti = toast('Agregando evento', 'info');
+                        $('#addEvent').modal('hide');
+                        axios.post('/evento', {
+                            fecha: fecha,
+                            tipo: tipo,
+                            descripcion: descripcion
+                        })
+                                .then(function (response) {
+                                    noti.update('Evento agregado', 'success');
+                                    console.log(response);
+                                })
+                                .catch(function (error) {
+                                    noti.update('Error al agregar evento', 'error');
+                                    console.log(error);
+                                });
+                    }
+                }
+            }
+        }
+
+        function obtenerEventos(){
+            let urlEventos = '/eventos/' + (actualMonth + 1) + '/' + actualYear;
+            axios.get(urlEventos)
+                    .then(function (response) {
+                        // handle success
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+        }
+
+        function deferObtenerEventos() {
+            if (window.axios) {
+                obtenerEventos();
+            } else {
+                setTimeout(function() { obtenerEventos() }, 100);
+            }
+        }
+
+        deferObtenerEventos();
     </script>
 {{/partial}}
 
