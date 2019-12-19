@@ -15,6 +15,9 @@ public class PreferenciasController {
         parametros.put("idUser", 1);
         parametros.put("nombre", "Admin");
         parametros.put("apellido", "Admin");
+        parametros.put("tela", "algodon");
+        parametros.put("color1", "verde");
+        parametros.put("color2", "azul");
         return new ModelAndView(parametros, "Preferencias.hbs");
     }
 }
