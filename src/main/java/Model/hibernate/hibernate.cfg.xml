@@ -30,22 +30,18 @@
 
 			<!-- List of XML mapping files -->
 
-			<mapping class="frecuencia.Frecuencia" />
-			<mapping class="frecuencia.Unica" />
-			<mapping class="frecuencia.Mensual" />
-			<mapping class="frecuencia.Diaria" />
-			<mapping class="frecuencia.Semanal" />
-			<mapping class="frecuencia.Anual"/>
-			<mapping class="tipoDePrenda.TipoPrenda" />
-			<mapping class="tipoDePrenda.TipoPrendaAbrigo" />
-			<mapping class="tipoDePrenda.TipoPrendaBasico" />
-			<mapping class="queMePongo.Usuario" />
-			<mapping class="queMePongo.PreferenciasDTO" />
-			<mapping class="queMePongo.Evento" />
-			<mapping class="queMePongo.Guardarropas" />
-			<mapping class="queMePongo.Prenda" />
-			<mapping class="queMePongo.Categoria" />
-			<mapping class="queMePongo.Atuendo" />
+			<mapping class="Model.frecuencia.Frecuencia" />
+			<mapping class="Model.frecuencia.Unica" />
+			<mapping class="Model.tipoDePrenda.TipoPrenda" />
+			<mapping class="Model.tipoDePrenda.TipoPrendaAbrigo" />
+			<mapping class="Model.tipoDePrenda.TipoPrendaBasico" />
+			<mapping class="Model.queMePongo.Usuario" />
+			<mapping class="Model.queMePongo.PreferenciasDTO" />
+			<mapping class="Model.queMePongo.Evento" />
+			<mapping class="Model.queMePongo.Guardarropas" />
+			<mapping class="Model.queMePongo.Prenda" />
+			<mapping class="Model.queMePongo.Categoria" />
+			<mapping class="Model.queMePongo.Atuendo" />
 
 
         </session-factory>

@@ -1,5 +1,6 @@
 package Model.queMePongo;
 
+import Model.DAO.UsuarioDAO;
 import Model.frecuencia.Unica;
 import org.hibernate.Session;
 import Model.tipoDePrenda.TipoPrendaBasico;
@@ -20,16 +21,17 @@ public class Main {
     public static void main(String[] args) throws ParseException, InterruptedException {
 
         // obtengo la session a traves del SessionFactory
-        Session session = HibernateSessionFactory.getSession();
+        //Session session = HibernateSessionFactory.getSession();
         // busco por primary key
-        Usuario d = (Usuario) session.get(Usuario.class, 2);
+        //Usuario d = (Usuario) session.get(Usuario.class, 2);
         // si lo encontre entonces muestro los datos
-        if (d != null) {
-            System.out.print(d.getUsuario() + " " + d.getContrasenia());
-        }
+        //if (d != null) {
+        //    System.out.print(d.getUsuario() + " " + d.getContrasenia());
+        //)}
         // cierro la session
-        session.close();
-
+        //session.close();
+        UsuarioDAO u = new UsuarioDAO();
+        System.out.print(u.getUsuario("admin1"));
 
 
         //System.out.println((40-23)/6);

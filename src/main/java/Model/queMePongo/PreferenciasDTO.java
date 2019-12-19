@@ -13,9 +13,8 @@ public class PreferenciasDTO {
 	@Column(name="id")
 	private int id;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
+	@Column(name="id_usuario")
+	private int id_usuario;
 
 	@Column(name="tela")
 	private String tela;

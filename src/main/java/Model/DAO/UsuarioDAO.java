@@ -4,7 +4,7 @@ package Model.DAO;
 import Model.hibernate.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import Model.queMePongo.Usuario;
 
 import java.util.List;

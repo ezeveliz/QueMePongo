@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateSessionFactory {
 
     // nombre y ubicacion del archivo de confi guracion
-    public static String CONFIG_FILE = "hibernate/hibernate.cfg.xml";
+    public static String CONFIG_FILE = "C:\\Users\\majo\\Desktop\\QueMePongo\\src\\main\\java\\Model\\hibernate\\hibernate.cfg.xml";
     private static SessionFactory sessionFactory = null;
     private static Session session = null;
 

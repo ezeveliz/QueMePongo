@@ -33,6 +33,7 @@ public class Evento implements Command {
     private String descripcion;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name="tipo")
     private TipoEvento tipoDeEvento;
 
     @Column(name="horario")

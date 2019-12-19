@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @DiscriminatorValue("Unica")
 public class Unica extends Frecuencia {
 
-    //@Column(name="tipo")
+    @Column(name="tipo" , insertable = false, updatable = false)
     private String type;
 
     public Unica(){}

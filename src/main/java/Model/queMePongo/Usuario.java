@@ -46,7 +46,7 @@ public class Usuario
 	@JoinColumn(name = "id", referencedColumnName = "id_usuario")
 	private PreferenciasDTO preferencias = new PreferenciasDTO();
 
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_usuario")
 	private List<Evento> eventos = new ArrayList<>();
 
