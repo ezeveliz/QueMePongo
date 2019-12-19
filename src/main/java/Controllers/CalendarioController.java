@@ -1,5 +1,6 @@
 package Controllers;
 
+import Utils.Middlewares;
 import Utils.SemanaDTO;
 import spark.ModelAndView;
 import spark.Request;

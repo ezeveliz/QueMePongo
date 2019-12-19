@@ -1,4 +1,4 @@
-package Controllers;
+package Utils;
 
 import spark.Request;
 import spark.Response;

@@ -12,14 +12,14 @@
                     </li>
                     <li class="breadcrumb-item active">{{section}}</li>
                 </ol>
-                <button class="btn btn-sm btn-success" id="myBtn" title="Agregar prenda" data-toggle="modal" data-target="#addEvent" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%);">
+                <button class="btn btn-sm btn-success" id="myBtn" title="Agregar prenda" data-toggle="modal" data-target="#addPrenda" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%);">
                     <i class="fal fa-scarf"></i>
                 </button>
                 <button class="btn btn-sm btn-success" id="shareWardrobeBtn" title="Compartir guardarropa" data-toggle="modal" data-target="#shareWardrobe" style="position:absolute; right:4rem; top:50%; transform:translateY(-50%);">
                     <i class="fal fa-share-alt"></i>
                 </button>
             </div>
-            <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
+            <div class="modal fade" id="addPrenda" tabindex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
                 <div class="border-dark modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-success text-white">
@@ -41,8 +41,8 @@
                                 <br>
                                 <div class="form-row">
                                     <div class="col-md">
-                                        <label for="categoriaPrenda">Ubicacion:</label>
-                                        <select id="categoriaPrenda" class="custom-select custom-select-sm">
+                                        <label for="ubicacionPrenda">Ubicacion:</label>
+                                        <select id="ubicacionPrenda" class="custom-select custom-select-sm">
                                             <option selected>Seleccione una ubicacion</option>
                                             <option value="torso">Torso</option>
                                             <option value="piernas">Piernas</option>
@@ -54,12 +54,17 @@
                                     </div>
                                     <div class="col-md">
                                         <label for="tipoPrenda">Tipo</label>
-                                        <select id="tipoPrenda" class="custom-select custom-select-sm">
+                                        <select id="tipoPrenda" class="custom-select custom-select-sm" onchange="actualizarRange()">
                                             <option selected>Seleccione un tipo</option>
                                             <option value="abrigo">Abrigo</option>
                                             <option value="no abrigo">No abrigo</option>
                                         </select>
                                     </div>
+                                </div>
+                                <br>
+                                <div class="form-row d-none" id="rangeContainer">
+                                    <label for="nivelAbrigo">Seleccione nivel de abrigo</label>
+                                    <input type="range" class="custom-range" min="0" max="5" step="1" id="nivelAbrigo">
                                 </div>
                                 <br>
                                 <label>Uso:</label>
@@ -93,7 +98,7 @@
                                     <div class="col-md">
                                         <div class="custom-file">
                                             <label>Seleccionar Foto</label>
-                                            <input type="file" class="custom-file-input" id="imagenPrenda" lang="es" onchange="showName()">
+                                            <input type="file" class="custom-file-input" id="imagenPrenda" lang="es" onchange="showName()" accept="image/*">
                                             <label id="imagenPrendaLabel" class="custom-file-label" for="imagenPrenda" style="top: 2rem" data-browse="Elegir">Seleccionar Foto</label>
                                         </div>
                                     </div>
@@ -202,15 +207,54 @@
     </div>
     <br>
     <script>
+        
+    function actualizarRange() {
+        let range = document.getElementById('rangeContainer');
+        if (document.getElementById('tipoPrenda').value === 'abrigo') {
+            range.classList.remove("d-none");
+        } else {
+            range.classList.add("d-none");
+        }
+    }
+        
     function siguientePantalla() {
-        document.getElementById('datosBasicos').className += "d-none";
-        document.getElementById('botonDatosBasicos').className += " d-none";
-        document.getElementById('datosComplementarios').classList.remove("d-none");
-        document.getElementById('botonCargarDatos').classList.remove("d-none");
-        let barra = document.getElementById('progressBar');
-        barra.innerHTML = "Paso 2 de 2";
-        barra.style.width = "100%";
-        barra.setAttribute('aria-valuenow', "100");
+        let nombre = document.getElementById('nombrePrenda').value;
+        let ubicacion = document.getElementById('ubicacionPrenda').value;
+        let tipoPrenda = document.getElementById('tipoPrenda').value;
+        let nivelAbrigo = parseInt(document.getElementById('nivelAbrigo').value);
+        let casual = document.getElementById('customCheckCasual').checked;
+        let formal = document.getElementById('customCheckFormal').checked;
+        let fiesta = document.getElementById('customCheckFiesta').checked;
+        let deportes = document.getElementById('customCheckDeportes').checked;
+
+        if (nombre === ""){
+            toast('La prenda debe poseer un nombre', 'error');
+        } else {
+            if (ubicacion === "Seleccione una ubicacion"){
+                toast('Debe seleccionar una ubicacion para la prenda', 'error');
+            } else {
+                if (tipoPrenda === "Seleccione un tipo"){
+                    toast('Debe seleccionar un tipo de prenda', 'error');
+                } else {
+                    if (tipoPrenda === "abrigo" && nivelAbrigo === 0){
+                        toast('Debe seleccionar un nivel de abrigo distinto de 0', 'error');
+                    } else {
+                        if (!(casual || formal || fiesta || deportes)){
+                            toast('Debe seleccionar algun uso', 'error');
+                        } else {
+                            document.getElementById('datosBasicos').classList.add("d-none");
+                            document.getElementById('botonDatosBasicos').classList.add("d-none");
+                            document.getElementById('datosComplementarios').classList.remove("d-none");
+                            document.getElementById('botonCargarDatos').classList.remove("d-none");
+                            let barra = document.getElementById('progressBar');
+                            barra.innerHTML = "Paso 2 de 2";
+                            barra.style.width = "100%";
+                            barra.setAttribute('aria-valuenow', "100");
+                        }
+                    }
+                }
+            }
+        }
     }
     
     function showName() {
@@ -218,7 +262,51 @@
     }
 
     function cargarPrenda() {
+        let nombre = document.getElementById('nombrePrenda').value;
+        let ubicacion = document.getElementById('ubicacionPrenda').value;
+        let tipoPrenda = document.getElementById('tipoPrenda').value;
+        let nivelAbrigo = parseInt(document.getElementById('nivelAbrigo').value);
+        let casual = document.getElementById('customCheckCasual').checked;
+        let formal = document.getElementById('customCheckFormal').checked;
+        let fiesta = document.getElementById('customCheckFiesta').checked;
+        let deportes = document.getElementById('customCheckDeportes').checked;
+        let tela = document.getElementById('telaPrenda').value;
+        let color1 = document.getElementById('color1Prenda').value;
+        let color2 = document.getElementById('color2Prenda').value;
+        let imagenes = document.getElementById('imagenPrenda').files;
+        const acceptedImageTypes = ['image/jpeg', 'image/png'];
+        if (tela === ""){
+            toast('Debe ingresar alguna tela', 'error');
+        } else {
+            if (color1 === "" || color2 === ""){
+                toast('Debe asignarle dos colores a la prenda, pueden ser el mismo', 'error');
+            } else {
+                if (imagenes.length === 0){
+                    toast('Debe seleccionar alguna imagen', 'error');
+                } else {
+                    if (!acceptedImageTypes.includes(imagenes[0].type)){
+                        toast('La imagen debe estar en formato png o jpeg', 'error');
+                    } else {
 
+                        let noti = toast('Agregando prenda', 'info');
+                        $('#addPrenda').modal('hide');
+                        axios.post('/prenda', {
+                            nombre: nombre, ubicacion: ubicacion, tipoPrenda: tipoPrenda, nivelAbrigo: nivelAbrigo,
+                            casual: casual, formal: formal, fiesta: fiesta, deportes: deportes, tela: tela, color1: color1,
+                            color2: color2
+                        })
+                                .then(function (response) {
+                                    noti.update('Prenda agregada', 'success');
+                                    console.log(response);
+                                })
+                                .catch(function (error) {
+                                    noti.update('Error al agregar prenda', 'error');
+                                    console.log(error);
+                                });
+                    }
+                }
+            }
+        }
     }
     </script>
 {{/partial}}

@@ -1,5 +1,6 @@
 package Controllers;
 
+import Utils.Middlewares;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
