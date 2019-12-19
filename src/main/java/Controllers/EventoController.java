@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Utils.DarkMagic.toMap;
+
 public class EventoController {
     public ModelAndView mostrar(Request request, Response response) {
         Middlewares.authenticated(request, response);
@@ -57,18 +59,5 @@ public class EventoController {
         String tipo = params.get("tipo");
         String descripcion = params.get("descripcion");
         return params;
-    }
-
-    /**
-     * Mapeo los parametros enviados como query string a un map con el que puedo trabajar
-     * @param pairs pares de clave - valor
-     * @return query string mapeado
-     */
-    private static Map<String, String> toMap(List<NameValuePair> pairs){
-        Map<String, String> map = new HashMap<>();
-        for (NameValuePair pair : pairs) {
-            map.put(pair.getName(), pair.getValue());
-        }
-        return map;
     }
 }

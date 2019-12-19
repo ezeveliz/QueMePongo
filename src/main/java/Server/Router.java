@@ -51,6 +51,7 @@ public class Router {
         get("/calendar/:month/:year", calendario::customizedCalendarView, Router.engine);
 
         get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
+        post("/prenda", guardarropa::agregarPrenda);
 
         get("/evento/:id", evento::mostrar, Router.engine);
         get("/eventos/:month/:year", evento::getEventos);
