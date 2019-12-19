@@ -27,7 +27,7 @@ public class Usuario
 
 //<<<<<<<<<<<<<ATRIBUTOS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
@@ -44,7 +44,7 @@ public class Usuario
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id", referencedColumnName = "id_usuario")
-	private PreferenciasDTO preferencias = new PreferenciasDTO();
+	private PreferenciasDTO preferencias;
 
 	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_usuario")
@@ -86,6 +86,7 @@ public class Usuario
 		requireNonNull(medio2, "Elegir el segundo medio de notificación");
 		mediosEnum.add(medio2);
 		tipo = TipoUsuarioEnum.Gratuito;
+		this.preferencias = null;
 	}
 
 	private TipoUsuario obtenerTipoUsuarioObjeto(TipoUsuarioEnum tipo){

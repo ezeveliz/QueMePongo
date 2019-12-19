@@ -27,12 +27,13 @@ public class UsuarioDAO {
     public List<Usuario> serchUsuarioNombre(String parametro){
 
         Session session = HibernateSessionFactory.getSession();
-        String hql = "FROM Usuario u WHERE u.usuario = :usuarioIng";
+        String hql = "FROM Usuario u WHERE u.usuario like :usuarioIng";
         Query query = session.createQuery(hql);
         query.setParameter("usuarioIng", parametro + '%');
 
+        List<Usuario> list = query.list();
 
-        return query.list();
+        return list;
 
     }
 
@@ -55,7 +56,7 @@ public class UsuarioDAO {
         Transaction trx = session.beginTransaction();
 
         // grabo las modifi caciones
-        session.saveOrUpdate(usuarioModificado);
+        session.merge(usuarioModificado);
 
         // commiteo
         trx.commit();

@@ -30,8 +30,13 @@ public class Main {
         //)}
         // cierro la session
         //session.close();
+
+        Usuario user ;
         UsuarioDAO u = new UsuarioDAO();
-        System.out.print(u.getUsuario("admin1"));
+        user =u.getUsuario("admin4");
+        user.setContraseña("214123");
+        u.modificarUsuario(user);
+        System.out.print(u.getUsuario("admin4"));
 
 
         //System.out.println((40-23)/6);
@@ -201,32 +206,32 @@ public class Main {
 */
         //System.out.println(file);
 
-        Usuario user = new Usuario("Juan", "Perez", "jpe@yahoo.com.ar", "+5491135613366", MedioDeNotificacionEnum.Email, MedioDeNotificacionEnum.SMS);
-        Guardarropas guardarropas1 = new Guardarropas("Tu vieja en tanga");
-        List<String> tiposTela = new ArrayList<>(Arrays.asList("Tela", "Algodon"));
-        List<String> colores = new ArrayList<>(Arrays.asList("Azul", "Rojo", "Amarillo"));
-        List<String> tiposEvento = new ArrayList<>(Arrays.asList("CASUAL"));
-        TipoPrendaBasico tipoPrenda = new TipoPrendaBasico(Categoria.Torso, tiposTela, colores, tiposEvento);
-        Prenda prendaTorso = new Prenda("Camisa blanca", Categoria.Torso, tipoPrenda, TipoEvento.CASUAL, "Algod�n", "Azul", "Azul", "src/resources/images/camisaBlanca.jpg");
-        Prenda prendaPiernas = new Prenda("Pantalon negro", Categoria.Piernas, tipoPrenda, TipoEvento.CASUAL, "Algod�n", "Negro", "Gris", "src/resources/images/pantalonNegro.jpg");
-        Prenda prendaPies = new Prenda("Zapas adidas superstar", Categoria.Pies, tipoPrenda, TipoEvento.CASUAL, "Algod�n", "Azul", "Azul", "src/resources/images/zapatillasAdidas.jpg");
-
-        user.agregarGuardarropas(guardarropas1);
-        user.agregarPrenda(prendaTorso, guardarropas1);
-        user.agregarPrenda(prendaPiernas, guardarropas1);
-        user.agregarPrenda(prendaPies, guardarropas1);
-
-        Unica unica = new Unica(LocalDateTime.now().plusDays(2).minusHours(1));
-        Evento evento = new Evento("Salida de joda", TipoEvento.CASUAL, unica);
-        PreferenciasDTO preferencias = new PreferenciasDTO();
-        Sugerencias sugerencias = new Sugerencias();
-        //sugerencias.iniciarSugerencia(user.guardarropasDisponibles(), evento, preferencias);
-
-
-        Unica unica2 = new Unica(LocalDateTime.now());
-        user.agregarEvento("Salida de joda", TipoEvento.CASUAL, unica2);
-        user.setPreferencias(preferencias);
-        user.pedirTodasLasSugerencias();
+//        Usuario user = new Usuario("Juan", "Perez", "jpe@yahoo.com.ar", "+5491135613366", MedioDeNotificacionEnum.Email, MedioDeNotificacionEnum.SMS);
+//        Guardarropas guardarropas1 = new Guardarropas("Tu vieja en tanga");
+//        List<String> tiposTela = new ArrayList<>(Arrays.asList("Tela", "Algodon"));
+//        List<String> colores = new ArrayList<>(Arrays.asList("Azul", "Rojo", "Amarillo"));
+//        List<String> tiposEvento = new ArrayList<>(Arrays.asList("CASUAL"));
+//        TipoPrendaBasico tipoPrenda = new TipoPrendaBasico(Categoria.Torso, tiposTela, colores, tiposEvento);
+//        Prenda prendaTorso = new Prenda("Camisa blanca", Categoria.Torso, tipoPrenda, TipoEvento.CASUAL, "Algod�n", "Azul", "Azul", "src/resources/images/camisaBlanca.jpg");
+//        Prenda prendaPiernas = new Prenda("Pantalon negro", Categoria.Piernas, tipoPrenda, TipoEvento.CASUAL, "Algod�n", "Negro", "Gris", "src/resources/images/pantalonNegro.jpg");
+//        Prenda prendaPies = new Prenda("Zapas adidas superstar", Categoria.Pies, tipoPrenda, TipoEvento.CASUAL, "Algod�n", "Azul", "Azul", "src/resources/images/zapatillasAdidas.jpg");
+//
+//        user.agregarGuardarropas(guardarropas1);
+//        user.agregarPrenda(prendaTorso, guardarropas1);
+//        user.agregarPrenda(prendaPiernas, guardarropas1);
+//        user.agregarPrenda(prendaPies, guardarropas1);
+//
+//        Unica unica = new Unica(LocalDateTime.now().plusDays(2).minusHours(1));
+//        Evento evento = new Evento("Salida de joda", TipoEvento.CASUAL, unica);
+//        PreferenciasDTO preferencias = new PreferenciasDTO();
+//        Sugerencias sugerencias = new Sugerencias();
+//        //sugerencias.iniciarSugerencia(user.guardarropasDisponibles(), evento, preferencias);
+//
+//
+//        Unica unica2 = new Unica(LocalDateTime.now());
+//        user.agregarEvento("Salida de joda", TipoEvento.CASUAL, unica2);
+//        user.setPreferencias(preferencias);
+//        user.pedirTodasLasSugerencias();
 
     }
 }
