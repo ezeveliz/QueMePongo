@@ -13,12 +13,12 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public static Usuario getUsuario(String usuarioIng) throws URISyntaxException, SQLException {
+    public static Usuario getUsuario(String emailIng) throws URISyntaxException, SQLException {
 
         Session session = HibernateSessionFactory.getSession();
-        String hql = "FROM Usuario u WHERE u.usuario = :usuarioIng";
+        String hql = "FROM Usuario u WHERE u.email = :emailIng";
         Query query = session.createQuery(hql);
-        query.setParameter("usuarioIng", usuarioIng);
+        query.setParameter("emailIng", emailIng);
 
 
         List<Usuario> list = query.list();
