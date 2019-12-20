@@ -1,12 +1,16 @@
 package Controllers;
 
+import Model.DAO.UsuarioDAO;
+import Model.queMePongo.Usuario;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,14 +82,16 @@ public class InicioController {
      * @param response response
      * @return vista del home si los datos corresponden, vista de login si no
      */
-    public Object login(Request request, Response response) {
+    public Object login(Request request, Response response) throws URISyntaxException, SQLException {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
         Map<String, String> params = toMap(pairs);
         String email = params.get("email");
         String password = params.get("password");
 
         //TODO: hacer un login real
-        if(email.equals("admin@admin.com") && password.equals("admin")){
+        Usuario login = UsuarioDAO.getUsuario(params.get("email"));
+
+        if(email.equals(login.getEmail()) && password.equals(login.getContraseña())){
 
             request.session().attribute("logged", true);
             request.session().removeAttribute("logError");

@@ -26,7 +26,7 @@ public class Email implements MedioDeNotificacion {
     static int getSMTPPort() {
         //ProcessBuilder processBuilder = new ProcessBuilder();
         if (System.getenv("SMTP_PORT") != null) {
-            return System.getenv("SMTP_PORT");
+            return 0;//System.getenv("SMTP_PORT");
         }
         return 587; //return default smtp port if isn't set
     }

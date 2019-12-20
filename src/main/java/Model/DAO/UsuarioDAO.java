@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public Usuario getUsuario(String usuarioIng) throws URISyntaxException, SQLException {
+    public static Usuario getUsuario(String usuarioIng) throws URISyntaxException, SQLException {
 
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Usuario u WHERE u.usuario = :usuarioIng";
@@ -26,7 +26,7 @@ public class UsuarioDAO {
         return list.isEmpty()? null: list.get(0);
     }
 
-    public List<Usuario> serchUsuarioNombre(String parametro) throws URISyntaxException, SQLException {
+    public static List<Usuario> serchUsuarioNombre(String parametro) throws URISyntaxException, SQLException {
 
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Usuario u WHERE u.usuario like :usuarioIng";
@@ -39,7 +39,7 @@ public class UsuarioDAO {
 
     }
 
-    public void registrarUsuario(Usuario usuarioNuevo) throws URISyntaxException, SQLException {
+    public static void registrarUsuario(Usuario usuarioNuevo) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         // inicio una transaccion
         Transaction trx = session.beginTransaction();
@@ -53,7 +53,7 @@ public class UsuarioDAO {
         session.close();
     }
 
-    public void modificarUsuario(Usuario usuarioModificado) throws URISyntaxException, SQLException {
+    public static void modificarUsuario(Usuario usuarioModificado) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         Transaction trx = session.beginTransaction();
 
