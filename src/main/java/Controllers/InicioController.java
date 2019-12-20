@@ -89,9 +89,9 @@ public class InicioController {
         String password = params.get("password");
 
         //TODO: hacer un login real
-        //Usuario login = UsuarioDAO.getUsuario(params.get("email"));
-        System.out.print(System.getenv("JAWSDB_URL"));
-        if(email.equals("admin@admin.com") && password.equals("admin")){
+        Usuario login = UsuarioDAO.getUsuario(params.get("email"));
+
+        if(email.equals(login.getEmail()) && password.equals(login.getContraseña())){
 
             request.session().attribute("logged", true);
             request.session().removeAttribute("logError");
