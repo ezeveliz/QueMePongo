@@ -88,16 +88,16 @@ public class InicioController {
         String email = params.get("email");
         String password = params.get("password");
 
-        Usuario login = UsuarioDAO.getUsuario(params.get("email"));
+        Usuario userLogin = UsuarioDAO.getUsuario(params.get("email"));
 
-        if(email.equals(login.getEmail()) && password.equals(login.getContraseña())){
+        if(email.equals(userLogin.getEmail()) && password.equals(userLogin.getContraseña())){
 
             request.session().attribute("logged", true);
             request.session().removeAttribute("logError");
             request.session().removeAttribute("oldEmail");
             request.session().removeAttribute("oldPass");
-            //TODO: cargar al usuario en la sesion y redirigir a /usuario/id
-            response.redirect("/usuario/1");
+            request.session().attribute("usuario",userLogin);
+            response.redirect("/usuario/"+ userLogin.getId());
 
         //Redirigir a home
         } else {

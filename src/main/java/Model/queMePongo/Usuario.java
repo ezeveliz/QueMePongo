@@ -263,4 +263,59 @@ public class Usuario
 		};
 	}
 
+	public boolean hayNotiEmail(){
+		return mediosEnum.contains(MedioDeNotificacionEnum.Email);
+	}
+
+	public boolean hayNotiSMS(){
+		return mediosEnum.contains(MedioDeNotificacionEnum.SMS);
+	}
+
+	public boolean hayNotiWapp(){
+		return mediosEnum.contains(MedioDeNotificacionEnum.WhatsApp);
+	}
+
+	//Si le pasas true la agrega si le pasas false la elimina
+	public void modiciarNotiEmail(boolean valor){
+		if(valor){
+			if(!hayNotiEmail()){
+				mediosEnum.add(MedioDeNotificacionEnum.Email);
+			}
+		}else{
+			if(hayNotiEmail()){
+				mediosEnum.remove(MedioDeNotificacionEnum.Email);
+			}
+		}
+	}
+
+
+	//Si le pasas true la agrega si le pasas false la elimina
+	public void modiciarNotiSMS(boolean valor){
+		if(valor){
+			if(!hayNotiSMS()){
+				mediosEnum.add(MedioDeNotificacionEnum.SMS);
+			}
+		}else{
+			if(hayNotiSMS()){
+				mediosEnum.remove(MedioDeNotificacionEnum.SMS);
+			}
+		}
+	}
+
+
+	//Si le pasas true la agrega si le pasas false la elimina
+	public void modiciarNotiWapp(boolean valor){
+		if(valor){
+			if(!hayNotiWapp()){
+				mediosEnum.add(MedioDeNotificacionEnum.WhatsApp);
+			}
+		}else{
+			if(hayNotiWapp()){
+				mediosEnum.remove(MedioDeNotificacionEnum.WhatsApp);
+			}
+		}
+	}
+
+
+
 }
