@@ -58,8 +58,8 @@ public class InicioController {
         }
         //Si ya estoy loggeado redirijo al home
         if(request.session().attribute("logged")){
-
-            response.redirect("/usuario/\"idUsuario\"");
+            Usuario user = request.session().attribute("usuario");
+            response.redirect("/usuario/" + user.getId());
 
         //Si habia un error de loggeo,
         } else if(request.session().attribute("logError")){

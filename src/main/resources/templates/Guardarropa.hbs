@@ -366,6 +366,14 @@
             };
         });
     };
+
+    function buscar() {
+        let resultados = document.getElementById('resultadoBusqueda').innerHTML = "";
+        let solicitud = document.getElementById('busqueda').value;
+        if (solicitud.length <= 3) {
+            resultados.append();
+        }
+    }
     </script>
 {{/partial}}
 
