@@ -23,7 +23,7 @@ public class UsuarioDAO {
 
         List<Usuario> list = query.list();
 
-        return list.get(0);
+        return list.isEmpty()? null: list.get(0);
     }
 
     public List<Usuario> serchUsuarioNombre(String parametro) throws URISyntaxException, SQLException {
