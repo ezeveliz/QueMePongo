@@ -21,7 +21,7 @@ public class Evento implements Command {
     // esto debe verificarse en cada inicio de sesion del usuario
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY )
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 

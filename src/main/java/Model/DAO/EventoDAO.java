@@ -7,12 +7,14 @@ import org.hibernate.Query;
 import Model.queMePongo.Evento;
 import Model.queMePongo.Usuario;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventoDAO {
 
-    public Evento getEvento(LocalDateTime horario, int id_usuario){
+    public Evento getEvento(LocalDateTime horario, int id_usuario) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Evento e WHERE e.id = :id_usuario and e.horario = :horario";
         Query query = session.createQuery(hql);
@@ -25,7 +27,7 @@ public class EventoDAO {
         return list.get(0);
     }
 
-    public Evento getEvento(int id_evento){
+    public Evento getEvento(int id_evento) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Evento e WHERE e.id = :id_evento";
         Query query = session.createQuery(hql);
@@ -36,7 +38,7 @@ public class EventoDAO {
 
         return list.get(0);
     }
-    public List<Evento> getEvento(Usuario usuario){
+    public List<Evento> getEvento(Usuario usuario) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Evento e WHERE e.usuario.id = :id_usuario";
         Query query = session.createQuery(hql);
@@ -48,7 +50,7 @@ public class EventoDAO {
         return list;
     }
 
-    public void modificarEvento(Evento eventoModificado){
+    public void modificarEvento(Evento eventoModificado) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         Transaction trx = session.beginTransaction();
 
@@ -60,7 +62,7 @@ public class EventoDAO {
         session.close();
     }
 
-    public int eliminarEvento(Evento eventoAEliminar){
+    public int eliminarEvento(Evento eventoAEliminar) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         // inicio una transaccion
         Transaction trx = session.beginTransaction();

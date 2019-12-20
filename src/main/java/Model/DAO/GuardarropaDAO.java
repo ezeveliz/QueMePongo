@@ -7,10 +7,12 @@ import org.hibernate.Query;
 import Model.queMePongo.Guardarropas;
 import Model.queMePongo.Usuario;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GuardarropaDAO {
-    public Guardarropas getGuardarropas(int id_guardarropa){
+    public Guardarropas getGuardarropas(int id_guardarropa) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Guardarropas g WHERE g.id = :id_guardarropa";
         Query query = session.createQuery(hql);
@@ -22,7 +24,7 @@ public class GuardarropaDAO {
         return list.get(0);
     }
 
-    public void modificarGuardarropas(Guardarropas guardarropa){
+    public void modificarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         // inicio una transaccion
         Transaction trx = session.beginTransaction();
@@ -36,7 +38,7 @@ public class GuardarropaDAO {
         session.close();
     }
 
-    public int eliminarGuardarropas(Guardarropas guardarropa){
+    public int eliminarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         // inicio una transaccion
         Transaction trx = session.beginTransaction();

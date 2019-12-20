@@ -9,6 +9,9 @@ import Model.tiposDeMedioDeNotificacion.Email;
 import Model.tiposDeMedioDeNotificacion.MedioDeNotificacionEnum;
 import Model.tiposDeMedioDeNotificacion.SMS;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.List;
 
 
 public class Main {
-    public static void main(String[] args) throws ParseException, InterruptedException {
+    public static void main(String[] args) throws ParseException, InterruptedException, URISyntaxException, SQLException {
 
         // obtengo la session a traves del SessionFactory
         //Session session = HibernateSessionFactory.getSession();
@@ -31,13 +34,13 @@ public class Main {
         // cierro la session
         //session.close();
 
-        Usuario user ;
+        //System.out.print(System.getenv("JAWSDB_URL"));
+        //Usuario user ;
         UsuarioDAO u = new UsuarioDAO();
-        user =u.getUsuario("admin4");
-        user.setContraseña("214123");
-        u.modificarUsuario(user);
-        System.out.print(u.getUsuario("admin4"));
-
+        //user =u.getUsuario("admin4");
+        //user.setContraseña("214123");
+        //u.modificarUsuario(user);
+        System.out.print(u.getUsuario("admin1"));
 
         //System.out.println((40-23)/6);
         //MainServiceOpenWeather clima = new MainServiceOpenWeather();
