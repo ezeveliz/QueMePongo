@@ -45,15 +45,19 @@ public class HibernateSessionFactory {
         conf.setProperty("hibernate.connection.url", "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
         conf.setProperty("hibernate.connection.username", jdbUri.getUserInfo().split(":")[0]);
         conf.setProperty("hibernate.connection.password", jdbUri.getUserInfo().split(":")[1]);
-
+        System.out.print(jdbUri);
         return conf.buildSessionFactory();
     }
 
     private static SessionFactory configurarSesionLocal(){
         Configuration conf = new Configuration();
         File f = new File(CONFIG_FILE);
+        conf.configure(f);
+        conf.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/database_queMePongo?serverTimezone=UTC&amp;useSSL=false");
+        conf.setProperty("hibernate.connection.username", "root");
+        conf.setProperty("hibernate.connection.password", "admin");
 
-        return conf.configure(f).buildSessionFactory();
+        return conf.buildSessionFactory();
     }
 
     //Version vieja
