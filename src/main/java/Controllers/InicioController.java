@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Utils.DarkMagic.toMap;
+
 
 public class InicioController {
 
@@ -165,18 +167,5 @@ public class InicioController {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("section", "Pagina no cacheada");
         return new ModelAndView(parametros, "Offline.hbs");
-    }
-
-    /**
-     * Mapeo los parametros enviados como query string a un map con el que puedo trabajar
-     * @param pairs pares de clave - valor
-     * @return query string mapeado
-     */
-    private static Map<String, String> toMap(List<NameValuePair> pairs){
-        Map<String, String> map = new HashMap<>();
-        for (NameValuePair pair : pairs) {
-            map.put(pair.getName(), pair.getValue());
-        }
-        return map;
     }
 }

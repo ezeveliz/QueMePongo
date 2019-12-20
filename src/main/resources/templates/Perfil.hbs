@@ -11,34 +11,31 @@
                 </li>
                 <li class="breadcrumb-item active">{{section}}</li>
             </ol>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="card text-center shadow">
-                    <div class="card-header">
-                        <ul class="nav nav-pills nav-fill card-header-pills">
-                            <li class="nav-item">
-                                <p class="nav-link active mb-0">
-                                    Datos de usuario
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <form action="" method="post"
-                          class="">
+            <div class="row justify-content-center">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                    <div class="card text-center shadow">
+                        <div class="card-header">
+                            <ul class="nav nav-pills nav-fill card-header-pills">
+                                <li class="nav-item">
+                                    <p class="nav-link active mb-0">
+                                        Datos de usuario
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="card-body p-2">
                             <div class="form-group">
                                 <div>
                                     <label for="nombre">Nombre:</label>
                                     <input aria-label="nombre" id="nombre" type="text"
-                                           class="form-control" placeholder="{{nombre}}" disabled>
+                                           class="form-control" value="{{nombre}}" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div>
                                     <label for="apellido">Apellido:</label>
                                     <input aria-label="apellido" id="apellido" type="text"
-                                           class="form-control" placeholder="{{apellido}}" disabled>
+                                           class="form-control" value="{{apellido}}" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -46,7 +43,7 @@
                                     <label for="telefono">Telefono:</label>
                                     <input aria-label="telefono" id="telefono" type="tel"
                                            class="form-control" name="telefono" required
-                                           placeholder="{{telefono}}">
+                                           value="{{telefono}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -54,7 +51,7 @@
                                     <label for="email">Email:</label>
                                     <input aria-label="email" id="email" type="email"
                                            class="form-control" name="email" required
-                                           placeholder="{{email}}"
+                                           value="{{email}}"
                                            oninput="this.value=this.value.toLowerCase()">
                                 </div>
                             </div>
@@ -63,7 +60,7 @@
                                     <label for="password">Contraseña:</label>
                                     <input aria-label="contraseña" id="password" type="password"
                                            class="form-control" name="password"
-                                           required placeholder="********">
+                                           required value="********">
                                 </div>
                             </div>
                             <label>Notificacion:</label>
@@ -85,16 +82,59 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="display: flex; justify-content: center;">
-                            <button type="submit" class="btn btn-block btn-primary">
+                            <button class="btn btn-block btn-primary" onclick="actualizarPerfil()">
                                 <i class="fal fa-pencil"></i>
                                 Actualizar
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function actualizarPerfil() {
+            let telefono = document.getElementById('telefono').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let emailNoti = document.getElementById('customCheckEmail').checked;
+            let smsNoti = document.getElementById('customCheckSMS').checked;
+            let wappNoti = document.getElementById('customCheckWapp').checked;
+            if (telefono === ""){
+                toast('Debe ingresar un telefono de contacto', 'error');
+            } else {
+                if (email === ""){
+                    toast('Debe ingresar un email de contacto', 'error');
+                } else {
+                    if (password === ""){
+                        toast('Debe ingresar una contraseña para el sistema', 'error');
+                    } else {
+                        if (!hasNotificationsEnabled(emailNoti, smsNoti, wappNoti)){
+                            toast('Debe seleccionar como minimo 2 medios de notificacion', 'error');
+                        } else {
+                            let noti = toast('Actualizando perfil', 'info');
+                            axios.post('/perfil', {
+                                telefono: telefono, email: email, password: password, emailNoti: emailNoti,
+                                smsNoti: smsNoti, wappNoti: wappNoti
+                            })
+                            .then(function (response) {
+                                noti.update('Perfil actualizado', 'success');
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                noti.update('Error al actualizar perfil', 'error');
+                                console.log(error);
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
+        function hasNotificationsEnabled(email, sms, wapp) {
+            return (email && sms) || (email && wapp) || (sms && wapp);
+        }
+    </script>
 {{/partial}}
 
 {{> base.hbs}}

@@ -11,53 +11,77 @@
                 </li>
                 <li class="breadcrumb-item active">{{section}}</li>
             </ol>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="card text-center shadow">
-                    <div class="card-header">
-                        <ul class="nav nav-pills nav-fill card-header-pills">
-                            <li class="nav-item">
-                                <p class="nav-link active mb-0">
-                                    Preferencias de usuario
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <form action="" method="post"
-                          class="">
+            <div class="row justify-content-center">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
+                    <div class="card text-center shadow">
+                        <div class="card-header">
+                            <ul class="nav nav-pills nav-fill card-header-pills">
+                                <li class="nav-item">
+                                    <p class="nav-link active mb-0">
+                                        Preferencias de usuario
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="card-body p-2">
                             <div class="form-group">
                                 <div>
-                                    <label for="tela">Tela:</label>
-                                    <input aria-label="tela" id="tela" type="text"
-                                           class="form-control" placeholder="{{tela}}" autofocus required>
+                                    <label for="telaPrenda">Tela:</label>
+                                    <input aria-label="tela" id="telaPrenda" type="text"
+                                           class="form-control" value="{{tela}}" autofocus required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-row">
                                     <div class="col-md">
                                         <label for="color1Prenda">Color uno</label>
-                                        <input id="color1Prenda" type="text" class="form-control" placeholder="{{color1}}">
+                                        <input id="color1Prenda" type="text" class="form-control" value="{{color1}}" required>
                                     </div>
                                     <div class="col-md">
                                         <label for="color2Prenda">Color dos</label>
-                                        <input id="color2Prenda" type="text" class="form-control" placeholder="{{color2}}">
+                                        <input id="color2Prenda" type="text" class="form-control" value="{{color2}}" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer" style="display: flex; justify-content: center;">
-                            <button type="submit" class="btn btn-block btn-primary">
+                            <button class="btn btn-block btn-primary" onclick="actualizarPreferencias()">
                                 <i class="fal fa-pencil"></i>
                                 Actualizar
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function actualizarPreferencias() {
+            let tela = document.getElementById('telaPrenda').value;
+            let color1 = document.getElementById('color1Prenda').value;
+            let color2 = document.getElementById('color2Prenda').value;
+            if (tela === ""){
+                toast('Debe completar con su tela preferida', 'error');
+            } else {
+                if (color1 === "" || color2 === ""){
+                    toast('Debe completar con sus colores preferidos, pueden ser los mismos', 'error');
+                } else {
+                    let noti = toast('Actualizando preferencias', 'info');
+                    axios.post('/preferencias', {
+                        tela: tela, color1: color1, color2: color2
+                    })
+                    .then(function (response) {
+                        noti.update('Preferencias actualizadas', 'success');
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        noti.update('Error al actualizar preferencias', 'error');
+                        console.log(error);
+                    });
+                }
+            }
+        }
+    </script>
 {{/partial}}
 
 {{> base.hbs}}

@@ -51,10 +51,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="form-group">
+                    <label for="nombreGuardarropa">Nombre</label>
+                    <input type="text" class="form-control" id="nombreGuardarropa" placeholder="Nombre">
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-block" onclick="enviarMensaje()">
+                <button type="button" class="btn btn-primary btn-block" onclick="agregarGuardarropa()">
                     <i class="fal fa-plus"></i>
                     Agregar
                 </button>
@@ -62,3 +65,25 @@
         </div>
     </div>
 </div>
+<script>
+    function agregarGuardarropa() {
+        let nombre = document.getElementById('nombreGuardarropa').value;
+        if (nombre === ""){
+            toast('Debe darle un nombre al guardarropa', 'error');
+        } else {
+            let noti = toast('Agregando guardarropa', 'info');
+            $('#addWardrobe').modal('hide');
+            axios.post('/guardarropa', {
+                nombre: nombre
+            })
+            .then(function (response) {
+                noti.update('Guardarropa agregado', 'success');
+                console.log(response);
+            })
+            .catch(function (error) {
+                noti.update('Error al agregar guardarropa', 'error');
+                console.log(error);
+            });
+        }
+    }
+</script>

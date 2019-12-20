@@ -7,10 +7,35 @@ import Model.queMePongo.Usuario;
 
 public class Email implements MedioDeNotificacion {
 
+    static String getQMPEmail() {
+        //ProcessBuilder processBuilder = new ProcessBuilder();
+        if (System.getenv("QMPEMAIL") != null) {
+            return System.getenv("QMPEMAIL");
+        }
+        return "queMePongo.notificationService@gmail.com"; //return default email if isn't set
+    }
+
+    static String getSMTPServer() {
+        //ProcessBuilder processBuilder = new ProcessBuilder();
+        if (System.getenv("SMTP_SERVER") != null) {
+            return System.getenv("SMTP_SERVER");
+        }
+        return "smtp.gmail.com"; //return default smtp server if isn't set
+    }
+
+    static int getSMTPPort() {
+        //ProcessBuilder processBuilder = new ProcessBuilder();
+        if (System.getenv("SMTP_PORT") != null) {
+            return System.getenv("SMTP_PORT");
+        }
+        return 587; //return default smtp port if isn't set
+    }
+
+
     public void notificarUsuario(Usuario usuario, String mensaje)  {
 
         org.simplejavamail.email.Email email = EmailBuilder.startingBlank()
-                .from("Que Me Pongo", "queMePongo.notificationService@gmail.com")
+                .from("Que Me Pongo", getQMPEmail())
                 .to(usuario.getNombre() + usuario.getApellido(), usuario.getEmail())
                 //.cc("")
                 .withSubject("Que Me Pongo - Notificación")
@@ -18,7 +43,7 @@ public class Email implements MedioDeNotificacion {
                 .buildEmail();
 
         MailerBuilder
-                .withSMTPServer("smtp.gmail.com", 587, "queMePongo.notificationService@gmail.com", "DDSgrupo5")
+                .withSMTPServer(getSMTPServer(), getSMTPPort(), getQMPEmail(), "DDSgrupo5")
                 .withTransportStrategy(TransportStrategy.SMTP_TLS)
                 .buildMailer()
                 .sendMail(email);

@@ -1,12 +1,18 @@
 package Controllers;
 
 import Utils.Middlewares;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static Utils.DarkMagic.toMap;
 
 public class GuardarropaController {
     public ModelAndView mostrar(Request request, Response response) {
@@ -19,6 +25,47 @@ public class GuardarropaController {
         parametros.put("idUser", 1);
         parametros.put("nombre", "Admin");
         parametros.put("apellido", "Admin");
+        parametros.put("idGuardarropa", id);
         return new ModelAndView(parametros, "Guardarropa.hbs");
+    }
+
+    /**
+     * Agrego una prenda a un guardarropa dado
+     * @param request request
+     * @param response response
+     * @return
+     */
+    public Object agregarPrenda(Request request, Response response) {
+        List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
+        Map<String, String> params = toMap(pairs);
+        String nombre = params.get("nombre");
+        String ubicacion = params.get("ubicacion");
+        String tipoPrenda = params.get("tipoPrenda");
+        String nivelAbrigo = params.get("nivelAbrigo");
+        //TODO: verificar si los transforma a boolean
+        Boolean casual = Boolean.valueOf(params.get("casual"));
+        Boolean formal = Boolean.valueOf(params.get("formal"));
+        Boolean fiesta = Boolean.valueOf(params.get("fiesta"));
+        Boolean deportes = Boolean.valueOf(params.get("deportes"));
+        String tela = params.get("tela");
+        String color1 = params.get("color1");
+        String color2 = params.get("color2");
+        // Imagen en Base64
+        String imagen = params.get("imagen");
+        String idGuardarropa = params.get("idGuardarropa");
+        return params;
+    }
+
+    /**
+     * Agrego un guardarropa al usuario
+     * @param request request
+     * @param response response
+     * @return
+     */
+    public Object agregar(Request request, Response response) {
+        List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
+        Map<String, String> params = toMap(pairs);
+        String nombre = params.get("nombre");
+        return params;
     }
 }

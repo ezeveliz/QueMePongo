@@ -51,14 +51,19 @@ public class Router {
         get("/calendar/:month/:year", calendario::customizedCalendarView, Router.engine);
 
         get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
+        post("/guardarropa", guardarropa::agregar);
+        post("/prenda", guardarropa::agregarPrenda);
 
         get("/evento/:id", evento::mostrar, Router.engine);
         get("/eventos/:month/:year", evento::getEventos);
         post("/evento", evento::nuevoEvento);
 
         get("/preferencias/:id", preferencias::mostrar, Router.engine);
+        //TODO: esto deberia ser el verbo update en vez de post?
+        post("/preferencias", preferencias::actualizar);
 
         get("/perfil/:id", perfil::mostrar, Router.engine);
+        post("/perfil", perfil::actualizar);
 
         get("/offline", inicio::offline, Router.engine);
         get("/404", inicio::notFound, Router.engine);
@@ -66,8 +71,6 @@ public class Router {
             res.redirect("/404");
             return "{\"message\":\"Custom 404\"}";
         });
-
-        //get("/", (req, res) -> new Inicio().inicio());
 
         //Que carajo hace esto?
         //Spark.after((req, res) -> {
