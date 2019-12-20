@@ -90,23 +90,33 @@ public class InicioController {
 
         Usuario userLogin = UsuarioDAO.getUsuario(params.get("email"));
 
-        if(email.equals(userLogin.getEmail()) && password.equals(userLogin.getContraseña())){
+        System.out.print(userLogin);
 
-            request.session().attribute("logged", true);
-            request.session().removeAttribute("logError");
-            request.session().removeAttribute("oldEmail");
-            request.session().removeAttribute("oldPass");
-            request.session().attribute("usuario",userLogin);
-            response.redirect("/usuario/"+ userLogin.getId());
+        if(userLogin != null){
+            if(email.equals(userLogin.getEmail()) && password.equals(userLogin.getContraseña())){
 
-        //Redirigir a home
-        } else {
+                request.session().attribute("logged", true);
+                request.session().removeAttribute("logError");
+                request.session().removeAttribute("oldEmail");
+                request.session().removeAttribute("oldPass");
+                request.session().attribute("usuario",userLogin);
+                response.redirect("/usuario/"+ userLogin.getId());
 
+                //Redirigir a home
+            } else {
+
+                //Redirigir a Iniciar sesion
+                request.session().attribute("logError", true);
+                request.session().attribute("oldEmail", email);
+                request.session().attribute("oldPass", password);
+                response.redirect("/login");
+            }}else{
             //Redirigir a Iniciar sesion
             request.session().attribute("logError", true);
             request.session().attribute("oldEmail", email);
             request.session().attribute("oldPass", password);
             response.redirect("/login");
+
         }
         return response;
     }

@@ -13,6 +13,21 @@
 				com.mysql.jdbc.Driver
 			</property>
 
+			<!-- Assume test is the database name -->
+
+			<property name = "hibernate.connection.url">
+				jdbc:mysql://localhost:3306/database_queMePongo?serverTimezone=UTC&amp;useSSL=false
+
+            </property>
+
+			<property name = "hibernate.connection.username">
+				root
+			</property>
+
+			<property name = "hibernate.connection.password">
+				admin
+			</property>
+
 			<!-- List of XML mapping files -->
 
 			<mapping class="Model.frecuencia.Frecuencia" />

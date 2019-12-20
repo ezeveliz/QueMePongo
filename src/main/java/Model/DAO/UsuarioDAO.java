@@ -58,7 +58,7 @@ public class UsuarioDAO {
         Transaction trx = session.beginTransaction();
 
         // grabo las modifi caciones
-        session.merge(usuarioModificado);
+        session.saveOrUpdate(usuarioModificado);
 
         // commiteo
         trx.commit();

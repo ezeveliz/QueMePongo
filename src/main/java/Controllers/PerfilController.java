@@ -39,15 +39,20 @@ public class PerfilController {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
         Map<String, String> params = toMap(pairs);
         Usuario user = request.session().attribute("usuario");
+
+        user.setContraseña(params.get("contraseña"));
         user.setTelefono(params.get("telefono"));
         user.setEmail(params.get("email"));
-        user.setContraseña(params.get("password"));
-        user.modiciarNotiEmail(Boolean.valueOf(params.get("emailNoti")));
-        user.modiciarNotiSMS(Boolean.valueOf(params.get("smsNoti")));
-        user.modiciarNotiWapp(Boolean.valueOf(params.get("wappNoti")));
+        System.out.println(params.get("password"));
+        //user.setContraseña();
 
-        UsuarioDAO.modificarUsuario(user);
+        user.modiciarNotiEmail(Boolean.parseBoolean(params.get("emailNoti")));
+        user.modiciarNotiSMS(Boolean.parseBoolean(params.get("smsNoti")));
+        user.modiciarNotiWapp(Boolean.parseBoolean(params.get("wappNoti")));
 
+        //UsuarioDAO.modificarUsuario(user);
+
+        //TODO: si modifica el usuario tiene que modificarse en session
         return user;
     }
 }

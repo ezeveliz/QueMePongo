@@ -35,12 +35,20 @@ public class Main {
         //session.close();
 
         //System.out.print(System.getenv("JAWSDB_URL"));
-        //Usuario user ;
+        Usuario user ;
         UsuarioDAO u = new UsuarioDAO();
-        //user =u.getUsuario("admin4");
-        //user.setContraseña("214123");
-        //u.modificarUsuario(user);
-        System.out.print(u.getUsuario("admin1"));
+        user =u.getUsuario("admin@admin.com");
+        System.out.println(user);
+
+        user.setContraseña("11111");
+        user.setNombre("mabel");
+        user.modiciarNotiEmail(false);
+        user.modiciarNotiSMS(false);
+        user.modiciarNotiWapp(false);
+        u.modificarUsuario(user);
+        user =u.getUsuario("admin@admin.com");
+
+        System.out.print(user);
 
         //System.out.println((40-23)/6);
         //MainServiceOpenWeather clima = new MainServiceOpenWeather();
