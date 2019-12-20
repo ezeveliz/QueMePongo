@@ -51,6 +51,7 @@ public class Router {
         get("/calendar/:month/:year", calendario::customizedCalendarView, Router.engine);
 
         get("/guardarropa/:id", guardarropa::mostrar, Router.engine);
+        post("/guardarropa", guardarropa::agregar);
         post("/prenda", guardarropa::agregarPrenda);
 
         get("/evento/:id", evento::mostrar, Router.engine);
@@ -67,8 +68,6 @@ public class Router {
             res.redirect("/404");
             return "{\"message\":\"Custom 404\"}";
         });
-
-        //get("/", (req, res) -> new Inicio().inicio());
 
         //Que carajo hace esto?
         //Spark.after((req, res) -> {

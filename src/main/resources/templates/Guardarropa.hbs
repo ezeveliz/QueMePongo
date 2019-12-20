@@ -164,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card text-center shadow">
+            <div class="card text-center shadow guardarropaContainer" data-id="{{idGuardarropa}}">
                 <div class="card-header">
                     <ul class="nav nav-pills nav-fill card-header-pills">
                         <li class="nav-item">
@@ -274,6 +274,7 @@
         let color1 = document.getElementById('color1Prenda').value;
         let color2 = document.getElementById('color2Prenda').value;
         let imagenes = document.getElementById('imagenPrenda').files;
+        let idGuardarropa = document.getElementsByClassName('guardarropaContainer')[0].dataset.id;
         const acceptedImageTypes = ['image/jpeg', 'image/png'];
         if (tela === ""){
             toast('Debe ingresar alguna tela', 'error');
@@ -293,7 +294,7 @@
                             axios.post('/prenda', {
                                 nombre: nombre, ubicacion: ubicacion, tipoPrenda: tipoPrenda, nivelAbrigo: nivelAbrigo,
                                 casual: casual, formal: formal, fiesta: fiesta, deportes: deportes, tela: tela,
-                                color1: color1, color2: color2, imagen: result
+                                color1: color1, color2: color2, imagen: result, idGuardarropa: idGuardarropa
                             })
                             .then(function (response) {
                                 noti.update('Prenda agregada', 'success');
@@ -309,7 +310,7 @@
                             axios.post('/prenda', {
                                 nombre: nombre, ubicacion: ubicacion, tipoPrenda: tipoPrenda, nivelAbrigo: nivelAbrigo,
                                 casual: casual, formal: formal, fiesta: fiesta, deportes: deportes, tela: tela,
-                                color1: color1, color2: color2, imagen: ""
+                                color1: color1, color2: color2, imagen: "", idGuardarropa: idGuardarropa
                             })
                             .then(function (response) {
                                 noti.update('Prenda agregada', 'success');
@@ -328,6 +329,7 @@
     }
 
     /**
+     * Normalizo el tamaño y calidad de la imagen de la prenda
      * https://zocada.com/compress-resize-images-javascript-browser/
      * @param foto
      */

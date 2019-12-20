@@ -25,9 +25,16 @@ public class GuardarropaController {
         parametros.put("idUser", 1);
         parametros.put("nombre", "Admin");
         parametros.put("apellido", "Admin");
+        parametros.put("idGuardarropa", id);
         return new ModelAndView(parametros, "Guardarropa.hbs");
     }
 
+    /**
+     * Agrego una prenda a un guardarropa dado
+     * @param request request
+     * @param response response
+     * @return
+     */
     public Object agregarPrenda(Request request, Response response) {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
         Map<String, String> params = toMap(pairs);
@@ -45,6 +52,20 @@ public class GuardarropaController {
         String color2 = params.get("color2");
         // Imagen en Base64
         String imagen = params.get("imagen");
+        String idGuardarropa = params.get("idGuardarropa");
+        return params;
+    }
+
+    /**
+     * Agrego un guardarropa al usuario
+     * @param request request
+     * @param response response
+     * @return
+     */
+    public Object agregar(Request request, Response response) {
+        List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
+        Map<String, String> params = toMap(pairs);
+        String nombre = params.get("nombre");
         return params;
     }
 }
