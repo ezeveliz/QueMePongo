@@ -39,7 +39,7 @@ public class HibernateSessionFactory {
         Configuration conf = new Configuration();
         File f = new File(CONFIG_FILE);
         conf.configure(f);
-        URI jdbUri = new URI("JAWSDB_URL");
+        URI jdbUri = new URI(System.getenv("JAWSDB_URL"));
 
         String port = String.valueOf(jdbUri.getPort());
         System.out.println("URL DE LA BASE DE DATOS: "+"jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
