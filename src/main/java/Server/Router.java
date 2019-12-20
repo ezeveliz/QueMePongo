@@ -63,6 +63,7 @@ public class Router {
         post("/preferencias", preferencias::actualizar);
 
         get("/perfil/:id", perfil::mostrar, Router.engine);
+        post("/perfil", perfil::actualizar);
 
         get("/offline", inicio::offline, Router.engine);
         get("/404", inicio::notFound, Router.engine);
