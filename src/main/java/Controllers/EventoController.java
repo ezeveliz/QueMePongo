@@ -8,15 +8,12 @@ import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -78,9 +75,7 @@ public class EventoController {
      * @return confirmacion
      */
     public Object nuevoEvento(Request request, Response response) throws IOException {
-        List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
         Map<String, String> params = new ObjectMapper().readValue(request.body(), Map.class);
-        //Map<String, String> params = toMap(pairs);
         String fecha = params.get("fecha");
         String tipo = params.get("tipo");
         String descripcion = params.get("descripcion");
