@@ -42,8 +42,11 @@ public class HibernateSessionFactory {
         final URI jdbUri = new URI("JAWSDB_URL");
 
         String port = String.valueOf(jdbUri.getPort());
+        System.out.print("jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
         conf.setProperty("hibernate.connection.url", "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
+        System.out.print(jdbUri.getUserInfo().split(":")[0]);
         conf.setProperty("hibernate.connection.username", jdbUri.getUserInfo().split(":")[0]);
+        System.out.print(jdbUri.getUserInfo().split(":")[1]);
         conf.setProperty("hibernate.connection.password", jdbUri.getUserInfo().split(":")[1]);
         System.out.print(jdbUri);
         return conf.buildSessionFactory();
