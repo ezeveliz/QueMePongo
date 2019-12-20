@@ -39,14 +39,14 @@ public class HibernateSessionFactory {
         Configuration conf = new Configuration();
         File f = new File(CONFIG_FILE);
         conf.configure(f);
-        final URI jdbUri = new URI("JAWSDB_URL");
+        URI jdbUri = new URI("JAWSDB_URL");
 
         String port = String.valueOf(jdbUri.getPort());
-        System.out.println("jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
+        System.out.println("URL DE LA BASE DE DATOS: "+"jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
         conf.setProperty("hibernate.connection.url", "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath());
-        System.out.println(jdbUri.getUserInfo().split(":")[0]);
+        System.out.println("USUARIO: "+jdbUri.getUserInfo().split(":")[0]);
         conf.setProperty("hibernate.connection.username", jdbUri.getUserInfo().split(":")[0]);
-        System.out.println(jdbUri.getUserInfo().split(":")[1]);
+        System.out.println("CONTRASENIA: "+ jdbUri.getUserInfo().split(":")[1]);
         conf.setProperty("hibernate.connection.password", jdbUri.getUserInfo().split(":")[1]);
         System.out.println(jdbUri);
         return conf.buildSessionFactory();
