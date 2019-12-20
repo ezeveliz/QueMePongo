@@ -29,6 +29,8 @@ public class Prenda {
 	private String nombre;
 
 	@ElementCollection
+	@CollectionTable(name = "prendas_categoria", joinColumns = @JoinColumn(name = "prenda_id"))
+	@Column(name = "categoria")
 	private List<Categoria> categoriasDisponibles = new ArrayList<>();
 
 	@Enumerated(EnumType.ORDINAL)
