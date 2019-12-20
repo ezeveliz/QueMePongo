@@ -114,8 +114,8 @@
                         } else {
                             let noti = toast('Actualizando perfil', 'info');
                             axios.post('/perfil', {
-                                telefono: telefono, email: email, password: password, emailNoti: emailNoti,
-                                smsNoti: smsNoti, wappNoti: wappNoti
+                                telefono: telefono, email: email, password: password, emailNoti: emailNoti.toString(),
+                                smsNoti: smsNoti.toString(), wappNoti: wappNoti.toString()
                             })
                             .then(function (response) {
                                 noti.update('Perfil actualizado', 'success');
