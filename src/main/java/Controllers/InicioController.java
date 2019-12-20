@@ -59,7 +59,7 @@ public class InicioController {
         //Si ya estoy loggeado redirijo al home
         if(request.session().attribute("logged")){
 
-            response.redirect("/home");
+            response.redirect("/usuario/\"idUsuario\"");
 
         //Si habia un error de loggeo,
         } else if(request.session().attribute("logError")){
@@ -88,7 +88,6 @@ public class InicioController {
         String email = params.get("email");
         String password = params.get("password");
 
-        //TODO: hacer un login real
         Usuario login = UsuarioDAO.getUsuario(params.get("email"));
 
         if(email.equals(login.getEmail()) && password.equals(login.getContraseña())){
