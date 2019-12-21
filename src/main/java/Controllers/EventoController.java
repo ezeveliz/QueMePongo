@@ -8,6 +8,7 @@ import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -44,7 +45,7 @@ public class EventoController {
         Middlewares.authenticated(request, response);
         int monthNumber = Integer.parseInt(request.params("month"));
         int yearNumber = Integer.parseInt(request.params("year"));
-        if (monthNumber < 0 || monthNumber > 11 || yearNumber < 0){
+        if (monthNumber < 0 || monthNumber > 12 || yearNumber < 0){
             monthNumber = 0;
             yearNumber = 2020;
         }
@@ -57,14 +58,14 @@ public class EventoController {
             int finalYearNumber = yearNumber;
             filteredEvents = eventos.stream().filter(evento -> {
                 evento.createInicioObject();
+                evento.setUsuario(null);
                 return evento.isInMonth(finalMonthNumber, finalYearNumber);
             }).collect(Collectors.toList());
         } else {
             filteredEvents = eventos;
         }
 
-        //TODO: Obtener los eventos del mes
-        return filteredEvents;
+        return new Gson().toJson(filteredEvents);
     }
 
     /**
@@ -80,7 +81,7 @@ public class EventoController {
         String descripcion = params.get("descripcion");
         Usuario user = request.session().attribute("usuario");
 
-        //LocalDateTime inicio = LocalDateTime.parse(fecha);
+
         Frecuencia frecuencia = new Unica(fecha);
         TipoEvento tipoEvento;
 

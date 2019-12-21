@@ -256,15 +256,12 @@
             let urlEventos = '/eventos/' + (actualMonth + 1) + '/' + actualYear;
             axios.get(urlEventos)
                     .then(function (response) {
-                        // handle success
-                        console.log(response);
+                        response.data.forEach(e => printEvent(e));
+                        console.log(response.data);
                     })
                     .catch(function (error) {
-                        // handle error
+                        toast('Hubo un error al obtener los eventos del mes 😢️', 'error');
                         console.log(error);
-                    })
-                    .finally(function () {
-                        // always executed
                     });
         }
 
@@ -277,6 +274,26 @@
         }
 
         deferObtenerEventos();
+
+        function printEvent(evento) {
+            let inicioObject = evento.frecuencia.inicioObject;
+            let date = inicioObject.date;
+            let time = inicioObject.time;
+            let fecha = date.year+'/'+date.month+'/'+date.day+' '+time.hour+':'+time.minute;
+            let tipo = evento.tipoEvento;
+            let descripcion = evento.descripcion;
+            let link = crearLink(evento.id, descripcion, tipo);
+            let contenedorLink = Array.from(document.querySelectorAll("[data-day='"+date.day+"']")).filter(div => !div.classList.contains('bg-light'))[0];
+            let contenidoDeContenedor = contenedorLink.children;
+            if (contenidoDeContenedor[1].nodeName === "p"){
+                contenidoDeContenedor[1].remove();
+            }
+            contenedorLink.innerHTML += link;
+        }
+
+        function crearLink(id, descrpcion, tipo) {
+
+        }
     </script>
 {{/partial}}
 
