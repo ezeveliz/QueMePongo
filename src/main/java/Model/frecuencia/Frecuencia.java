@@ -3,6 +3,7 @@ package Model.frecuencia;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -112,5 +113,10 @@ public abstract class Frecuencia {
 
     public boolean isInMonth(int finalMonthNumber, int finalYearNumber) {
         return inicioObject.getMonthValue() == finalMonthNumber && inicioObject.getYear() == finalYearNumber;
+    }
+
+    public String toString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        return this.proximaRepeticion().format(formatter);
     }
 }

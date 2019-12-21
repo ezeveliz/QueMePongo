@@ -1,15 +1,13 @@
 package Model.hibernate;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 
 public class HibernateSessionFactory {
     // nombre y ubicacion del archivo de confi guracion
@@ -56,9 +54,9 @@ public class HibernateSessionFactory {
         Configuration conf = new Configuration();
         File f = new File(CONFIG_FILE);
         conf.configure(f);
-        conf.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/database_queMePongo?serverTimezone=UTC");
+        conf.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/database_queMePongo?serverTimezone=UTC&useSSL=false");
         conf.setProperty("hibernate.connection.username", "root");
-        conf.setProperty("hibernate.connection.password", "admin");
+        conf.setProperty("hibernate.connection.password", "2522");
 
         return conf.buildSessionFactory();
     }
