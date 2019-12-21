@@ -1,10 +1,9 @@
 package Model.queMePongo;
 
-import Model.exceptions.EventoNoEncontradoException;
 import Model.frecuencia.Frecuencia;
 import Model.frecuencia.Unica;
-import lombok.Data;
 import Model.tiposDeEvento.TipoEvento;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,7 +24,7 @@ public class Evento implements Command {
     @Column(name="id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     private Usuario usuario;
 
@@ -38,8 +37,6 @@ public class Evento implements Command {
 
     @Column(name="horario")
     private LocalDateTime horario;
-
-    //private Frecuencia frecuencia;
 
     @Column(name="temperatura")
     private Double temperatura;
@@ -102,4 +99,11 @@ public class Evento implements Command {
             Sugerencias.verificarAtuendoValido(usuario, this, nuevaSugerencia, atuendoOriginal);
     }
 
+    public void createInicioObject() {
+        this.frecuencia.createInicioObject();
+    }
+
+    public boolean isInMonth(int finalMonthNumber, int finalYearNumber) {
+        return this.frecuencia.isInMonth(finalMonthNumber, finalYearNumber);
+    }
 }

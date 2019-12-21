@@ -2,14 +2,14 @@ package Model.queMePongo;
 
 import Model.exceptions.EventoNoEncontradoException;
 import Model.frecuencia.Frecuencia;
-import Model.frecuencia.Unica;
-import lombok.Data;
 import Model.tiposDeEvento.TipoEvento;
 import Model.tiposDeMedioDeNotificacion.*;
 import Model.tiposDeUsuario.Gratuito;
 import Model.tiposDeUsuario.Premium;
 import Model.tiposDeUsuario.TipoUsuario;
 import Model.tiposDeUsuario.TipoUsuarioEnum;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import static java.util.Objects.requireNonNull;
 
 @Data
+//Sin esta forrada de aca abajo, se genera un stackOverflow mistico
+@ToString(exclude = "eventos")
 @Entity
 @Table(name="usuario")
 public class Usuario 
@@ -41,12 +43,11 @@ public class Usuario
 	@Enumerated(EnumType.ORDINAL)
 	private TipoUsuarioEnum tipo;
 
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id", referencedColumnName = "id_usuario")
 	private PreferenciasDTO preferencias;
 
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario")
 	private List<Evento> eventos = new ArrayList<>();
 

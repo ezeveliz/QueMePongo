@@ -15,11 +15,10 @@ import spark.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EventoController {
     public ModelAndView mostrar(Request request, Response response) {
@@ -50,16 +49,16 @@ public class EventoController {
             yearNumber = 2020;
         }
         Usuario user = request.session().attribute("usuario");
-        List<Evento> eventos = new ArrayList<>();
-        try {
-            eventos = EventoDAO.getEvento(user);
-        } catch (SQLException | URISyntaxException e) {
-            e.printStackTrace();
-        }
+        List<Evento> eventos = user.getEventos();
 
-        List<Evento> filteredEvents = new ArrayList<>();
+        List<Evento> filteredEvents;
         if (!eventos.isEmpty()){
-
+            int finalMonthNumber = monthNumber;
+            int finalYearNumber = yearNumber;
+            filteredEvents = eventos.stream().filter(evento -> {
+                evento.createInicioObject();
+                return evento.isInMonth(finalMonthNumber, finalYearNumber);
+            }).collect(Collectors.toList());
         } else {
             filteredEvents = eventos;
         }
@@ -81,8 +80,8 @@ public class EventoController {
         String descripcion = params.get("descripcion");
         Usuario user = request.session().attribute("usuario");
 
-        LocalDateTime inicio = LocalDateTime.parse(fecha);
-        Frecuencia frecuencia = new Unica(inicio);
+        //LocalDateTime inicio = LocalDateTime.parse(fecha);
+        Frecuencia frecuencia = new Unica(fecha);
         TipoEvento tipoEvento;
 
         switch (tipo) {
@@ -103,6 +102,7 @@ public class EventoController {
         }
 
         Evento evento = new Evento(descripcion, tipoEvento, frecuencia);
+        evento.setUsuario(user);
         try{
             EventoDAO.agregarEvento(evento);
             return true;

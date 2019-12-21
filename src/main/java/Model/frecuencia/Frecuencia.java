@@ -18,12 +18,16 @@ public abstract class Frecuencia {
     private int id;
 
     @Column(name="inicio")
-    protected LocalDateTime inicio;
+    protected String inicio;
+
+    @Transient
+    protected LocalDateTime inicioObject;
 
     public Frecuencia(){}
 
-    public Frecuencia(LocalDateTime inicio){
-        this.inicio = inicio;
+    public Frecuencia(String _inicio){
+        this.inicio = _inicio;
+        this.inicioObject = LocalDateTime.parse(_inicio);
     }
 
 
@@ -63,19 +67,19 @@ public abstract class Frecuencia {
     }
 
     private int hora(){
-        return inicio.getHour();
+        return inicioObject.getHour();
     }
 
     private int minuto(){
-        return inicio.getMinute();
+        return inicioObject.getMinute();
     }
 
     private int segundo(){
-        return inicio.getSecond();
+        return inicioObject.getSecond();
     }
 
     private int nano(){
-        return inicio.getNano();
+        return inicioObject.getNano();
     }
 
     protected LocalDateTime fechaActualSinHora(){
@@ -100,5 +104,13 @@ public abstract class Frecuencia {
     public Date getDate() {
         return java.util.Date.from(this.proximaRepeticion().atZone(ZoneId.systemDefault())
                 .toInstant());
+    }
+
+    public void createInicioObject() {
+        inicioObject = LocalDateTime.parse(inicio);
+    }
+
+    public boolean isInMonth(int finalMonthNumber, int finalYearNumber) {
+        return inicioObject.getMonthValue() == finalMonthNumber && inicioObject.getYear() == finalYearNumber;
     }
 }

@@ -1,6 +1,8 @@
 package Model.frecuencia;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 
@@ -12,12 +14,12 @@ public class Unica extends Frecuencia {
     private String type;
 
     public Unica(){}
-    public Unica(LocalDateTime inicio) {
+    public Unica(String  inicio) {
         super(inicio);
     }
 
     public LocalDateTime proximaRepeticion() {
-        return this.inicio;
+        return this.inicioObject;
     }
 
 }
