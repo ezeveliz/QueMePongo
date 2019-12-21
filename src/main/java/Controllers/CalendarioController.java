@@ -24,10 +24,9 @@ public class CalendarioController {
         parametros.put("monthNumber", monthNumber);
         parametros.put("year", yearNumber);
         parametros.put("semanas", createSemanas(yearNumber, monthNumber));
-        //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", 1);
-        parametros.put("nombre", "Admin");
-        parametros.put("apellido", "Admin");
+        parametros.put("idUser", user.getId());
+        parametros.put("nombre", user.getNombre());
+        parametros.put("apellido", user.getApellido());
 
         parametros.put("guardarropas", user.getGuardarropas());
 

@@ -12,19 +12,32 @@ import java.util.Map;
 public class UsuarioController {
     public ModelAndView inicio(Request request, Response response) {
         Middlewares.authenticated(request, response);
-        //Id del usuario a mostrar(el pasado por parametro)
         int id = Integer.parseInt(request.params("id"));
-        //TODO: verificar que el id del usuario en la sesion y el id de la url sean el mismo, sino invalidar la sesion y mandar al login
 
         Map<String, Object> parametros = new HashMap<>();
         Usuario user = request.session().attribute("usuario");
 
-        parametros.put("section", "Inicio");
-        parametros.put("idUser", id);
-        parametros.put("nombre", user.getNombre());
-        parametros.put("apellido", user.getApellido());
-        parametros.put("guardarropas", user.getGuardarropas());
+        if (user != null){
+            if (user.getId() == id) {
+                parametros.put("section", "Inicio");
+                parametros.put("idUser", id);
+                parametros.put("nombre", user.getNombre());
+                parametros.put("apellido", user.getApellido());
+                parametros.put("guardarropas", user.getGuardarropas());
 
-        return new ModelAndView(parametros, "Usuario.hbs");
+                return new ModelAndView(parametros, "Usuario.hbs");
+            } else {
+                response.redirect("/usuario/"+user.getId());
+                return new ModelAndView(parametros, "");
+            }
+
+        } else {
+            request.session().attribute("logged", false);
+            request.session().attribute("logError", false);
+            response.redirect("/login");
+            return new ModelAndView(parametros, "");
+        }
+
+
     }
 }
