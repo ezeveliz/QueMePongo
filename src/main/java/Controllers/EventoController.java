@@ -8,7 +8,10 @@ import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,6 +19,7 @@ import spark.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +54,12 @@ public class EventoController {
             yearNumber = 2020;
         }
         Usuario user = request.session().attribute("usuario");
-        List<Evento> eventos = user.getEventos();
+        List<Evento> eventos = new ArrayList<>();
+        try {
+            eventos = EventoDAO.getEvento(user);
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
 
         List<Evento> filteredEvents;
         if (!eventos.isEmpty()){
@@ -58,14 +67,29 @@ public class EventoController {
             int finalYearNumber = yearNumber;
             filteredEvents = eventos.stream().filter(evento -> {
                 evento.createInicioObject();
-                evento.setUsuario(null);
                 return evento.isInMonth(finalMonthNumber, finalYearNumber);
             }).collect(Collectors.toList());
         } else {
             filteredEvents = eventos;
         }
+        //Esta cosa fea de aca abajo hace que no se serialize el campo usuario al transformar al evento en un json, evitando las referencias circulares
+        ExclusionStrategy strategy = new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes field) {
+                return field.getDeclaringClass() == Evento.class && field.getName().equals("usuario");
+            }
 
-        return new Gson().toJson(filteredEvents);
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        };
+
+        Gson gson = new GsonBuilder()
+                .addSerializationExclusionStrategy(strategy)
+                .create();
+
+        return gson.toJson(filteredEvents);
     }
 
     /**

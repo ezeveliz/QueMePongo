@@ -107,7 +107,7 @@
                                     <small class="col d-sm-none text-center text-muted">Domingo</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <p class="d-sm-none">No events</p>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div data-week="{{@index}}" data-day="{{lunes}}" class="day col-sm p-2 border border-left-0 border-top-0 text-truncate">
                                 <h5 class="row align-items-center">
@@ -115,7 +115,7 @@
                                     <small class="col d-sm-none text-center text-muted">Lunes</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <p class="d-sm-none">No events</p>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div data-week="{{@index}}" data-day="{{martes}}" class="day col-sm p-2 border border-left-0 border-top-0 text-truncate">
                                 <h5 class="row align-items-center">
@@ -123,7 +123,7 @@
                                     <small class="col d-sm-none text-center text-muted">Martes</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <p class="d-sm-none">No events</p>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div data-week="{{@index}}" data-day="{{miercoles}}" class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
                                 <h5 class="row align-items-center">
@@ -131,7 +131,7 @@
                                     <small class="col d-sm-none text-center text-muted">Miercoles</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <p class="d-sm-none">No events</p>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div data-week="{{@index}}" data-day="{{jueves}}" class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
                                 <h5 class="row align-items-center">
@@ -139,7 +139,7 @@
                                     <small class="col d-sm-none text-center text-muted">Jueves</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <p class="d-sm-none">No events</p>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div data-week="{{@index}}" data-day="{{viernes}}" class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
                                 <h5 class="row align-items-center">
@@ -147,7 +147,7 @@
                                     <small class="col d-sm-none text-center text-muted">Viernes</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-info text-white" title="Test Event 1">Test Event 1</a>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div data-week="{{@index}}" data-day="{{sabado}}" class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
                                 <h5 class="row align-items-center">
@@ -155,12 +155,13 @@
                                     <small class="col d-sm-none text-center text-muted">Sabado</small>
                                     <span class="col-1"></span>
                                 </h5>
-                                <p class="d-sm-none">No events</p>
+                                <p class="d-sm-none">Sin eventos</p>
                             </div>
                             <div class="w-100"></div>
                         {{/each}}
                     </div>
                 </div>
+                <div id="modalsContainer"></div>
             </div>
         </div>
     </div>
@@ -240,8 +241,12 @@
                             descripcion: descripcion
                         })
                         .then(function (response) {
-                            noti.update('Evento agregado', 'success');
-                            console.log(response);
+                            if (response.data) {
+                                noti.update('Evento agregado', 'success');
+                                setTimeout(function() { obtenerEventos() }, 100);
+                            } else {
+                                noti.update('Error al agregar evento', 'error');
+                            }
                         })
                         .catch(function (error) {
                             noti.update('Error al agregar evento', 'error');
@@ -276,23 +281,60 @@
         deferObtenerEventos();
 
         function printEvent(evento) {
-            let inicioObject = evento.frecuencia.inicioObject;
-            let date = inicioObject.date;
-            let time = inicioObject.time;
-            let fecha = date.year+'/'+date.month+'/'+date.day+' '+time.hour+':'+time.minute;
-            let tipo = evento.tipoEvento;
-            let descripcion = evento.descripcion;
-            let link = crearLink(evento.id, descripcion, tipo);
-            let contenedorLink = Array.from(document.querySelectorAll("[data-day='"+date.day+"']")).filter(div => !div.classList.contains('bg-light'))[0];
-            let contenidoDeContenedor = contenedorLink.children;
-            if (contenidoDeContenedor[1].nodeName === "p"){
-                contenidoDeContenedor[1].remove();
+            if (document.getElementById('evento'+evento.id) === null) {
+                let inicioObject = evento.frecuencia.inicioObject;
+                let date = inicioObject.date;
+                let time = inicioObject.time;
+                let fecha = date.year+'/'+date.month+'/'+date.day+' '+time.hour+':'+time.minute;
+                let tipo = evento.tipoDeEvento;
+                let descripcion = evento.descripcion;
+                let link = crearLink(evento.id, descripcion, tipo);
+                let contenedorLink = Array.from(document.querySelectorAll("[data-day='"+date.day+"']")).filter(div => !div.classList.contains('bg-light'))[0];
+                let contenidoDeContenedor = contenedorLink.children;
+                if (contenidoDeContenedor[1].nodeName === "P"){
+                    contenidoDeContenedor[1].remove();
+                }
+                contenedorLink.innerHTML += link;
+                let modalsContainer = document.getElementById('modalsContainer');
+                let modal = crearModal(evento.id, descripcion, tipo, fecha);
+                modalsContainer.innerHTML += modal;
             }
-            contenedorLink.innerHTML += link;
         }
 
-        function crearLink(id, descrpcion, tipo) {
+        function crearLink(id, descripcion, tipo) {
+            let color = eventColour(tipo);
+            return '<a data-toggle="modal" data-target="#evento'+id+'" class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small '+color+' text-white" title="'+descripcion+'" style="cursor: pointer;">'+tipo+'</a>';
+        }
 
+        function crearModal(id, descripcion, tipo, fecha) {
+            let color = eventColour(tipo);
+            return  '<div class="modal fade" id="evento'+id+'" tabindex="-1" role="dialog" aria-labelledby="evento'+id+'Label" aria-hidden="true">\n' +
+                    '  <div class="modal-dialog" role="document">\n' +
+                    '    <div class="modal-content">\n' +
+                    '      <div class="modal-header text-white '+color+'">\n' +
+                    '        <h5 class="modal-title" id="evento'+id+'Label">'+fecha+' - '+tipo+'</h5>\n' +
+                    '        <button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' +
+                    '          <span aria-hidden="true">&times;</span>\n' +
+                    '        </button>\n' +
+                    '      </div>\n' +
+                    '      <div class="modal-body">\n' +
+                    '        <h5>Descripcion:</h5><p>'+descripcion+'</p>\n' +
+                    '      </div>\n' +
+                    '    </div>\n' +
+                    '  </div>\n' +
+                    '</div>';
+        }
+
+        function eventColour(tipo) {
+            if (tipo === "CASUAL"){
+                return 'bg-primary';
+            } else if(tipo === "FORMAL"){
+                return "bg-success";
+            } else if(tipo === "FIESTA"){
+                return "bg-danger";
+            } else {
+                return "bg-info";
+            }
         }
     </script>
 {{/partial}}

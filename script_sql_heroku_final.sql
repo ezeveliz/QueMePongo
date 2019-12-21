@@ -148,7 +148,7 @@ DROP TABLE IF EXISTS `evento`;
 
 CREATE TABLE `evento` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int,
+  `id_usuario` int NOT NULL,
   `id_atuendo` int,
   `id_frecuencia` int,
   `descripcion` varchar(255),
