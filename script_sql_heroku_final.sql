@@ -16,7 +16,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-USE v2hcgyphcxicwo6q;
+USE database_queMePongo;
 --
 -- Table structure for table `usuario`
 --
@@ -41,7 +41,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario`() VALUES (1,'admin','admin','1231314411','admin@admin.com',1,'admin1','admin'),(2,'admin','admin','12222222','admin@admin.com',1,'admin2','admin'),(3,'admin','admin','1235666666','admin@admin.com',1,'admin3','admin');
+INSERT INTO `usuario`() VALUES (1,'admin1','admin1','1231314411','admin1@admin.com',1,'admin1','admin'),(2,'admin2','admin2','12222222','admin2@admin.com',1,'admin2','admin'),(3,'admin3','admin3','1235666666','admin3@admin.com',1,'admin3','admin');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `frecuencia`;
 
 CREATE TABLE `frecuencia` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `inicio` date,
+  `inicio` varchar(255),
   `tipo` varchar(255),
   PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

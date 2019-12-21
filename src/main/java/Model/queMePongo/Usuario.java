@@ -51,6 +51,7 @@ public class Usuario
 	private List<Evento> eventos = new ArrayList<>();
 
 	@ElementCollection
+	@CollectionTable(name = "usuario_mediosenum")
 	private List<MedioDeNotificacionEnum> mediosEnum = new ArrayList<>();
 
 	@Column(name="telefono")
