@@ -1,8 +1,10 @@
 package Controllers;
 
 import Model.queMePongo.Guardarropas;
+import Model.queMePongo.Prenda;
 import Model.queMePongo.Usuario;
 import Utils.Middlewares;
+import com.google.common.collect.Lists;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
@@ -30,12 +32,18 @@ public class GuardarropaController {
 
         if (gr.isPresent()){
             Guardarropas guardarropa = gr.get();
+            List<Prenda> prendas = guardarropa.getPrendas();
+            List<List<Prenda>> splittedPrendas = Lists.partition(prendas, 4);
+            Boolean sinPrendas = prendas.isEmpty();
+
             parametros.put("section", guardarropa.getNombre());
             parametros.put("idUser", user.getId());
             parametros.put("nombre", user.getNombre());
             parametros.put("apellido", user.getApellido());
             parametros.put("idGuardarropa", id);
             parametros.put("guardarropas", guardarropas);
+            parametros.put("sinPrendas", sinPrendas);
+            parametros.put("splittedPrendas", splittedPrendas);
 
             return new ModelAndView(parametros, "Guardarropa.hbs");
         } else {
