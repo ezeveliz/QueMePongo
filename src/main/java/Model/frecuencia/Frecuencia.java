@@ -32,6 +32,7 @@ public abstract class Frecuencia {
         return this.diferenciaEnHoras(LocalDateTime.now()) < 2;
     }
 
+
     //--Me da la distancia entre hoy y la fecha de inicio
     public int diasRestantes() {
         return (int)this.diferenciaEnDias(LocalDateTime.now());
