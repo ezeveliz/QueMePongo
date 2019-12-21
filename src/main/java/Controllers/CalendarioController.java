@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.queMePongo.Usuario;
 import Utils.Middlewares;
 import Utils.SemanaDTO;
 import spark.ModelAndView;
@@ -12,6 +13,8 @@ public class CalendarioController {
     public ModelAndView calendarView(Request request, Response response) {
         Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
+
+        Usuario user = request.session().attribute("usuario");
         Calendar cal = Calendar.getInstance();
         int monthNumber = cal.get(Calendar.MONTH);
         String monthName = this.monthName(monthNumber);
@@ -25,12 +28,20 @@ public class CalendarioController {
         parametros.put("idUser", 1);
         parametros.put("nombre", "Admin");
         parametros.put("apellido", "Admin");
+
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En calendario:");
+        System.out.println(user.getGuardarropas());
+
         return new ModelAndView(parametros, "Calendar.hbs");
     }
 
     public ModelAndView customizedCalendarView(Request request, Response response) {
         Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
+        Usuario user = request.session().attribute("usuario");
+
         int monthNumber = Integer.parseInt(request.params("month"));
         int yearNumber = Integer.parseInt(request.params("year"));
         if (monthNumber < 0 || monthNumber > 11 || yearNumber < 0){
@@ -43,10 +54,14 @@ public class CalendarioController {
         parametros.put("monthNumber", monthNumber);
         parametros.put("year", yearNumber);
         parametros.put("semanas", createSemanas(yearNumber, monthNumber));
-        //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", 1);
-        parametros.put("nombre", "Admin");
-        parametros.put("apellido", "Admin");
+        parametros.put("idUser", user.getId());
+        parametros.put("nombre", user.getNombre());
+        parametros.put("apellido", user.getApellido());
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En calendario:");
+        System.out.println(user.getGuardarropas());
+
         return new ModelAndView(parametros, "Calendar.hbs");
     }
 

@@ -17,6 +17,6 @@ public class Server {
             return Integer.parseInt(System.getenv("PORT"));
 
         }
-        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+        return 4597; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }

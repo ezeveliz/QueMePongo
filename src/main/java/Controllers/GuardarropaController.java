@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.queMePongo.Usuario;
 import Utils.Middlewares;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -18,14 +19,20 @@ public class GuardarropaController {
     public ModelAndView mostrar(Request request, Response response) {
         Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
+        Usuario user = request.session().attribute("usuario");
+
         //Id del guardarropa a mostrar
         int id = Integer.parseInt(request.params("id"));
-        parametros.put("section", "Guardarropa Pepe");
+        parametros.put("section", "Guardarropas");
         //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", 1);
-        parametros.put("nombre", "Admin");
-        parametros.put("apellido", "Admin");
+        parametros.put("idUser", user.getId());
+        parametros.put("nombre", user.getNombre());
+        parametros.put("apellido", user.getApellido());
         parametros.put("idGuardarropa", id);
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En guardarropas:");
+        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Guardarropa.hbs");
     }
 

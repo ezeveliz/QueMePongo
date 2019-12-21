@@ -36,6 +36,10 @@ public class PreferenciasController {
         parametros.put("tela",preferencias.getTela());
         parametros.put("color1", preferencias.getColor1());
         parametros.put("color2", preferencias.getColor2());
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En preferencias:");
+        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Preferencias.hbs");
     }
 

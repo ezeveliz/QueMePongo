@@ -35,6 +35,10 @@ public class PerfilController {
         parametros.put("notiEmail", user.hayNotiEmail());
         parametros.put("notiSms", user.hayNotiSMS());
         parametros.put("notiWapp", user.hayNotiWapp());
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En perfil:");
+        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Perfil.hbs");
     }
 
