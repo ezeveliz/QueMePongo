@@ -1,5 +1,7 @@
 package Controllers;
 
+import Model.queMePongo.PreferenciasDTO;
+import Model.queMePongo.Usuario;
 import Utils.Middlewares;
 import spark.ModelAndView;
 import spark.Request;
@@ -16,10 +18,19 @@ public class UsuarioController {
         //TODO: verificar que el id del usuario en la sesion y el id de la url sean el mismo, sino invalidar la sesion y mandar al login
 
         Map<String, Object> parametros = new HashMap<>();
+        Usuario user = request.session().attribute("usuario");
+
         parametros.put("section", "Inicio");
         parametros.put("idUser", id);
-        parametros.put("nombre", "Admin");
-        parametros.put("apellido", "Admin");
+        parametros.put("nombre", user.getNombre());
+        parametros.put("apellido", user.getApellido());
+
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En Guardarropas");
+        System.out.println(user.getGuardarropas());
+
+
         return new ModelAndView(parametros, "Usuario.hbs");
     }
 }

@@ -40,6 +40,7 @@ public class InicioController {
             parametros.put("idUser", 1);
         }
         parametros.put("section", "Bienvenido");
+
         return new ModelAndView(parametros, "Inicio.hbs");
     }
 
@@ -90,7 +91,6 @@ public class InicioController {
 
         Usuario userLogin = UsuarioDAO.getUsuario(params.get("email"));
 
-        System.out.print(userLogin);
 
         if(userLogin != null){
             if(email.equals(userLogin.getEmail()) && password.equals(userLogin.getContraseña())){
@@ -100,6 +100,7 @@ public class InicioController {
                 request.session().removeAttribute("oldEmail");
                 request.session().removeAttribute("oldPass");
                 request.session().attribute("usuario",userLogin);
+                request.session().attribute("guardarropas",userLogin.getGuardarropas());
                 response.redirect("/usuario/"+ userLogin.getId());
 
                 //Redirigir a home

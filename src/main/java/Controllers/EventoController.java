@@ -24,13 +24,19 @@ public class EventoController {
     public ModelAndView mostrar(Request request, Response response) {
         Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
+        Usuario user = request.session().attribute("usuario");
+
         //Id del evento a mostrar
         int id = Integer.parseInt(request.params("id"));
         parametros.put("section", "Evento 20/12/2019 - Formal");
         //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", 1);
-        parametros.put("nombre", "Admin");
-        parametros.put("apellido", "Admin");
+        parametros.put("idUser", user.getId());
+        parametros.put("nombre", user.getNombre());
+        parametros.put("apellido", user.getApellido());
+        parametros.put("guardarropas", user.getGuardarropas());
+
+        System.out.println("En evetno:");
+        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Evento.hbs");
     }
 
