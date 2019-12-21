@@ -33,7 +33,7 @@ public class Usuario
 	@Column(name = "id")
 	private int id;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "usuario_guardarropa",
 			joinColumns = {@JoinColumn(name = "id_usuario")},

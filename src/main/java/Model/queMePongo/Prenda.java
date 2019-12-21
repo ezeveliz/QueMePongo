@@ -28,15 +28,10 @@ public class Prenda {
 	@Column(name="nombre")
 	private String nombre;
 
-	@ElementCollection
-	@CollectionTable(name = "prendas_categoria", joinColumns = @JoinColumn(name = "prenda_id"))
-	@Column(name = "categoria")
-	private List<Categoria> categoriasDisponibles = new ArrayList<>();
-
 	@Enumerated(EnumType.ORDINAL)
 	private Categoria categoria;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_tipo_prenda")
 	private TipoPrenda tipoDePrenda;
 
@@ -113,5 +108,26 @@ public class Prenda {
 
 	public String toString(){
 		return this.nombre;
+	}
+
+	public void tipoDePendaDeportiva(Boolean valor){
+		if(valor) {
+			tipoEvento = TipoEvento.DEPORTES;
+		}
+	}
+	public void tipoDePendaCasual(Boolean valor){
+		if(valor) {
+			tipoEvento = TipoEvento.CASUAL;
+		}
+	}
+	public void tipoDePendaFiesta(Boolean valor){
+		if(valor) {
+			tipoEvento = TipoEvento.FIESTA;
+		}
+	}
+	public void tipoDePendaFormal(Boolean valor){
+		if(valor) {
+			tipoEvento = TipoEvento.FORMAL;
+		}
 	}
 }

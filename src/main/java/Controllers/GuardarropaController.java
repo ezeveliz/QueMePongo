@@ -1,15 +1,20 @@
 package Controllers;
 
+import Model.DAO.UsuarioDAO;
 import Model.queMePongo.Guardarropas;
 import Model.queMePongo.Usuario;
 import Utils.Middlewares;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,10 +83,20 @@ public class GuardarropaController {
      * @param response response
      * @return
      */
-    public Object agregar(Request request, Response response) {
+    public Object agregar(Request request, Response response) throws URISyntaxException, SQLException, IOException {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
-        Map<String, String> params = toMap(pairs);
-        String nombre = params.get("nombre");
+        Map<String, String> params = new ObjectMapper().readValue(request.body(), Map.class);
+
+        Usuario user = request.session().attribute("usuario");
+
+        Guardarropas guardarropas = new Guardarropas();
+        guardarropas.setNombre(params.get("nombre"));
+        guardarropas.setDisponible(1);
+
+        user.agregarGuardarropas(guardarropas);
+
+        UsuarioDAO.modificarUsuario(user);
+
         return params;
     }
 }

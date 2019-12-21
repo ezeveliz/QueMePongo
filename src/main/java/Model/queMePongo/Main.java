@@ -38,17 +38,13 @@ public class Main {
         Usuario user ;
         UsuarioDAO u = new UsuarioDAO();
         user =u.getUsuario("admin@admin.com");
-        System.out.println(user);
 
-        user.setContraseña("11111");
-        user.setNombre("mabel");
-        user.modiciarNotiEmail(false);
-        user.modiciarNotiSMS(false);
-        user.modiciarNotiWapp(false);
-        u.modificarUsuario(user);
-        user =u.getUsuario("admin@admin.com");
+        Guardarropas guardarropaNuevo = new Guardarropas();
+        guardarropaNuevo.setNombre("tuVieja");
+        guardarropaNuevo.setDisponible(1);
+        user.agregarGuardarropas(guardarropaNuevo);
 
-        System.out.print(user);
+        UsuarioDAO.modificarUsuario(user);
 
         //System.out.println((40-23)/6);
         //MainServiceOpenWeather clima = new MainServiceOpenWeather();

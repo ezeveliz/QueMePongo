@@ -2,10 +2,13 @@ package Model.tipoDePrenda;
 
 
 import Model.queMePongo.Categoria;
+import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+@Data
 @Entity
 @DiscriminatorValue(value = "Basico")
 public class TipoPrendaBasico extends TipoPrenda {
@@ -14,31 +17,24 @@ public class TipoPrendaBasico extends TipoPrenda {
     @Column(name="id")
     private int id;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Categoria categoria;
-
     @Column(name="nivel_calor")
-    private int nivelDeCalor;
+    private int nivelDeCalor = 0;
 
     @ElementCollection
-    private List<String> telasDisponibles;
+    private List<String> telasDisponibles  = new ArrayList<>();
 
     @ElementCollection
-    private List<String> coloresDisponibles;
+    private List<String> coloresDisponibles  = new ArrayList<>();
 
     @ElementCollection
-    private List<String> eventosDisponibles;
+    private List<String> eventosDisponibles  = new ArrayList<>();
 
     public TipoPrendaBasico(){}
 
-    public TipoPrendaBasico( Categoria _categoria, List<String> _telasDisponibles, List<String> _coloresDisponibles, List<String> _eventosDisponibles){
-        categoria = _categoria;
+    public TipoPrendaBasico( List<String> _telasDisponibles, List<String> _coloresDisponibles, List<String> _eventosDisponibles){
         telasDisponibles = _telasDisponibles;
         coloresDisponibles = _coloresDisponibles;
         eventosDisponibles = _eventosDisponibles;
-    }
-    public Categoria getCategoria(){
-        return categoria;
     }
 
     public int nivelDeCalor(){

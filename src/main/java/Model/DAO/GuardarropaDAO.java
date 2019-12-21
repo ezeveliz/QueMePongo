@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GuardarropaDAO {
-    public Guardarropas getGuardarropas(int id_guardarropa) throws URISyntaxException, SQLException {
+    public static Guardarropas getGuardarropas(int id_guardarropa) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         String hql = "FROM Guardarropas g WHERE g.id = :id_guardarropa";
         Query query = session.createQuery(hql);
@@ -22,9 +22,26 @@ public class GuardarropaDAO {
         List<Guardarropas> list = query.list();
 
         return list.get(0);
+
     }
 
-    public void modificarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
+    public static void guardarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
+
+        Session session = HibernateSessionFactory.getSession();
+        // inicio una transaccion
+        Transaction trx = session.beginTransaction();
+
+        //Salvo el usuarioNuevo
+        session.save(guardarropa);
+
+        // commiteo la transaccion
+        trx.commit();
+
+        session.close();
+
+    }
+
+    public static void  modificarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         // inicio una transaccion
         Transaction trx = session.beginTransaction();
@@ -38,7 +55,7 @@ public class GuardarropaDAO {
         session.close();
     }
 
-    public int eliminarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
+    public static int eliminarGuardarropas(Guardarropas guardarropa) throws URISyntaxException, SQLException {
         Session session = HibernateSessionFactory.getSession();
         // inicio una transaccion
         Transaction trx = session.beginTransaction();

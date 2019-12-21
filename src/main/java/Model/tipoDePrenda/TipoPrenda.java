@@ -1,12 +1,14 @@
 package Model.tipoDePrenda;
 
 import Model.queMePongo.Categoria;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name="tipo_prenda")
 @DiscriminatorColumn(name = "tipo")

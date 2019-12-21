@@ -15,7 +15,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
 USE database_queMePongo;
 --
 -- Table structure for table `usuario`
@@ -95,7 +94,6 @@ DROP TABLE IF EXISTS `tipo_prenda`;
 
 CREATE TABLE `tipo_prenda` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `categoria` int,
   `nivel_calor` int NOT NULL,
   PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -365,24 +363,6 @@ LOCK TABLES `tipo_prenda` WRITE;
 /*!40000 ALTER TABLE `tipo_prenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
-DROP TABLE IF EXISTS `prendas_categoria`;
-
-CREATE TABLE `prendas_categoria` (
-  `Prenda_id` int,
-  `categoria` int,
-  PRIMARY KEY (`Prenda_id`,`categoria`),
-  FOREIGN KEY (`Prenda_id`) REFERENCES `prenda` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `prendas_categoria`
---
-
-LOCK TABLES `prendas_categoria` WRITE;
-/*!40000 ALTER TABLE `prendas_categoria` DISABLE KEYS */;
-/*!40000 ALTER TABLE `prendas_categoria` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `usuarios_mediosenum`

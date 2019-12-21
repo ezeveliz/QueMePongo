@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name="guardarropa")
 public class Guardarropas {
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 
@@ -20,7 +20,7 @@ public class Guardarropas {
 	}
 
 
-	@OneToMany
+	@OneToMany (cascade = CascadeType.ALL)
 	@JoinColumn(name="id_guardarropa")
 	private List<Prenda> prendas = new ArrayList<>();
 
@@ -28,6 +28,8 @@ public class Guardarropas {
 	private String nombre;
 	//qué significan los demas atributos que aparecen en el diagrama de clases?
 
+	@Column(name="disponible")
+	private int disponible;
 
 	public Guardarropas(){}
 
