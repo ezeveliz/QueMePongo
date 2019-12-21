@@ -1,5 +1,6 @@
 package Controllers;
 
+import Model.queMePongo.Guardarropas;
 import Model.queMePongo.Usuario;
 import Utils.Middlewares;
 import org.apache.http.NameValuePair;
@@ -12,6 +13,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static Utils.DarkMagic.toMap;
 
@@ -23,17 +25,24 @@ public class GuardarropaController {
 
         //Id del guardarropa a mostrar
         int id = Integer.parseInt(request.params("id"));
-        parametros.put("section", "Guardarropas");
-        //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", user.getId());
-        parametros.put("nombre", user.getNombre());
-        parametros.put("apellido", user.getApellido());
-        parametros.put("idGuardarropa", id);
-        parametros.put("guardarropas", user.getGuardarropas());
+        List<Guardarropas> guardarropas = user.getGuardarropas();
+        Optional<Guardarropas> gr = guardarropas.stream().filter(g -> g.getId() == id).findFirst();
 
-        System.out.println("En guardarropas:");
-        System.out.println(user.getGuardarropas());
-        return new ModelAndView(parametros, "Guardarropa.hbs");
+        if (gr.isPresent()){
+            Guardarropas guardarropa = gr.get();
+            parametros.put("section", guardarropa.getNombre());
+            parametros.put("idUser", user.getId());
+            parametros.put("nombre", user.getNombre());
+            parametros.put("apellido", user.getApellido());
+            parametros.put("idGuardarropa", id);
+            parametros.put("guardarropas", guardarropas);
+
+            return new ModelAndView(parametros, "Guardarropa.hbs");
+        } else {
+            response.redirect("/usuario/"+user.getId());
+            return new ModelAndView(parametros, "");
+        }
+
     }
 
     /**

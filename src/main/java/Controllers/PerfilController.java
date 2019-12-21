@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Utils.DarkMagic.toMap;
-
 public class PerfilController {
     public ModelAndView mostrar(Request request, Response response) {
         Middlewares.authenticated(request, response);
@@ -36,9 +34,6 @@ public class PerfilController {
         parametros.put("notiSms", user.hayNotiSMS());
         parametros.put("notiWapp", user.hayNotiWapp());
         parametros.put("guardarropas", user.getGuardarropas());
-
-        System.out.println("En perfil:");
-        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Perfil.hbs");
     }
 

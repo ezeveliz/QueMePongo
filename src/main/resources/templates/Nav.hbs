@@ -12,15 +12,17 @@
                 </a>
             </li>
             <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-no-instant="" onclick="load_guardarropas()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-no-instant="">
                     <i class="fal fa-socks"></i>
                     <span class="nav-link-text">Guardarropas</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="menu_guardarropas">
-                    <a class="dropdown-item " href="/guardarropa/1">
-                        <span class="nav-link-text">Pepe</span>
-                    </a>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addWardrobe">Agregar Guardarropa</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    {{#each guardarropas}}
+                        <a class="dropdown-item " href="/guardarropa/{{id}}">
+                            <span class="nav-link-text">{{nombre}}</span>
+                        </a>
+                    {{/each}}
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addWardrobe"><i class="fal fa-plus-square text-success"></i> Agregar Guardarropa</a>
                 </div>
             </li>
         </ul>
@@ -32,6 +34,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/preferencias/1"><i class="fal fa-sliders-v-square"></i> Preferencias</a>
                     <a class="dropdown-item" href="/perfil/{{idUser}}"><i class="fal fa-address-book"></i> Perfil</a>
+                    <div class="dropdown-divider"></div>
                     <form action="/logout" method="POST" class="form-inline centered">
                         <button type="submit" class="dropdown-item text-danger"><i class="fal fa-sign-out-alt"></i> Salir
                         </button>

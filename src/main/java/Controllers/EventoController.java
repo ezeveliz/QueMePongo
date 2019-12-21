@@ -40,8 +40,6 @@ public class EventoController {
         parametros.put("apellido", user.getApellido());
         parametros.put("guardarropas", user.getGuardarropas());
 
-        System.out.println("En evetno:");
-        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Evento.hbs");
     }
 

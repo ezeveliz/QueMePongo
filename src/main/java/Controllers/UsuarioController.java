@@ -1,6 +1,5 @@
 package Controllers;
 
-import Model.queMePongo.PreferenciasDTO;
 import Model.queMePongo.Usuario;
 import Utils.Middlewares;
 import spark.ModelAndView;
@@ -24,12 +23,7 @@ public class UsuarioController {
         parametros.put("idUser", id);
         parametros.put("nombre", user.getNombre());
         parametros.put("apellido", user.getApellido());
-
         parametros.put("guardarropas", user.getGuardarropas());
-
-        System.out.println("En Guardarropas");
-        System.out.println(user.getGuardarropas());
-
 
         return new ModelAndView(parametros, "Usuario.hbs");
     }

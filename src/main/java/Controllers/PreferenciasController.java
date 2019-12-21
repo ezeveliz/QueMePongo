@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Utils.DarkMagic.toMap;
-
 public class PreferenciasController {
     public ModelAndView mostrar(Request request, Response response) {
         Middlewares.authenticated(request, response);
@@ -37,9 +35,6 @@ public class PreferenciasController {
         parametros.put("color1", preferencias.getColor1());
         parametros.put("color2", preferencias.getColor2());
         parametros.put("guardarropas", user.getGuardarropas());
-
-        System.out.println("En preferencias:");
-        System.out.println(user.getGuardarropas());
         return new ModelAndView(parametros, "Preferencias.hbs");
     }
 

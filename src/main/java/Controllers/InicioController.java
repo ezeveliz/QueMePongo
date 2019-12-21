@@ -100,7 +100,6 @@ public class InicioController {
                 request.session().removeAttribute("oldEmail");
                 request.session().removeAttribute("oldPass");
                 request.session().attribute("usuario",userLogin);
-                request.session().attribute("guardarropas",userLogin.getGuardarropas());
                 response.redirect("/usuario/"+ userLogin.getId());
 
                 //Redirigir a home
