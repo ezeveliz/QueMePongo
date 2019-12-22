@@ -31,7 +31,7 @@ public class Prenda {
 	@Enumerated(EnumType.ORDINAL)
 	private Categoria categoria;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_tipo_prenda")
 	private TipoPrenda tipoDePrenda;
 

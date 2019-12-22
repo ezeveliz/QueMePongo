@@ -16,7 +16,7 @@ import javax.persistence.*;
 public abstract class TipoPrenda{
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 

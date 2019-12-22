@@ -1,9 +1,13 @@
 package Controllers;
 
+import Model.DAO.GuardarropaDAO;
 import Model.DAO.UsuarioDAO;
+import Model.queMePongo.Categoria;
 import Model.queMePongo.Guardarropas;
 import Model.queMePongo.Prenda;
 import Model.queMePongo.Usuario;
+import Model.tipoDePrenda.TipoPrendaAbrigo;
+import Model.tipoDePrenda.TipoPrendaBasico;
 import Utils.Middlewares;
 
 import com.google.common.collect.Lists;
@@ -65,24 +69,38 @@ public class GuardarropaController {
      * @param response response
      * @return
      */
-    public Object agregarPrenda(Request request, Response response) {
+    public Object agregarPrenda(Request request, Response response) throws IOException, URISyntaxException, SQLException {
         List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
-        Map<String, String> params = toMap(pairs);
-        String nombre = params.get("nombre");
-        String ubicacion = params.get("ubicacion");
-        String tipoPrenda = params.get("tipoPrenda");
-        String nivelAbrigo = params.get("nivelAbrigo");
-        //TODO: verificar si los transforma a boolean
-        Boolean casual = Boolean.valueOf(params.get("casual"));
-        Boolean formal = Boolean.valueOf(params.get("formal"));
-        Boolean fiesta = Boolean.valueOf(params.get("fiesta"));
-        Boolean deportes = Boolean.valueOf(params.get("deportes"));
-        String tela = params.get("tela");
-        String color1 = params.get("color1");
-        String color2 = params.get("color2");
+        Map<String, Object> params = new ObjectMapper().readValue(request.body(), Map.class);
+
+        Prenda prenda = new Prenda();
+        prenda.setNombre(params.get("nombre").toString());
+        prenda.setCategoria(Categoria.valueOf(params.get("ubicacion").toString()));
+        if(params.get("tipoPrenda").equals("abrigo")){
+            TipoPrendaAbrigo tipoPrenda = new TipoPrendaAbrigo();
+            tipoPrenda.setNivelDeCalor(params.get("nivelAbrigo").toString());
+            prenda.setTipoDePrenda(tipoPrenda);
+        }else{
+            TipoPrendaBasico tipoPrenda = new TipoPrendaBasico();
+            prenda.setTipoDePrenda(tipoPrenda);
+        }
+        Boolean a = Boolean.valueOf(params.get("casual").toString());
+        prenda.tipoDePendaCasual(a);
+        prenda.tipoDePendaFormal(Boolean.valueOf(params.get("formal").toString()));
+        prenda.tipoDePendaFiesta(Boolean.valueOf(params.get("fiesta").toString()));
+        prenda.tipoDePendaDeportiva(Boolean.parseBoolean(params.get("deportes").toString()));
+        prenda.setTela(params.get("tela").toString());
+        prenda.setColorPrimario(params.get("color1").toString());
+        prenda.setColorSecundario(params.get("color2").toString());
         // Imagen en Base64
-        String imagen = params.get("imagen");
-        String idGuardarropa = params.get("idGuardarropa");
+        prenda.setFoto(params.get("imagen").toString());
+
+        prenda.setId_guardarropa(Integer.parseInt(params.get("idGuardarropa").toString()));
+        Guardarropas guardarropas = GuardarropaDAO.getGuardarropas(Integer.parseInt(params.get("idGuardarropa").toString()));
+        guardarropas.agregarPrenda(prenda);
+
+        GuardarropaDAO.modificarGuardarropas(guardarropas);
+
         return params;
     }
 

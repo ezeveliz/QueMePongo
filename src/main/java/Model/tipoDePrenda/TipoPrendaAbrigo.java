@@ -12,7 +12,7 @@ import javax.persistence.*;
 @DiscriminatorValue(value = "Abrigo")
 public class TipoPrendaAbrigo extends TipoPrenda {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -44,5 +44,14 @@ public class TipoPrendaAbrigo extends TipoPrenda {
 	public boolean esDeAbrigoValido(int nivelDeAbrigo) {
 		return this.nivelDeCalor() <= nivelDeAbrigo;
 	}
+
+    public void setNivelDeCalor(int parametro){
+        nivelDeCalor = parametro;
+    }
+
+	public void setNivelDeCalor(String parametro){
+        nivelDeCalor = Integer.parseInt(parametro);
+    }
+
 
 }

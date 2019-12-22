@@ -1,7 +1,9 @@
 package Model.queMePongo;
 
+import Model.DAO.GuardarropaDAO;
 import Model.DAO.UsuarioDAO;
 import Model.frecuencia.Unica;
+import Model.tipoDePrenda.TipoPrendaAbrigo;
 import org.hibernate.Session;
 import Model.tipoDePrenda.TipoPrendaBasico;
 import Model.tiposDeEvento.TipoEvento;
@@ -35,16 +37,12 @@ public class Main {
         //session.close();
 
         //System.out.print(System.getenv("JAWSDB_URL"));
-        Usuario user ;
-        UsuarioDAO u = new UsuarioDAO();
-        user =u.getUsuario("admin@admin.com");
 
-        Guardarropas guardarropaNuevo = new Guardarropas();
-        guardarropaNuevo.setNombre("tuVieja");
-        guardarropaNuevo.setDisponible(1);
-        user.agregarGuardarropas(guardarropaNuevo);
+        Guardarropas guardarropas = GuardarropaDAO.getGuardarropas(Integer.parseInt("1"));
 
-        UsuarioDAO.modificarUsuario(user);
+
+        GuardarropaDAO.modificarGuardarropas(guardarropas);
+
 
         //System.out.println((40-23)/6);
         //MainServiceOpenWeather clima = new MainServiceOpenWeather();

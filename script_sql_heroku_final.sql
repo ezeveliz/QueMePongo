@@ -218,24 +218,6 @@ INSERT INTO `usuario_guardarropa`() VALUES (1,1),(1,2),(1,3);
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `categoria`;
-
-CREATE TABLE `categoria` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `categoria`
---
-
-LOCK TABLES `categoria` WRITE;
-/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Torso'),(2,'Piernas'),(3,'Pies'),(4,'Cabeza'),(5,'Accesorio');
-/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
 
 DROP TABLE IF EXISTS `prenda`;
 
@@ -247,7 +229,6 @@ CREATE TABLE `prenda` (
   `id_tipo_prenda` int,
   `tipo_evento` varchar(255),
   `tela` varchar(100),
-  `id_categoria` int,
   `color_primario` varchar(100),
   `color_secundario` varchar(100),
   `foto` LONGTEXT, 
@@ -256,7 +237,6 @@ CREATE TABLE `prenda` (
   
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_guardarropa`) REFERENCES `guardarropa` (`id`),
-  FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`),
   FOREIGN KEY (`id_tipo_prenda`) REFERENCES `tipo_prenda` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

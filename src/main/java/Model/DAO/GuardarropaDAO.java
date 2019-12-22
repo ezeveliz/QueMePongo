@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.hibernate.HibernateSessionFactory;
+import Model.queMePongo.Prenda;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.Query;
