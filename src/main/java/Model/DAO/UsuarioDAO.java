@@ -26,6 +26,14 @@ public class UsuarioDAO {
         return list.isEmpty()? null: list.get(0);
     }
 
+    public static Usuario getUsuarioId(int id) throws URISyntaxException, SQLException {
+
+        Session session = HibernateSessionFactory.getSession();
+        return session.get(Usuario.class,id);
+    }
+
+
+
     public static List<Usuario> serchUsuarioNombre(String parametro) throws URISyntaxException, SQLException {
 
         Session session = HibernateSessionFactory.getSession();

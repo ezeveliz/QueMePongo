@@ -231,8 +231,7 @@ CREATE TABLE `prenda` (
   `tela` varchar(100),
   `color_primario` varchar(100),
   `color_secundario` varchar(100),
-  `foto` LONGTEXT, 
-  `nivel_calor` int,
+  `foto` LONGTEXT,
   `disponible` tinyint,
   
   PRIMARY KEY (`id`),
@@ -327,8 +326,6 @@ DROP TABLE IF EXISTS `tipo_prenda`;
 
 CREATE TABLE `tipo_prenda` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_prenda` int,
-  `categoria` int,
   `nivel_calor` int,
   `tipo` varchar(255),
   PRIMARY KEY (`id`)

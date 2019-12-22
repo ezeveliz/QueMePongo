@@ -2,7 +2,14 @@
     </head>
     <!-- Navigation -->
     {{> Nav.hbs}}
-    <body class="text-center sticky-footer">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script>
+
+    </script>
+    <body class="text-center sticky-footer" oninit="Handlebars.registerHelper('formatoFecha', function (passedString) {
+            var theString = passedString.substring(0, 9);
+            return new Handlebars.SafeString(theString)
+        });">
     <div class="content-wrapper">
         <div class="container-fluid">
             <ol class="breadcrumb shadow">
@@ -23,13 +30,15 @@
                                 </li>
                             </ul>
                         </div>
+                        {{#each eventos_proximos}}
                         <div class="card-body text-center p-0">
                             <div class="list-group list-group-flush">
-                                <a class="list-group-item list-group-item-action pb-0" href="#" style="cursor: pointer;" title="Haz click para ver detalles del evento" data-toggle="modal" data-target="#eventoModal">
-                                    <p>21/12/2019 <span class="badge badge-pill badge-success">Formal</span></p>
+                                <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento" data-toggle="modal" data-target="#eventoModal">
+                                    <p>{{ frecuencia.fechaLinda }}<span class="badge badge-pill badge-success"> Formal </span></p>
                                 </a>
                             </div>
                         </div>
+                        {{/each}}
                         <div class="modal fade" id="eventoModal" tabindex="-1" role="dialog" aria-labelledby="eventoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -89,13 +98,15 @@
                                 </li>
                             </ul>
                         </div>
+                        {{#each sugerencias}}
                         <div class="card-body text-center p-0">
                             <div class="list-group list-group-flush">
-                                <a class="list-group-item list-group-item-action pb-0" href="/evento/1" style="cursor: pointer;" title="Haz click para ir al evento y seleccionar un atuendo" data-instant="">
-                                    <p>20/12/2019 <span class="badge badge-pill badge-success">Formal</span></p>
+                                <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ir al evento y seleccionar un atuendo" data-instant="">
+                                    <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success">Formal</span></p>
                                 </a>
                             </div>
                         </div>
+                        {{/each}}
                     </div>
                     <br>
                 </div>
@@ -110,13 +121,15 @@
                                 </li>
                             </ul>
                         </div>
+                        {{#each eventos_pasados}}
                         <div class="card-body text-center p-0">
                             <div class="list-group list-group-flush">
-                                <a class="list-group-item list-group-item-action pb-0" href="#" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
-                                    <p>10/12/2019 <span class="badge badge-pill badge-success">Deporte</span></p>
+                                <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
+                                    <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success">Deporte</span></p>
                                 </a>
                             </div>
                         </div>
+                        {{/each}}
                         <div class="modal fade" id="eventoPasadoModal" tabindex="-1" role="dialog" aria-labelledby="eventoPasadoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
@@ -169,6 +182,7 @@
             </div>
         </div>
     </div>
+
 {{/partial}}
 
 {{> base.hbs}}

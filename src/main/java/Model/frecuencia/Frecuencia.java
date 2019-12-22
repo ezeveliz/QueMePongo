@@ -1,5 +1,7 @@
 package Model.frecuencia;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -7,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name="frecuencia")
 @DiscriminatorColumn(name = "tipo")
@@ -23,6 +26,10 @@ public abstract class Frecuencia {
 
     @Transient
     protected LocalDateTime inicioObject;
+
+    @Transient
+    protected String fechaLinda;
+
 
     public Frecuencia(){}
 
@@ -118,5 +125,9 @@ public abstract class Frecuencia {
     public String toString(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return this.proximaRepeticion().format(formatter);
+    }
+
+    public void setFechaLinda(){
+        fechaLinda = inicio.substring(0,10) + "  ";
     }
 }

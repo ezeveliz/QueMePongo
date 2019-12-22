@@ -24,6 +24,9 @@ public class UsuarioController {
                 parametros.put("nombre", user.getNombre());
                 parametros.put("apellido", user.getApellido());
                 parametros.put("guardarropas", user.getGuardarropas());
+                parametros.put("eventos_proximos", user.getEventosProximos());
+                parametros.put("sugerencias", user.getSugerencias());
+                parametros.put("eventos_pasados", user.getEventosPasados());
 
                 return new ModelAndView(parametros, "Usuario.hbs");
             } else {

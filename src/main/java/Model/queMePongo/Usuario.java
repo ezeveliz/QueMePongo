@@ -2,6 +2,7 @@ package Model.queMePongo;
 
 import Model.exceptions.EventoNoEncontradoException;
 import Model.frecuencia.Frecuencia;
+import Model.frecuencia.Unica;
 import Model.tiposDeEvento.TipoEvento;
 import Model.tiposDeMedioDeNotificacion.*;
 import Model.tiposDeUsuario.Gratuito;
@@ -12,6 +13,9 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -318,6 +322,24 @@ public class Usuario
 		}
 	}
 
+	public List<Evento> getEventosProximos(){
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 24, 10, 10, 30);
+		List<Evento> listaEventos = eventos;
+		return listaEventos.stream().filter( e -> e.isAfter(LocalDateTime.now())).collect(Collectors.toList());
+	}
 
+	public List<Evento> getEventosPasados(){
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 21, 10, 10, 30);
+		List<Evento> listaEventos = eventos;
+
+		return listaEventos.stream().filter( e -> e.isBefor(LocalDateTime.now())).collect(Collectors.toList());
+	}
+
+	public List<Evento> getSugerencias(){
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 23, 10, 10, 30);
+		List<Evento> listaEventos = eventos;
+
+		return listaEventos.stream().filter( e -> (e.isSugerencia(LocalDateTime.now()))).collect(Collectors.toList());
+	}
 
 }

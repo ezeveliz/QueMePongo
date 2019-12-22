@@ -43,7 +43,7 @@ public class Evento implements Command {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_atuendo")
-    private Atuendo atuendo;
+    private Atuendo atuendo = null;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_frecuencia", referencedColumnName = "id")
@@ -106,4 +106,36 @@ public class Evento implements Command {
     public boolean isInMonth(int finalMonthNumber, int finalYearNumber) {
         return this.frecuencia.isInMonth(finalMonthNumber, finalYearNumber);
     }
+
+    //TODO: hacer esta funcion que compare la fecha de la frecuencia con la fecha pasada
+    public boolean isAfter(LocalDateTime fechaAComparar){
+        int anio =Integer.parseInt(frecuencia.getInicio().substring(0,4));
+        int mes =Integer.parseInt(frecuencia.getInicio().substring(5,7));
+        int dia =Integer.parseInt(frecuencia.getInicio().substring(8,10));
+        int hora =Integer.parseInt(frecuencia.getInicio().substring(11,13));
+        int minuto =Integer.parseInt(frecuencia.getInicio().substring(14,16));
+        int sec =Integer.parseInt(frecuencia.getInicio().substring(17,19));
+
+        return LocalDateTime.of(anio,mes,dia,hora,minuto,sec).isAfter(fechaAComparar);
+    }
+
+    public boolean isBefor(LocalDateTime fechaAComparar){
+        int anio =Integer.parseInt(frecuencia.getInicio().substring(0,4));
+        int mes =Integer.parseInt(frecuencia.getInicio().substring(5,7));
+        int dia =Integer.parseInt(frecuencia.getInicio().substring(8,10));
+        int hora =Integer.parseInt(frecuencia.getInicio().substring(11,13));
+        int minuto =Integer.parseInt(frecuencia.getInicio().substring(14,16));
+        int sec =Integer.parseInt(frecuencia.getInicio().substring(17,19));
+
+        return LocalDateTime.of(anio,mes,dia,hora,minuto,sec).isBefore(fechaAComparar);
+    }
+
+    public boolean isSugerencia(LocalDateTime fechaAComparar){
+        return this.isAfter(fechaAComparar) && (atuendo == null);
+    }
+    public String toString(){
+        return " Descripcion: " + descripcion + " Fecha:" + frecuencia.getInicio().toString();
+    }
+
+
 }

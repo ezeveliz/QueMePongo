@@ -1,11 +1,13 @@
 package Model.frecuencia;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
-
+@Data
 @Entity
 @DiscriminatorValue("Unica")
 public class Unica extends Frecuencia {
