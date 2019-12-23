@@ -1,14 +1,18 @@
 {{#each splittedPrendas}}
     <div class="card-deck">
         <div class="card col-md-3">
-            <img src="{{primero.foto}}" alt="" style="width: 100%; height: 200px">
+            <div style="height: 200px; overflow: hidden;">
+                <img src="{{primero.foto}}" alt="" style="width: auto">
+            </div>
             <div class="card-body prenda-details" data-categoria="{{primero.categoria}}" data-evento="{{primero.tipoEvento}}" data-calor="{{primero.tipoDePrenda.nivelDeCalor}}" data-tela="{{primero.tela}}" data-color1="{{primero.colorPrimario}}" data-color2="{{primero.colorSecundario}}">
                 <h5 class="card-title">{{primero.nombre}}</h5>
             </div>
         </div>
         {{#if tieneSegundo}}
             <div class="card col-md-3">
-                <img src="{{segundo.foto}}" alt="" style="height: 200px">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="{{segundo.foto}}" alt="" style="width: auto">
+                </div>
                 <div class="card-body prenda-details" data-categoria="{{segundo.categoria}}" data-evento="{{segundo.tipoEvento}}" data-calor="{{segundo.tipoDePrenda.nivelDeCalor}}" data-tela="{{segundo.tela}}" data-color1="{{segundo.colorPrimario}}" data-color2="{{segundo.colorSecundario}}">
                     <h5 class="card-title">{{segundo.nombre}}</h5>
                 </div>
@@ -16,7 +20,9 @@
         {{/if}}
         {{#if tieneTercero}}
             <div class="card col-md-3">
-                <img src="{{tercero.foto}}" alt="" style="width: 100%; height: 200px">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="{{tercero.foto}}" alt="" style="width: auto">
+                </div>
                 <div class="card-body prenda-details" data-categoria="{{tercero.categoria}}" data-evento="{{tercero.tipoEvento}}" data-calor="{{tercero.tipoDePrenda.nivelDeCalor}}" data-tela="{{tercero.tela}}" data-color1="{{tercero.colorPrimario}}" data-color2="{{tercero.colorSecundario}}">
                     <h5 class="card-title">{{tercero.nombre}}</h5>
                 </div>
@@ -24,7 +30,9 @@
         {{/if}}
         {{#if tieneCuarto}}
             <div class="card col-md-3">
-                <img src="{{cuarto.foto}}" alt="" style="width: 100%; height: 200px">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="{{cuarto.foto}}" alt="" style="width: auto">
+                </div>
                 <div class="card-body prenda-details" data-categoria="{{cuarto.categoria}}" data-evento="{{cuarto.tipoEvento}}" data-calor="{{cuarto.tipoDePrenda.nivelDeCalor}}" data-tela="{{cuarto.tela}}" data-color1="{{cuarto.colorPrimario}}" data-color2="{{cuarto.colorSecundario}}">
                     <h5 class="card-title">{{cuarto.nombre}}</h5>
                 </div>
