@@ -31,82 +31,142 @@
                             </ul>
                         </div>
                         {{#if sinEventosProximos}}
-                                <div class="card-body text-center p-0">
-                                    <div class="list-group list-group-flush">
-                                        <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
-                                            <p> <span class="badge badge-pill badge-warning"> No hay eventos </span></p>
-                                        </a>
-                                    </div>
-                                </div>
-                        {{else}}
-                            {{#each eventos_proximos}}
                             <div class="card-body text-center p-0">
                                 <div class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento" data-toggle="modal" data-target="#eventoModal">
-                                        <p>{{ frecuencia.fechaLinda }}<span class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span></p>
+                                    <a class="list-group-item list-group-item-action pb-0" href=""
+                                       style="cursor: pointer;" title="Haz click para ver detalles del evento pasado"
+                                       data-toggle="modal" data-target="#eventoPasadoModal">
+                                        <p><span class="badge badge-pill badge-warning"> No hay eventos </span></p>
                                     </a>
                                 </div>
                             </div>
-
-                        <div class="modal fade" id="eventoModal" tabindex="-1" role="dialog" aria-labelledby="eventoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-info text-white">
-                                        <h5 class="modal-title" id="eventoModalLabel">{{ frecuencia.fechaLinda }} - {{ tipoDeEvento }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                        {{else}}
+                            {{#each eventos_proximos}}
+                                <div class="card-body text-center p-0">
+                                    <div class="list-group list-group-flush">
+                                        <a class="list-group-item list-group-item-action pb-0" href=""
+                                           style="cursor: pointer;" title="Haz click para ver detalles del evento"
+                                           data-toggle="modal" data-target="#eventoModal">
+                                            <p>{{ frecuencia.fechaLinda }}<span
+                                                    class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span>
+                                            </p>
+                                        </a>
                                     </div>
-                                    <div class="modal-body">
-                                        <h5>Descripcion:</h5>
-                                        {{ descripcion  }}
-                                        <p>{{atuendo}} </p>
-                                        <h5>Atuendo seleccionado: {{ atuendo.id }}</h5>
+                                </div>
 
-                                        <div class="card-deck row">
-                                            {{#each atuendo.prendasbasicas}}
-                                                <div class="col-6">
-                                                    {{nombre}}
-                                                </div>
-                                            {{/each}}
+                            <div class="modal fade" id="eventoModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="eventoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-info text-white">
+                                            <h5 class="modal-title" id="eventoModalLabel">{{ frecuencia.fechaLinda }}
+                                                - {{ tipoDeEvento }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body center">
+                                            <h3>Descripcion:</h3>
+                                            {{ descripcion  }}
+                                            <h3>Atuendo seleccionado: {{ atuendo.id }}</h3>
+                                            <div class="row center" style="justify-content:center">
+                                                {{#each atuendo.prendasbasicas}}
+                                                    <div class="card-deck col-md-4 center"
+                                                         style="margin-top: 5px; margin-bottom: 5px;">
+                                                        <div class="card center" style="">
+                                                            <img src="{{foto}}" alt=""
+                                                                 style="width: 100%; height: 200px">
+                                                            <div class="card-body prenda-details"
+                                                                 data-categoria="{{categoria}}"
+                                                                 data-evento="{{tipoEvento}}"
+                                                                 data-calor="{{tipoDePrenda.nivelDeCalor}}"
+                                                                 data-tela="{{tela}}" data-color1="{{colorPrimario}}"
+                                                                 data-color2="{{colorSecundario}}">
+                                                                <h6 class="card-title">{{nombre}}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {{/each}}
+                                                {{#each atuendo.prendasDeAbrigo}}
+                                                    <div class="card-deck col-md-4 center"
+                                                         style=" margin-top: 5px; margin-bottom: 5px;">
+                                                        <div class="card center" style=" ">
+                                                            <img src="{{foto}}" alt=""
+                                                                 style="width: 100%; height: 200px">
+                                                            <div class="card-body prenda-details"
+                                                                 data-categoria="{{categoria}}"
+                                                                 data-evento="{{tipoEvento}}"
+                                                                 data-calor="{{tipoDePrenda.nivelDeCalor}}"
+                                                                 data-tela="{{tela}}" data-color1="{{colorPrimario}}"
+                                                                 data-color2="{{colorSecundario}}">
+                                                                <h3 class="card-title">{{nombre}}</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {{/each}}
+                                                {{#each atuendo.accesorios}}
+                                                    <div class="card-deck col-md-4 center" style="
+                                                     margin-top: 5px; margin-bottom: 5px;">
+                                                        <div class="card center" style="">
+                                                            <img src="{{foto}}" alt=""
+                                                                 style="width: 100%; height: 200px">
+                                                            <div class="card-body prenda-details"
+                                                                 data-categoria="{{categoria}}"
+                                                                 data-evento="{{tipoEvento}}"
+                                                                 data-calor="{{tipoDePrenda.nivelDeCalor}}"
+                                                                 data-tela="{{tela}}" data-color1="{{colorPrimario}}"
+                                                                 data-color2="{{colorSecundario}}">
+                                                                <h3 class="card-title">{{nombre}}</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {{/each}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             {{/each}}
                         {{/if}}
-                        </div>
+                    </div>
                     </div>
                     <br>
                     <div class="card shadow">
                         <div class="card-header text-center">
                             <ul class="nav nav-pills nav-fill card-header-pills">
                                 <li class="nav-item">
-                                    <p class="nav-link active mb-0" title="Sugerencias para eventos pendientes de aprobacion">
+                                    <p class="nav-link active mb-0"
+                                       title="Sugerencias para eventos pendientes de aprobacion">
                                         Sugerencias disponibles
                                     </p>
                                 </li>
                             </ul>
                         </div>
-                        {{#if sinSugerencias}}
-                                <div class="card-body text-center p-0">
-                                    <div class="list-group list-group-flush">
-                                        <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
-                                            <p> <span class="badge badge-pill badge-warning"> No hay eventos </span></p>
-                                        </a>
-                                    </div>
-                                </div>
-                        {{else}}
-                            {{#each sugerencias}}
-                            <div class="card-body text-center p-0">
-                                <div class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ir al evento y seleccionar un atuendo" data-instant="">
-                                        <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span></p>
+
+                        <div class="card-body text-center p-0">
+                            <div class="list-group list-group-flush">
+                                {{#if sinSugerencias}}
+                                    <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}"
+                                       style="cursor: pointer;" title="Haz click para ver detalles del evento pasado"
+                                       data-toggle="modal" data-target="#eventoPasadoModal">
+                                        <p><span class="badge badge-pill badge-warning"> No hay eventos </span></p>
                                     </a>
-                                </div>
+                                {{else}}
+                                    {{#each sugerencias}}
+
+                                        <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}"
+                                           style="cursor: pointer;"
+                                           title="Haz click para ir al evento y seleccionar un atuendo" data-instant="">
+                                            <p>{{ frecuencia.fechaLinda }} <span
+                                                    class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span>
+                                            </p>
+                                        </a>
+
+                                    {{/each}}
+                                {{/if}}
                             </div>
-                            {{/each}}
-                         {{/if}}
+                        </div>
+
+
                     </div>
                     <br>
                 </div>
@@ -124,67 +184,92 @@
                         {{#if sinEventosPasados}}
                             <div class="card-body text-center p-0">
                                 <div class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
-                                        <p> <span class="badge badge-pill badge-warning"> No hay eventos </span></p>
+                                    <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}"
+                                       style="cursor: pointer;" title="Haz click para ver detalles del evento pasado"
+                                       data-toggle="modal" data-target="#eventoPasadoModal">
+                                        <p><span class="badge badge-pill badge-warning"> No hay eventos </span></p>
                                     </a>
                                 </div>
                             </div>
                         {{else}}
 
-                        {{#each eventos_pasados}}
-                            <div class="card-body text-center p-0">
-                                <div class="list-group list-group-flush">
-                                    <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
-                                        <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span></p>
-                                    </a>
+                            {{#each eventos_pasados}}
+                                <div class="card-body text-center p-0">
+                                    <div class="list-group list-group-flush">
+                                        <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}"
+                                           style="cursor: pointer;"
+                                           title="Haz click para ver detalles del evento pasado" data-toggle="modal"
+                                           data-target="#eventoPasadoModal">
+                                            <p>{{ frecuencia.fechaLinda }} <span
+                                                    class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span>
+                                            </p>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        {{/each}}
+                            {{/each}}
                         {{/if}}
-                        <div class="modal fade" id="eventoPasadoModal" tabindex="-1" role="dialog" aria-labelledby="eventoPasadoModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="eventoModal" tabindex="-1" role="dialog"
+                             aria-labelledby="eventoModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header bg-info text-white">
-                                        <h5 class="modal-title" id="eventoModalLabel">10/12/2019 - Deporte</h5>
+                                        <h5 class="modal-title" id="eventoModalLabel">{{ frecuencia.fechaLinda }}
+                                            - {{ tipoDeEvento }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div class="modal-body center">
                                         <h5>Descripcion:</h5>
-                                        <p>Me quede sin imaginacion</p>
-                                        <hr>
-                                        <h5>Atuendo seleccionado:</h5>
-                                        <p></p>
-                                        <div class="card-deck">
-                                            <div class="card">
-                                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                        {{ descripcion  }}
+                                        <h5>Atuendo seleccionado: {{ atuendo.id }}</h5>
+                                        <div class="row center" style="justify-content:center">
+                                            {{#each atuendo.prendasbasicas}}
+                                                <div class="card-deck col-md-4 center"
+                                                     style="margin-top: 5px; margin-bottom: 5px;">
+                                                    <div class="card center" style="">
+                                                        <img src="{{foto}}" alt="" style="width: 100%; height: 200px">
+                                                        <div class="card-body prenda-details"
+                                                             data-categoria="{{categoria}}" data-evento="{{tipoEvento}}"
+                                                             data-calor="{{tipoDePrenda.nivelDeCalor}}"
+                                                             data-tela="{{tela}}" data-color1="{{colorPrimario}}"
+                                                             data-color2="{{colorSecundario}}">
+                                                            <h6 class="card-title">{{nombre}}</h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="card">
-                                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                            {{/each}}
+                                            {{#each atuendo.prendasDeAbrigo}}
+                                                <div class="card-deck col-md-4 center"
+                                                     style=" margin-top: 5px; margin-bottom: 5px;">
+                                                    <div class="card center" style=" ">
+                                                        <img src="{{foto}}" alt="" style="width: 100%; height: 200px">
+                                                        <div class="card-body prenda-details"
+                                                             data-categoria="{{categoria}}" data-evento="{{tipoEvento}}"
+                                                             data-calor="{{tipoDePrenda.nivelDeCalor}}"
+                                                             data-tela="{{tela}}" data-color1="{{colorPrimario}}"
+                                                             data-color2="{{colorSecundario}}">
+                                                            <h6 class="card-title">{{nombre}}</h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="card">
-                                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                            {{/each}}
+                                            {{#each atuendo.accesorios}}
+                                                <div class="card-deck col-md-4 center" style="
+                                                     margin-top: 5px; margin-bottom: 5px;">
+                                                    <div class="card center" style="">
+                                                        <img src="{{foto}}" alt="" style="width: 100%; height: 200px">
+                                                        <div class="card-body prenda-details"
+                                                             data-categoria="{{categoria}}" data-evento="{{tipoEvento}}"
+                                                             data-calor="{{tipoDePrenda.nivelDeCalor}}"
+                                                             data-tela="{{tela}}" data-color1="{{colorPrimario}}"
+                                                             data-color2="{{colorSecundario}}">
+                                                            <h6 class="card-title">{{nombre}}</h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            {{/each}}
                                         </div>
-                                        <br>
-                                        <label for="customRange3">Califique su atuendo</label>
-                                        <input type="range" class="custom-range" min="0" max="5" step="1" id="customRange3">
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +278,30 @@
                 </div>
             </div>
         </div>
-    </div>
+        <script>
+            function generarDescripcion() {
+                let prendas = document.getElementsByClassName('prenda-details');
+                if (prendas.length > 0) {
+                    for (let prenda of prendas) {
+                        let categoria = prenda.dataset.categoria;
+                        let evento = prenda.dataset.evento;
+                        let calor = prenda.dataset.calor;
+                        let tela = prenda.dataset.tela;
+                        let color1 = prenda.dataset.color1;
+                        let color2 = prenda.dataset.color2;
+                        let descripcion = '<p>Prenda ';
+                        if (parseInt(calor) > 0) {
+                            descripcion += 'de abrigo con un nivel ' + calor + ' de abrigo ';
+                        }
+                        descripcion += 'para eventos de tipo ' + evento + ' que se usa en ' + categoria + ' hecha de ' + tela + ' en los colores ' + color1 + ' y ' + color2 + '.</p>';
+                        prenda.innerHTML += descripcion;
+                    }
+                }
+            }
+
+            generarDescripcion();
+
+        </script>
 
 {{/partial}}
 
