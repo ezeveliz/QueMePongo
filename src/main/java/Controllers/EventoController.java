@@ -19,6 +19,8 @@ import spark.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +35,22 @@ public class EventoController {
 
         //Id del evento a mostrar
         int id = Integer.parseInt(request.params("id"));
-        parametros.put("section", "Evento 20/12/2019 - Formal");
+
+        Evento evento = null;
+        try {
+            evento = EventoDAO.getEvento(id);
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        String descripcion = evento.getDescripcion();
+        Frecuencia idFrecuencia = evento.getFrecuencia();
+        LocalDateTime fechaLDT = idFrecuencia.getInicioObject();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+        String fecha = fechaLDT.format(formatter) + " hs.";
+        TipoEvento tipo = evento.getTipoDeEvento();
+
+        parametros.put("section", descripcion + " | " + fecha + " | " + tipo);
         //TODO: aca colocar la id del usuario en sesion
         parametros.put("idUser", user.getId());
         parametros.put("nombre", user.getNombre());
