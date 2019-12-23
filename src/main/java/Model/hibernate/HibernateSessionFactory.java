@@ -61,37 +61,4 @@ public class HibernateSessionFactory {
         return conf.buildSessionFactory();
     }
 
-    //Version vieja
-    //    public static Session getSession()
-//    {
-//        if( sessionFactory==null || !session.isOpen() )
-//        {
-//            File f = new File(CONFIG_FILE);
-//            sessionFactory = new Configuration()
-//                .configure(f)
-//                .buildSessionFactory();
-//            session = sessionFactory.openSession();
-//        }
-//        return session;
-//    }
-
-
-//    public static Connection getConnection() throws URISyntaxException, SQLException {
-//    try{
-//        String url = System.getenv("JAWSDB_URL");
-//
-//        final URI jdbUri = new URI(System.getenv("JAWSDB_URL"));
-//
-//        String username = jdbUri.getUserInfo().split(":")[0];
-//        String password = jdbUri.getUserInfo().split(":")[1];
-//        String port = String.valueOf(jdbUri.getPort());
-//        String jdbUrl = "jdbc:mysql://" + jdbUri.getHost() + ":" + port + jdbUri.getPath();
-//
-//        return DriverManager.getConnection(jdbUrl, username, password);
-//    } catch (URISyntaxException e) {
-//        e.printStackTrace();
-//    }
-//        return null;
-//    }
-
 }

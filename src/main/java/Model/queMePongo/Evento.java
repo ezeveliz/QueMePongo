@@ -109,25 +109,15 @@ public class Evento implements Command {
 
     //TODO: hacer esta funcion que compare la fecha de la frecuencia con la fecha pasada
     public boolean isAfter(LocalDateTime fechaAComparar){
-        int anio =Integer.parseInt(frecuencia.getInicio().substring(0,4));
-        int mes =Integer.parseInt(frecuencia.getInicio().substring(5,7));
-        int dia =Integer.parseInt(frecuencia.getInicio().substring(8,10));
-        int hora =Integer.parseInt(frecuencia.getInicio().substring(11,13));
-        int minuto =Integer.parseInt(frecuencia.getInicio().substring(14,16));
-        int sec =Integer.parseInt(frecuencia.getInicio().substring(17,19));
+        frecuencia.createInicioObject();
 
-        return LocalDateTime.of(anio,mes,dia,hora,minuto,sec).isAfter(fechaAComparar);
+        return frecuencia.getInicioObject().isAfter(fechaAComparar);
     }
 
     public boolean isBefor(LocalDateTime fechaAComparar){
-        int anio =Integer.parseInt(frecuencia.getInicio().substring(0,4));
-        int mes =Integer.parseInt(frecuencia.getInicio().substring(5,7));
-        int dia =Integer.parseInt(frecuencia.getInicio().substring(8,10));
-        int hora =Integer.parseInt(frecuencia.getInicio().substring(11,13));
-        int minuto =Integer.parseInt(frecuencia.getInicio().substring(14,16));
-        int sec =Integer.parseInt(frecuencia.getInicio().substring(17,19));
+        frecuencia.createInicioObject();
 
-        return LocalDateTime.of(anio,mes,dia,hora,minuto,sec).isBefore(fechaAComparar);
+        return frecuencia.getInicioObject().isBefore(fechaAComparar);
     }
 
     public boolean isSugerencia(LocalDateTime fechaAComparar){

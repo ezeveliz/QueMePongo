@@ -323,8 +323,9 @@ public class Usuario
 	}
 
 	public List<Evento> getEventosProximos(){
-		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 24, 10, 10, 30);
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 19, 10, 10, 30);
 		List<Evento> listaEventos = eventos;
+
 		return listaEventos.stream().filter( e -> e.isAfter(LocalDateTime.now())).collect(Collectors.toList());
 	}
 
