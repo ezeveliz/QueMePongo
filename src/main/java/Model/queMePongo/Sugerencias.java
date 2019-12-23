@@ -43,7 +43,11 @@ public class Sugerencias {
         } else {
             this.nivelRequeridoDeAbrigo = ((30-temp)/5);
         }
-        this.nivelRequeridoDeAbrigo += this.preferencias.getModificadorDeCalor();
+
+        try {
+            this.nivelRequeridoDeAbrigo += this.preferencias.getModificadorDeCalor();
+        }catch(NullPointerException e){}
+
         this.estado = EXITO;
     }
 

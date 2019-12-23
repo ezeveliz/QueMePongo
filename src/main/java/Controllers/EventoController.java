@@ -3,7 +3,9 @@ package Controllers;
 import Model.DAO.EventoDAO;
 import Model.frecuencia.Frecuencia;
 import Model.frecuencia.Unica;
+import Model.queMePongo.Atuendo;
 import Model.queMePongo.Evento;
+import Model.queMePongo.Guardarropas;
 import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
@@ -52,10 +54,15 @@ public class EventoController {
 
         parametros.put("section", descripcion + " | " + fecha + " | " + tipo);
         //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", user.getId());
-        parametros.put("nombre", user.getNombre());
-        parametros.put("apellido", user.getApellido());
-        parametros.put("guardarropas", user.getGuardarropas());
+
+        List<Guardarropas> guardarropas = user.getGuardarropas();
+        HashMap<Guardarropas, List<Atuendo>> sugerencias = evento.pedirSugerencias(false);
+        List<List<Atuendo>> atuendos = sugerencias.values().stream().collect(Collectors.toList());
+        Boolean sinSugerencias = sugerencias.isEmpty();
+        parametros.put("guardarropas", guardarropas);
+        parametros.put("sinSugerencias", sinSugerencias);
+        /*parametros.put("apellido", user.getApellido());
+        parametros.put("guardarropas", user.getGuardarropas());*/
 
         return new ModelAndView(parametros, "Evento.hbs");
     }
