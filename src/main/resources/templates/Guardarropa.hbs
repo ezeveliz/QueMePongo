@@ -64,27 +64,27 @@
                                 <br>
                                 <div class="form-row d-none" id="rangeContainer">
                                     <label for="nivelAbrigo">Seleccione nivel de abrigo</label>
-                                    <input type="range" class="custom-range" min="0" max="5" step="1" id="nivelAbrigo">
+                                    <input type="range" class="custom-range" min="1" max="5" step="1" id="nivelAbrigo">
                                 </div>
                                 <br>
                                 <label>Uso:</label>
                                 <div class="form-group">
                                     <div>
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input type="checkbox" id="customCheckCasual" name="customCheckCasual" class="custom-control-input">
-                                            <label class="custom-control-label" for="customCheckCasual">Casual</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioCasual" value="casual" name="customRadioUso" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadioCasual">Casual</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input type="checkbox" id="customCheckFormal" name="customCheckFormal" class="custom-control-input">
-                                            <label class="custom-control-label" for="customCheckFormal">Formal</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioFormal" value="formal" name="customRadioUso" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadioFormal">Formal</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input type="checkbox" id="customCheckFiesta" name="customCheckFiesta" class="custom-control-input">
-                                            <label class="custom-control-label" for="customCheckFiesta">Fiesta</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioFiesta" value="fiesta" name="customRadioUso" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadioFiesta">Fiesta</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox custom-control-inline">
-                                            <input type="checkbox" id="customCheckDeportes" name="customCheckDeportes" class="custom-control-input">
-                                            <label class="custom-control-label" for="customCheckDeportes">Deportes</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioDeportes" value="deportes" name="customRadioUso" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadioDeportes">Deportes</label>
                                         </div>
                                     </div>
                                 </div>
@@ -203,10 +203,14 @@
         let ubicacion = document.getElementById('ubicacionPrenda').value;
         let tipoPrenda = document.getElementById('tipoPrenda').value;
         let nivelAbrigo = parseInt(document.getElementById('nivelAbrigo').value);
-        let casual = document.getElementById('customCheckCasual').checked;
-        let formal = document.getElementById('customCheckFormal').checked;
-        let fiesta = document.getElementById('customCheckFiesta').checked;
-        let deportes = document.getElementById('customCheckDeportes').checked;
+        let tipoSeleccionado = false;
+        try {
+            document.querySelector('input[name="customRadioUso"]:checked').value;
+            tipoSeleccionado = true;
+        }
+        catch(error) {
+
+        }
 
         if (nombre === ""){
             toast('La prenda debe poseer un nombre', 'error');
@@ -220,7 +224,7 @@
                     if (tipoPrenda === "abrigo" && nivelAbrigo === 0){
                         toast('Debe seleccionar un nivel de abrigo distinto de 0', 'error');
                     } else {
-                        if (!(casual || formal || fiesta || deportes)){
+                        if (!tipoSeleccionado){
                             toast('Debe seleccionar algun uso', 'error');
                         } else {
                             document.getElementById('datosBasicos').classList.add("d-none");
@@ -247,10 +251,11 @@
         let ubicacion = document.getElementById('ubicacionPrenda').value;
         let tipoPrenda = document.getElementById('tipoPrenda').value;
         let nivelAbrigo = parseInt(document.getElementById('nivelAbrigo').value);
-        let casual = document.getElementById('customCheckCasual').checked;
-        let formal = document.getElementById('customCheckFormal').checked;
-        let fiesta = document.getElementById('customCheckFiesta').checked;
-        let deportes = document.getElementById('customCheckDeportes').checked;
+        let tipo = document.querySelector('input[name="customRadioUso"]:checked').value;
+        let casual = (tipo === "casual");
+        let formal = (tipo === "formal");
+        let fiesta = (tipo === "fiesta");
+        let deportes = (tipo === "deportes");
         let tela = document.getElementById('telaPrenda').value;
         let color1 = document.getElementById('color1Prenda').value;
         let color2 = document.getElementById('color2Prenda').value;
