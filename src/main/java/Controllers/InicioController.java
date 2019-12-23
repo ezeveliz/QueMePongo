@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.DAO.UsuarioDAO;
 import Model.queMePongo.Usuario;
+import Utils.Middlewares;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
@@ -152,7 +153,25 @@ public class InicioController {
      * @return redirijo al home
      */
     public Object register(Request request, Response response) {
-        return response;
+        Middlewares.authenticated(request, response);
+        Map<String, Object> parametros = new HashMap<>();
+        Usuario user = new Usuario();
+        user.setNombre(parametros.get("nombre").toString());
+        user.setApellido(parametros.get("apellido").toString());
+        user.setEmail(parametros.get("email").toString());
+        user.setTelefono(parametros.get("email").toString());
+        user.setUsuario(Integer.toString(user.getId()));
+        user.setContraseña(parametros.get("nombre").toString());
+
+        int respuesta = 1;
+
+        try{
+            UsuarioDAO.registrarUsuario(user);
+        }catch(Exception e){
+            respuesta = 0;
+        }
+
+        return respuesta;
     }
 
     /**
