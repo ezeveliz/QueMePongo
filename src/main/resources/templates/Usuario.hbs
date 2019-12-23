@@ -34,7 +34,7 @@
                         <div class="card-body text-center p-0">
                             <div class="list-group list-group-flush">
                                 <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento" data-toggle="modal" data-target="#eventoModal">
-                                    <p>{{ frecuencia.fechaLinda }}<span class="badge badge-pill badge-success"> Formal </span></p>
+                                    <p>{{ frecuencia.fechaLinda }}<span class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span></p>
                                 </a>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                         <div class="card-body text-center p-0">
                             <div class="list-group list-group-flush">
                                 <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ir al evento y seleccionar un atuendo" data-instant="">
-                                    <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success">Formal</span></p>
+                                    <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span></p>
                                 </a>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                         <div class="card-body text-center p-0">
                             <div class="list-group list-group-flush">
                                 <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}" style="cursor: pointer;" title="Haz click para ver detalles del evento pasado" data-toggle="modal" data-target="#eventoPasadoModal">
-                                    <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success">Deporte</span></p>
+                                    <p>{{ frecuencia.fechaLinda }} <span class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span></p>
                                 </a>
                             </div>
                         </div>

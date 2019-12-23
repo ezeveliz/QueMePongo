@@ -323,23 +323,22 @@ public class Usuario
 	}
 
 	public List<Evento> getEventosProximos(){
-		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 19, 10, 10, 30);
 		List<Evento> listaEventos = eventos;
-
+		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
 		return listaEventos.stream().filter( e -> e.isAfter(LocalDateTime.now())).collect(Collectors.toList());
 	}
 
 	public List<Evento> getEventosPasados(){
-		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 21, 10, 10, 30);
 		List<Evento> listaEventos = eventos;
 
+		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
 		return listaEventos.stream().filter( e -> e.isBefor(LocalDateTime.now())).collect(Collectors.toList());
 	}
 
 	public List<Evento> getSugerencias(){
-		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 23, 10, 10, 30);
 		List<Evento> listaEventos = eventos;
 
+		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
 		return listaEventos.stream().filter( e -> (e.isSugerencia(LocalDateTime.now()))).collect(Collectors.toList());
 	}
 
