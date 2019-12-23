@@ -40,7 +40,7 @@
                                     <div class="list-group list-group-flush">
                                         <a class="list-group-item list-group-item-action pb-0" href=""
                                            style="cursor: pointer;" title="Haz click para ver detalles del evento"
-                                           data-toggle="modal" data-target="#eventoModal">
+                                           data-toggle="modal" data-target="#eventoProx{{id}}">
                                             <p>{{ frecuencia.fechaLinda }}<span
                                                     class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span>
                                             </p>
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                            <div class="modal fade" id="eventoModal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="eventoProx{{id}}" tabindex="-1" role="dialog"
                                  aria-labelledby="eventoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -192,10 +192,10 @@
                                 {{#each eventos_pasados}}
                                     <div class="card-body text-center p-0">
                                         <div class="list-group list-group-flush">
-                                            <a class="list-group-item list-group-item-action pb-0" href="/evento/{{id}}"
+                                            <a class="list-group-item list-group-item-action pb-0" href=""
                                                style="cursor: pointer;"
                                                title="Haz click para ver detalles del evento pasado" data-toggle="modal"
-                                               data-target="#eventoPasadoModal">
+                                               data-target="#eventoPasado{{id}}">
                                                 <p>{{ frecuencia.fechaLinda }} <span
                                                         class="badge badge-pill badge-success"> {{ tipoDeEvento }} </span>
                                                 </p>
@@ -204,7 +204,7 @@
                                     </div>
                                 {{/each}}
                             {{/if}}
-                            <div class="modal fade" id="eventoModal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="eventoPasado{{id}}" tabindex="-1" role="dialog"
                                  aria-labelledby="eventoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
