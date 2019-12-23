@@ -123,6 +123,9 @@ public class Evento implements Command {
     public boolean isSugerencia(LocalDateTime fechaAComparar){
         return this.isAfter(fechaAComparar) && (atuendo == null);
     }
+    public boolean isEvntoProximo(LocalDateTime fechaAComparar){
+        return this.isAfter(fechaAComparar) && (atuendo != null);
+    }
     public String toString(){
         return " Descripcion: " + descripcion + " Fecha:" + frecuencia.getInicio().toString();
     }
