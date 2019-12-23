@@ -6,7 +6,6 @@ import Model.frecuencia.Frecuencia;
 import Model.frecuencia.Unica;
 import Model.queMePongo.Atuendo;
 import Model.queMePongo.Evento;
-import Model.queMePongo.Sugerencias;
 import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
@@ -39,35 +38,34 @@ public class EventoController {
         //Id del evento a mostrar
         int id = Integer.parseInt(request.params("id"));
 
-        Evento evento = null;
         try {
-            evento = EventoDAO.getEvento(id);
+            Evento evento = EventoDAO.getEvento(id);
+            String descripcion = evento.getDescripcion();
+            Frecuencia idFrecuencia = evento.getFrecuencia();
+            LocalDateTime fechaLDT = idFrecuencia.getInicioObject();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+            String fecha = fechaLDT.format(formatter) + " hs.";
+            TipoEvento tipo = evento.getTipoDeEvento();
+
+            parametros.put("section", descripcion + " | " + fecha + " | " + tipo);
+            parametros.put("idUser", user.getId());
+            parametros.put("nombre", user.getNombre());
+            parametros.put("apellido", user.getApellido());
+            parametros.put("guardarropas", user.getGuardarropas());
+            List<Atuendo> atuendos = evento.obtenerSugerencias(user.getGuardarropas(), user.getPreferencias()).values().stream().filter(x -> x.size()>0).collect(Collectors.toList()).stream().flatMap(List::stream).collect(Collectors.toList());
+            parametros.put("atuendos", atuendos);
+            parametros.put("idEvento", id);
+            return new ModelAndView(parametros, "Evento.hbs");
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
+            response.redirect("/usuario/"+user.getId());
+            return new ModelAndView(parametros, "");
         }
 
-        String descripcion = evento.getDescripcion();
-        Frecuencia idFrecuencia = evento.getFrecuencia();
-        LocalDateTime fechaLDT = idFrecuencia.getInicioObject();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
-        String fecha = fechaLDT.format(formatter) + " hs.";
-        TipoEvento tipo = evento.getTipoDeEvento();
 
-        parametros.put("section", descripcion + " | " + fecha + " | " + tipo);
-        //TODO: aca colocar la id del usuario en sesion
-        parametros.put("idUser", user.getId());
-        parametros.put("nombre", user.getNombre());
-        parametros.put("apellido", user.getApellido());
-        parametros.put("guardarropas", user.getGuardarropas());
-        Sugerencias sugerencia = new Sugerencias();
-        sugerencia.obtenerSugerencias(user.getGuardarropas(),evento,user.getPreferencias());
-        parametros.put("listaAtuendosPorGuardarropa", sugerencia.obtenerSugerencias(user.getGuardarropas(),evento,user.getPreferencias()));
-
-
-        return new ModelAndView(parametros, "Evento.hbs");
     }
 
-    public int agregarPrendaAEvento(Request request, Response response) throws URISyntaxException, SQLException {
+    public int asignarAtuendo(Request request, Response response) throws URISyntaxException, SQLException {
         Middlewares.authenticated(request, response);
         Map<String, Object> parametros = new HashMap<>();
         int id = Integer.parseInt(request.params("id_evento"));
@@ -85,7 +83,7 @@ public class EventoController {
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
-
+        //TODO: responder true o false en caso de que se haya podido agregar o que haya ocurrido algun error!!!!!!
         return 0;
     }
         /**

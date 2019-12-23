@@ -57,6 +57,7 @@ public class Router {
         get("/evento/:id", evento::mostrar, Router.engine);
         get("/eventos/:month/:year", evento::getEventos);
         post("/evento", evento::nuevoEvento);
+        post("/atuendo", evento::asignarAtuendo);
 
         get("/preferencias/:id", preferencias::mostrar, Router.engine);
         //TODO: esto deberia ser el verbo update en vez de post?
