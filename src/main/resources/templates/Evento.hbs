@@ -3,11 +3,11 @@
     <!-- Navigation -->
     {{> Nav.hbs}}
     <body class="sticky-footer">
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="sugerenciasContainer" data-id="{{idEvento}}">
         <div class="container-fluid">
             <ol class="breadcrumb shadow">
                 <li class="breadcrumb-item">
-                    <a href="/usuario/{{idUser}}">Que Me Pongo</a>
+                    <a href="/usuario/{{idUser}}" id="direccionDeInicio">Que Me Pongo</a>
                 </li>
                 <li class="breadcrumb-item active">{{section}}</li>
             </ol>
@@ -25,71 +25,50 @@
                     <h5>Descripcion:</h5>
                     <p>Lorem ipsum dolor sit amet</p>
                     <hr>
-                    <div id="atuendo1" class="atuendo">
+                    {{#each atuendos}}
+                    <div id="atuendo{{@index}}" class="atuendo" data-id="{{@index}}">
                         <div class="btn-group mr-2 mb-2" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-success" title="Aceptar atuendo 1" onclick="aceptar(1)"><i class="fal fa-check-circle"></i> Aceptar</button>
-                            <button type="button" class="btn btn-danger" title="Rechazar atuendo 1" onclick="rechazar(1)"><i class="fal fa-ban"></i> Rechazar</button>
+                            <button type="button" class="btn btn-success" title="Aceptar atuendo {{@index}}" onclick="aceptar({{@index}})"><i class="fal fa-check-circle"></i> Aceptar</button>
+                            <button type="button" class="btn btn-danger" title="Rechazar atuendo {{@index}}" onclick="rechazar({{@index}})"><i class="fal fa-ban"></i> Rechazar</button>
                         </div>
                         <div class="card-deck">
-                            <div class="card">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            {{#each prendasbasicas}}
+                                <div class="card col-md-4">
+                                    <div style="height: 200px; overflow: hidden;">
+                                        <img src="{{foto}}" alt="" style="width: auto">
+                                    </div>
+                                    <div class="card-body prenda-details prenda{{@../index}}" data-id="{{id}}" data-categoria="{{categoria}}" data-evento="{{tipoEvento}}" data-calor="{{tipoDePrenda.nivelDeCalor}}" data-tela="{{tela}}" data-color1="{{colorPrimario}}" data-color2="{{colorSecundario}}">
+                                        <h5 class="card-title">{{nombre}}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                    <div id="atuendo2" class="atuendo">
-                        <div class="btn-group mr-2 mb-2" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-success" title="Aceptar atuendo 2" onclick="aceptar(2)"><i class="fal fa-check-circle"></i> Aceptar</button>
-                            <button type="button" class="btn btn-danger" title="Rechazar atuendo 2" onclick="rechazar(2)"><i class="fal fa-ban"></i> Rechazar</button>
+                            {{/each}}
                         </div>
                         <div class="card-deck">
-                            <div class="card">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            {{#each prendasDeAbrigo}}
+                                <div class="card col-md-4">
+                                    <div style="height: 200px; overflow: hidden;">
+                                        <img src="{{foto}}" alt="" style="width: auto">
+                                    </div>
+                                    <div class="card-body prenda-details prenda{{@../index}}" data-id="{{id}}" data-categoria="{{categoria}}" data-evento="{{tipoEvento}}" data-calor="{{tipoDePrenda.nivelDeCalor}}" data-tela="{{tela}}" data-color1="{{colorPrimario}}" data-color2="{{colorSecundario}}">
+                                        <h5 class="card-title">{{nombre}}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            {{/each}}
+                        </div>
+                        <div class="card-deck">
+                            {{#each accesorios}}
+                                <div class="card col-md-4">
+                                    <div style="height: 200px; overflow: hidden;">
+                                        <img src="{{foto}}" alt="" style="width: auto">
+                                    </div>
+                                    <div class="card-body prenda-details prenda{{@../index}}" data-id="{{id}}" data-categoria="{{categoria}}" data-evento="{{tipoEvento}}" data-calor="{{tipoDePrenda.nivelDeCalor}}" data-tela="{{tela}}" data-color1="{{colorPrimario}}" data-color2="{{colorSecundario}}">
+                                        <h5 class="card-title">{{nombre}}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
+                            {{/each}}
                         </div>
                     </div>
+                    {{/each}}
                 </div>
             </div>
         </div>
@@ -98,19 +77,40 @@
 
     <script>
         function aceptar(id) {
-            let mensaje = 'Atuendo ' + id + ' elegido';
-            //Aca poner la funcion de el controler de asignar atuendo a evento
-            toast(mensaje, 'success');
+            enviarPrendas(id);
         }
 
         function rechazar(id) {
             let clave = 'atuendo' + id;
             document.getElementById(clave).remove();
-            if(document.getElementsByClassName('atuendo').length === 1) {
+            let atuendos = document.getElementsByClassName('atuendo');
+            if(atuendos.length === 1) {
                 let mensaje = 'Solo queda un atuendo, por descarte este es el elegido';
-                //Aca poner la funcion de el controler de asignar atuendo a evento
-                toast(mensaje, 'success');
+                toast(mensaje, 'info');
+                enviarPrendas(atuendos[0].dataset.id);
             }
+        }
+
+        function enviarPrendas(atuendo) {
+            let prendas = Array.from(document.getElementsByClassName('prenda' + atuendo)).map(e => e.dataset.id);
+            let id_evento = document.getElementById('sugerenciasContainer').dataset.id;
+            let noti = toast('Asignando atuendo a evento', 'info');
+            axios.post('/atuendo', {
+                prendas: prendas, id_evento: id_evento
+            })
+            .then(function (response) {
+                if (response.data) {
+                    noti.update('Atuendo asignado', 'success');
+                    setTimeout(function() { window.location.href = document.getElementById('direccionDeInicio').href }, 2000);
+                } else {
+                    noti.update('Error al asignar el atuendo, vaya al inicio y vuelva a entrar', 'error');
+                    console.log(response);
+                }
+            })
+            .catch(function (error) {
+                noti.update('Error al asignar el atuendo, vaya al inicio y vuelva a entrar', 'error');
+                console.log(error);
+            });
         }
     </script>
 {{/partial}}

@@ -1,9 +1,9 @@
 package Model.queMePongo;
 
+import Model.retrofit.servicesOpenWeather.MainServiceOpenWeather;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.Data;
-import Model.retrofit.servicesOpenWeather.MainServiceOpenWeather;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -220,9 +220,9 @@ public class Sugerencias {
     }
 
     private List<Prenda> generarAccesorios(List<Prenda> accesorios){
-        Prenda cabeza = accesorios.stream().filter(prenda -> prenda.getTipoDePrenda().getCategoria().equals(Categoria.Cabeza)).findFirst().get();
-        Prenda manos = accesorios.stream().filter(prenda -> prenda.getTipoDePrenda().getCategoria().equals(Categoria.Cabeza)).findFirst().get();
-        Prenda cuello = accesorios.stream().filter(prenda -> prenda.getTipoDePrenda().getCategoria().equals(Categoria.Cabeza)).findFirst().get();
+        Prenda cabeza = accesorios.stream().filter(prenda -> prenda.getCategoria().equals(Categoria.Cabeza)).findFirst().get();
+        Prenda manos = accesorios.stream().filter(prenda -> prenda.getCategoria().equals(Categoria.Manos)).findFirst().get();
+        Prenda cuello = accesorios.stream().filter(prenda -> prenda.getCategoria().equals(Categoria.Cuello)).findFirst().get();
 
         List<Prenda> accesoriosAAgregar = new ArrayList<>();
 

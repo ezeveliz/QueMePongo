@@ -49,7 +49,7 @@ public class Prenda {
 	private String foto;
 
 	@Column(name="disponible")
-	private Boolean disponible;
+	private Integer disponible;
 
 	public Prenda(){}
 	
@@ -63,7 +63,7 @@ public class Prenda {
 		this.colorPrimario = color1;
 		this.colorSecundario = color2; //debe ser distinto del color1
 		byte[] imagen;
-		this.disponible = true;
+		this.disponible = 1;
 		try {
 			imagen = FileUtils.readFileToByteArray(new File(filePath)); //se guarda la foto en base 64
 			this.foto = Base64.getEncoder().encodeToString(imagen); //despues para mostrarla hay que decodificar https://www.baeldung.com/java-base64-image-string
@@ -90,18 +90,18 @@ public class Prenda {
 	}
 
 	public boolean esAccesorioValido (PreferenciasDTO preferencias) {
-		return (tipoDePrenda.getCategoria().equals(Categoria.Cabeza) && tipoDePrenda.nivelDeCalor() >= preferencias.getCalorCabeza()) ||
-				(tipoDePrenda.getCategoria().equals(Categoria.Cuello) && tipoDePrenda.nivelDeCalor() >= preferencias.getCalorCuello()) ||
-				(tipoDePrenda.getCategoria().equals(Categoria.Manos) && tipoDePrenda.nivelDeCalor() >= preferencias.getCalorManos());
+		return (this.getCategoria().equals(Categoria.Cabeza) && tipoDePrenda.nivelDeCalor() >= preferencias.getCalorCabeza()) ||
+				(this.getCategoria().equals(Categoria.Cuello) && tipoDePrenda.nivelDeCalor() >= preferencias.getCalorCuello()) ||
+				(this.getCategoria().equals(Categoria.Manos) && tipoDePrenda.nivelDeCalor() >= preferencias.getCalorManos());
 
 	}
 
 	public void reservarPrenda() {
-		this.disponible = false;
+		this.disponible = 0;
 	}
 
 	public void liberarPrenda() {
-		this.disponible = true;
+		this.disponible = 1;
 	}
 
 	public String toString(){
@@ -127,5 +127,9 @@ public class Prenda {
 		if(valor) {
 			tipoEvento = TipoEvento.FORMAL;
 		}
+	}
+
+	public Boolean getDisponible(){
+		return disponible == 1;
 	}
 }
