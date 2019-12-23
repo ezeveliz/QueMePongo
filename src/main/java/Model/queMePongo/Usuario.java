@@ -323,12 +323,39 @@ public class Usuario
 	}
 
 	public List<Evento> getEventosProximos(){
-		List<Evento> listaEventos = eventos;
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 24, 10, 10, 30);
+		List<Evento> listaEventos =new ArrayList<>();
+		Evento evento = new Evento();
+		evento.setUsuario(this);
+		evento.setDescripcion("Nose que onda");
+		Frecuencia frecuencia = new Unica();
+		frecuencia.setInicio(horario.toString());
+		evento.setFrecuencia(frecuencia);
+		evento.setTipoDeEvento(TipoEvento.CASUAL);
+        Atuendo atuendo = new Atuendo();
+        atuendo.setId(98);
+        Prenda prenda1 = new Prenda();
+        prenda1.setNombre("Tanga roja");
+        Prenda prenda2 = new Prenda();
+        prenda2.setNombre("Sunga de playa");
+        Prenda prenda3 = new Prenda();
+        prenda3.setNombre("Tanga roja");
+        Prenda prenda4 = new Prenda();
+        prenda4.setNombre("Sunga de playa");
+        atuendo.getPrendasbasicas().add(prenda1);
+        atuendo.getPrendasbasicas().add(prenda2);
+        atuendo.getPrendasbasicas().add(prenda3);
+        atuendo.getPrendasbasicas().add(prenda4);
+        evento.setAtuendo(atuendo);
+		listaEventos.add(evento);
 		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
+
+        System.out.println(listaEventos);
 		return listaEventos.stream().filter( e -> e.isAfter(LocalDateTime.now())).collect(Collectors.toList());
 	}
 
 	public List<Evento> getEventosPasados(){
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 21, 10, 10, 30);
 		List<Evento> listaEventos = eventos;
 
 		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
@@ -336,6 +363,7 @@ public class Usuario
 	}
 
 	public List<Evento> getSugerencias(){
+		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 23, 10, 10, 30);
 		List<Evento> listaEventos = eventos;
 
 		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
