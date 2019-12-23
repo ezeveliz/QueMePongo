@@ -262,7 +262,6 @@
             axios.get(urlEventos)
                     .then(function (response) {
                         response.data.forEach(e => printEvent(e));
-                        console.log(response.data);
                     })
                     .catch(function (error) {
                         toast('Hubo un error al obtener los eventos del mes 😢️', 'error');
