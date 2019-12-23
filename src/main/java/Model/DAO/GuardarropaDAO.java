@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.hibernate.HibernateSessionFactory;
+import Model.queMePongo.Atuendo;
 import Model.queMePongo.Prenda;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,6 +22,19 @@ public class GuardarropaDAO {
 
 
         List<Guardarropas> list = query.list();
+
+        return list.get(0);
+
+    }
+
+    public static Atuendo getAtuendo(int id_atuendo) throws URISyntaxException, SQLException {
+        Session session = HibernateSessionFactory.getSession();
+        String hql = "FROM Atuendo a WHERE a.id = :id_atuendo";
+        Query query = session.createQuery(hql);
+        query.setParameter("id_atuendo", id_atuendo);
+
+
+        List<Atuendo> list = query.list();
 
         return list.get(0);
 

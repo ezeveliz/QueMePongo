@@ -1,9 +1,12 @@
 package Controllers;
 
 import Model.DAO.EventoDAO;
+import Model.DAO.GuardarropaDAO;
 import Model.frecuencia.Frecuencia;
 import Model.frecuencia.Unica;
+import Model.queMePongo.Atuendo;
 import Model.queMePongo.Evento;
+import Model.queMePongo.Sugerencias;
 import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
@@ -56,16 +59,41 @@ public class EventoController {
         parametros.put("nombre", user.getNombre());
         parametros.put("apellido", user.getApellido());
         parametros.put("guardarropas", user.getGuardarropas());
+        Sugerencias sugerencia = new Sugerencias();
+        sugerencia.obtenerSugerencias(user.getGuardarropas(),evento,user.getPreferencias());
+        parametros.put("listaAtuendosPorGuardarropa", sugerencia.obtenerSugerencias(user.getGuardarropas(),evento,user.getPreferencias()));
+
 
         return new ModelAndView(parametros, "Evento.hbs");
     }
 
-    /**
-     * Obtengo los eventos del mes
-     * @param request
-     * @param response
-     * @return json con los eventos del mes
-     */
+    public int agregarPrendaAEvento(Request request, Response response) throws URISyntaxException, SQLException {
+        Middlewares.authenticated(request, response);
+        Map<String, Object> parametros = new HashMap<>();
+        int id = Integer.parseInt(request.params("id_evento"));
+
+        Evento evento = null;
+        int atuendo_id = Integer.parseInt(request.params("id_atuendo"));
+
+        evento.setAtuendo(GuardarropaDAO.getAtuendo(atuendo_id));
+
+        try {
+            evento = EventoDAO.getEvento(id);
+            evento.setAtuendo(GuardarropaDAO.getAtuendo(atuendo_id));
+            EventoDAO.modificarEvento(evento);
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+        /**
+         * Obtengo los eventos del mes
+         * @param request
+         * @param response
+         * @return json con los eventos del mes
+         */
     public Object getEventos(Request request, Response response){
         Middlewares.authenticated(request, response);
         int monthNumber = Integer.parseInt(request.params("month"));

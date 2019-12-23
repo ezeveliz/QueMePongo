@@ -95,9 +95,11 @@
         </div>
     </div>
     <br>
+
     <script>
         function aceptar(id) {
             let mensaje = 'Atuendo ' + id + ' elegido';
+            //Aca poner la funcion de el controler de asignar atuendo a evento
             toast(mensaje, 'success');
         }
 
@@ -106,6 +108,7 @@
             document.getElementById(clave).remove();
             if(document.getElementsByClassName('atuendo').length === 1) {
                 let mensaje = 'Solo queda un atuendo, por descarte este es el elegido';
+                //Aca poner la funcion de el controler de asignar atuendo a evento
                 toast(mensaje, 'success');
             }
         }
