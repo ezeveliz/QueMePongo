@@ -3,12 +3,14 @@ package Controllers;
 import Model.DAO.UsuarioDAO;
 import Model.queMePongo.Usuario;
 import Utils.Middlewares;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
@@ -152,26 +154,32 @@ public class InicioController {
      * @param response response
      * @return redirijo al home
      */
-    public Object register(Request request, Response response) {
-        Middlewares.authenticated(request, response);
-        Map<String, Object> parametros = new HashMap<>();
-        Usuario user = new Usuario();
-        user.setNombre(parametros.get("nombre").toString());
-        user.setApellido(parametros.get("apellido").toString());
-        user.setEmail(parametros.get("email").toString());
-        user.setTelefono(parametros.get("email").toString());
-        user.setUsuario(Integer.toString(user.getId()));
-        user.setContraseña(parametros.get("nombre").toString());
+    public Object register(Request request, Response response) throws IOException {
+        List<NameValuePair> pairs = URLEncodedUtils.parse(request.body(), Charset.defaultCharset());
+        Map<String, String> params = toMap(pairs);
 
-        int respuesta = 1;
+        Usuario user = new Usuario();
+
+        user.setNombre(params.get("nombre").toString());
+        user.setApellido(params.get("apellido").toString());
+        user.setEmail(params.get("email").toString());
+        user.setTelefono(params.get("telefono").toString());
+        user.setUsuario(params.get("email").toString());
+        user.setContraseña(params.get("nombre").toString());
+        user.modiciarNotiEmail(Boolean.parseBoolean(params.get("emailNoti")));
+        user.modiciarNotiSMS(Boolean.parseBoolean(params.get("smsNoti")));
+        user.modiciarNotiWapp(Boolean.parseBoolean(params.get("wappNoti")));
+
 
         try{
             UsuarioDAO.registrarUsuario(user);
         }catch(Exception e){
-            respuesta = 0;
+            response.redirect("/");
+
         }
 
-        return respuesta;
+        response.redirect("/");
+        return 0;
     }
 
     /**
