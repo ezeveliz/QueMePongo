@@ -30,9 +30,6 @@ public class CalendarioController {
 
         parametros.put("guardarropas", user.getGuardarropas());
 
-        System.out.println("En calendario:");
-        System.out.println(user.getGuardarropas());
-
         return new ModelAndView(parametros, "Calendar.hbs");
     }
 

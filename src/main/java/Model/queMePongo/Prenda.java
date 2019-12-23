@@ -1,16 +1,14 @@
 package Model.queMePongo;
 
-import lombok.Data;
-import org.apache.commons.io.FileUtils;
 import Model.tipoDePrenda.TipoPrenda;
 import Model.tiposDeEvento.TipoEvento;
+import lombok.Data;
+import org.apache.commons.io.FileUtils;
 
+import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
-import javax.persistence.*;
 
 @Data
 @Entity

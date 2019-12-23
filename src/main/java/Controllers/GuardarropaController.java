@@ -8,10 +8,10 @@ import Model.queMePongo.Prenda;
 import Model.queMePongo.Usuario;
 import Model.tipoDePrenda.TipoPrendaAbrigo;
 import Model.tipoDePrenda.TipoPrendaBasico;
+import Utils.FilaPrendasDTO;
 import Utils.Middlewares;
-
-import com.google.common.collect.Lists;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import spark.ModelAndView;
@@ -22,12 +22,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import static Utils.DarkMagic.toMap;
+import java.util.*;
 
 public class GuardarropaController {
     public ModelAndView mostrar(Request request, Response response) {
@@ -53,7 +48,7 @@ public class GuardarropaController {
             parametros.put("idGuardarropa", id);
             parametros.put("guardarropas", guardarropas);
             parametros.put("sinPrendas", sinPrendas);
-            parametros.put("splittedPrendas", splittedPrendas);
+            parametros.put("splittedPrendas", nicerSplittedPrendas(splittedPrendas));
 
             return new ModelAndView(parametros, "Guardarropa.hbs");
         } else {
@@ -61,6 +56,14 @@ public class GuardarropaController {
             return new ModelAndView(parametros, "");
         }
 
+    }
+
+    private List<FilaPrendasDTO> nicerSplittedPrendas(List<List<Prenda>> splittedPrendas) {
+        List<FilaPrendasDTO> filas = new ArrayList<>();
+        for (List<Prenda> fila : splittedPrendas) {
+            filas.add(new FilaPrendasDTO(fila));
+        }
+        return filas;
     }
 
     /**
@@ -101,7 +104,7 @@ public class GuardarropaController {
 
         GuardarropaDAO.modificarGuardarropas(guardarropas);
 
-        return params;
+        return true;
     }
 
     /**

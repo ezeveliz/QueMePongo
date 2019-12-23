@@ -81,7 +81,7 @@
             })
             .then(function (response) {
                 noti.update('Guardarropa agregado', 'success');
-                console.log(response);
+                setTimeout(function() { location.reload() }, 2000);
             })
             .catch(function (error) {
                 noti.update('Error al agregar guardarropa', 'error');

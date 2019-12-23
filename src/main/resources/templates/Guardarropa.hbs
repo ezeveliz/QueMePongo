@@ -279,7 +279,7 @@
                             })
                             .then(function (response) {
                                 noti.update('Prenda agregada', 'success');
-                                console.log(response);
+                                setTimeout(function() { location.reload() }, 2000);
                             })
                             .catch(function (error) {
                                 noti.update('Error al agregar prenda', 'error');
@@ -295,7 +295,7 @@
                             })
                             .then(function (response) {
                                 noti.update('Prenda agregada', 'success');
-                                console.log(response);
+                                setTimeout(function() { location.reload() }, 2000);
                             })
                             .catch(function (error) {
                                 noti.update('Error al agregar prenda', 'error');
@@ -355,6 +355,28 @@
             resultados.append();
         }
     }
+
+    function generarDescripcion() {
+        let prendas = document.getElementsByClassName('prenda-details');
+        if (prendas.length > 0) {
+            for (let prenda of prendas) {
+                let categoria = prenda.dataset.categoria;
+                let evento = prenda.dataset.evento;
+                let calor = prenda.dataset.calor;
+                let tela = prenda.dataset.tela;
+                let color1 = prenda.dataset.color1;
+                let color2 = prenda.dataset.color2;
+                let descripcion = '<p>Prenda ';
+                if (parseInt(calor) > 0) {
+                    descripcion += 'de abrigo con un nivel ' + calor + ' de abrigo ';
+                }
+                descripcion += 'para eventos de tipo ' + evento + ' que se usa en ' + categoria + ' hecha de ' + tela + ' en los colores ' + color1 + ' y ' + color2 + '.</p>';
+                prenda.innerHTML += descripcion;
+            }
+        }
+    }
+
+    generarDescripcion();
     </script>
 {{/partial}}
 
