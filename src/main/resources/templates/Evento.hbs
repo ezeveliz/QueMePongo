@@ -41,8 +41,13 @@
                                         <h5 class="card-title">{{nombre}}</h5>
                                     </div>
                                 </div>
+                            {{else}}
+                                <div class="alert alert-info" role="alert">
+                                    No hay prendas basicas en esta sugerencia
+                                </div>
                             {{/each}}
                         </div>
+                        <br>
                         <div class="card-deck">
                             {{#each prendasDeAbrigo}}
                                 <div class="card col-md-4">
@@ -53,8 +58,13 @@
                                         <h5 class="card-title">{{nombre}}</h5>
                                     </div>
                                 </div>
+                            {{else}}
+                                <div class="alert alert-info" role="alert">
+                                    No hay prendas de abrigo en esta sugerencia
+                                </div>
                             {{/each}}
                         </div>
+                        <br>
                         <div class="card-deck">
                             {{#each accesorios}}
                                 <div class="card col-md-4">
@@ -65,9 +75,18 @@
                                         <h5 class="card-title">{{nombre}}</h5>
                                     </div>
                                 </div>
+                            {{else}}
+                                <div class="alert alert-info" role="alert">
+                                    No hay accesorios en esta sugerencia
+                                </div>
                             {{/each}}
                         </div>
+                        <br>
                     </div>
+                    {{else}}
+                        <div class="alert alert-info" role="alert">
+                            No pudimos obtener las sugerencias :(
+                        </div>
                     {{/each}}
                 </div>
             </div>
@@ -81,13 +100,14 @@
         }
 
         function rechazar(id) {
-            let clave = 'atuendo' + id;
-            document.getElementById(clave).remove();
             let atuendos = document.getElementsByClassName('atuendo');
             if(atuendos.length === 1) {
                 let mensaje = 'Solo queda un atuendo, por descarte este es el elegido';
                 toast(mensaje, 'info');
                 enviarPrendas(atuendos[0].dataset.id);
+            } else {
+                let clave = 'atuendo' + id;
+                document.getElementById(clave).remove();
             }
         }
 
@@ -112,6 +132,28 @@
                 console.log(error);
             });
         }
+
+        function generarDescripcion() {
+            let prendas = document.getElementsByClassName('prenda-details');
+            if (prendas.length > 0) {
+                for (let prenda of prendas) {
+                    let categoria = prenda.dataset.categoria;
+                    let evento = prenda.dataset.evento;
+                    let calor = prenda.dataset.calor;
+                    let tela = prenda.dataset.tela;
+                    let color1 = prenda.dataset.color1;
+                    let color2 = prenda.dataset.color2;
+                    let descripcion = '<p>Prenda ';
+                    if (parseInt(calor) > 0) {
+                        descripcion += 'de abrigo con un nivel ' + calor + ' de abrigo ';
+                    }
+                    descripcion += 'para eventos de tipo ' + evento + ' que se usa en ' + categoria + ' hecha de ' + tela + ' en los colores ' + color1 + ' y ' + color2 + '.</p>';
+                    prenda.innerHTML += descripcion;
+                }
+            }
+        }
+
+        generarDescripcion();
     </script>
 {{/partial}}
 

@@ -56,7 +56,7 @@ public class HibernateSessionFactory {
         conf.configure(f);
         conf.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/database_queMePongo?serverTimezone=UTC&useSSL=false");
         conf.setProperty("hibernate.connection.username", "root");
-        conf.setProperty("hibernate.connection.password", "admin");
+        conf.setProperty("hibernate.connection.password", "2522");
 
         return conf.buildSessionFactory();
     }

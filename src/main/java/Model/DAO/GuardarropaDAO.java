@@ -2,12 +2,11 @@ package Model.DAO;
 
 import Model.hibernate.HibernateSessionFactory;
 import Model.queMePongo.Atuendo;
+import Model.queMePongo.Guardarropas;
 import Model.queMePongo.Prenda;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.Query;
-import Model.queMePongo.Guardarropas;
-import Model.queMePongo.Usuario;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -87,6 +86,19 @@ public class GuardarropaDAO {
 
 
         return count;
+    }
+
+    public static Prenda getPrenda(int id_prenda) throws URISyntaxException, SQLException {
+        Session session = HibernateSessionFactory.getSession();
+        String hql = "FROM Prenda a WHERE a.id = :id_prenda";
+        Query query = session.createQuery(hql);
+        query.setParameter("id_prenda", id_prenda);
+
+
+        List<Prenda> list = query.list();
+
+        return list.get(0);
+
     }
 
 }

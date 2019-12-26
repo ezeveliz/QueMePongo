@@ -6,6 +6,7 @@ import Model.frecuencia.Frecuencia;
 import Model.frecuencia.Unica;
 import Model.queMePongo.Atuendo;
 import Model.queMePongo.Evento;
+import Model.queMePongo.Prenda;
 import Model.queMePongo.Usuario;
 import Model.tiposDeEvento.TipoEvento;
 import Utils.Middlewares;
@@ -65,26 +66,34 @@ public class EventoController {
 
     }
 
-    public int asignarAtuendo(Request request, Response response) throws URISyntaxException, SQLException {
+    public Boolean asignarAtuendo(Request request, Response response) throws URISyntaxException, SQLException, IOException {
         Middlewares.authenticated(request, response);
-        Map<String, Object> parametros = new HashMap<>();
-        int id = Integer.parseInt(request.params("id_evento"));
+        Map<String, Object> params = new ObjectMapper().readValue(request.body(), Map.class);
+        int id = Integer.parseInt(params.get("id_evento").toString());
 
         Evento evento = null;
-        int atuendo_id = Integer.parseInt(request.params("id_atuendo"));
+        Atuendo atuendo = new Atuendo();
+        ArrayList<Object> listPrendas = (ArrayList<Object>) params.get("prendas");
+        for(int i = 0; i < listPrendas.size(); i++){
 
-        evento.setAtuendo(GuardarropaDAO.getAtuendo(atuendo_id));
+            Prenda prenda = GuardarropaDAO.getPrenda(Integer.parseInt(listPrendas.get(i).toString()));
+
+            if(prenda.getTipoDePrenda().nivelDeCalor()== 0){
+                atuendo.getPrendasbasicas().add(prenda);
+            }else{
+                atuendo.getPrendasDeAbrigo().add(prenda);
+            }
+        }
 
         try {
             evento = EventoDAO.getEvento(id);
-            evento.setAtuendo(GuardarropaDAO.getAtuendo(atuendo_id));
+            evento.setAtuendo(atuendo);
             EventoDAO.modificarEvento(evento);
-
+            return true;
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        //TODO: responder true o false en caso de que se haya podido agregar o que haya ocurrido algun error!!!!!!
-        return 0;
     }
         /**
          * Obtengo los eventos del mes

@@ -35,9 +35,6 @@ public class Evento implements Command {
     @Column(name="tipo")
     private TipoEvento tipoDeEvento;
 
-    @Column(name="horario")
-    private LocalDateTime horario;
-
     @Column(name="temperatura")
     private Double temperatura;
 
@@ -121,7 +118,7 @@ public class Evento implements Command {
     }
 
     public boolean isSugerencia(LocalDateTime fechaAComparar){
-        return this.isAfter(fechaAComparar) && (atuendo == null);
+        return this.isAfter(fechaAComparar) && (atuendo == null) && this.isBefor(fechaAComparar.plusDays(5));
     }
     public boolean isEvntoProximo(LocalDateTime fechaAComparar){
         return this.isAfter(fechaAComparar) && (atuendo != null);

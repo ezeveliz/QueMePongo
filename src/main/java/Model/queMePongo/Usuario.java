@@ -2,8 +2,6 @@ package Model.queMePongo;
 
 import Model.exceptions.EventoNoEncontradoException;
 import Model.frecuencia.Frecuencia;
-import Model.frecuencia.Unica;
-import Model.tipoDePrenda.TipoPrendaBasico;
 import Model.tiposDeEvento.TipoEvento;
 import Model.tiposDeMedioDeNotificacion.*;
 import Model.tiposDeUsuario.Gratuito;
@@ -14,9 +12,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -324,51 +320,7 @@ public class Usuario
 	}
 
 	public List<Evento> getEventosProximos(){
-//		LocalDateTime horario = LocalDateTime.of(2019, Month.DECEMBER, 24, 10, 10, 30);
 		List<Evento> listaEventos =eventos;
-//		Evento evento = new Evento();
-//		evento.setUsuario(this);
-//		evento.setDescripcion("Nose que onda");
-//		Frecuencia frecuencia = new Unica();
-//		frecuencia.setInicio(horario.toString());
-//		evento.setFrecuencia(frecuencia);
-//		evento.setTipoDeEvento(TipoEvento.CASUAL);
-//        Atuendo atuendo = new Atuendo();
-//        atuendo.setId(98);
-//        Prenda prenda1 = new Prenda();
-//        prenda1.setNombre("Tanga roja");
-//        prenda1.setTela("cuero negro");
-//        prenda1.setCategoria(Categoria.Cabeza);
-//        prenda1.setColorSecundario("roko");
-//        prenda1.setColorSecundario("sadas");
-//        prenda1.setTipoDePrenda(new TipoPrendaBasico());
-//        Prenda prenda2 = new Prenda();
-//        prenda2.setNombre("Sunga de playa");
-//        prenda2.setTela("cuero negro");
-//        prenda2.setCategoria(Categoria.Cabeza);
-//        prenda2.setColorSecundario("roko");
-//        prenda2.setColorSecundario("sadas");
-//        prenda2.setTipoDePrenda(new TipoPrendaBasico());
-//        Prenda prenda3 = new Prenda();
-//        prenda3.setNombre("Tanga roja");
-//        prenda3.setTela("cuero negro");
-//        prenda3.setCategoria(Categoria.Cabeza);
-//        prenda3.setColorSecundario("roko");
-//        prenda3.setColorSecundario("sadas");
-//        prenda3.setTipoDePrenda(new TipoPrendaBasico());
-//        Prenda prenda4 = new Prenda();
-//        prenda4.setNombre("Sunga de playa");
-//        prenda4.setTela("cuero negro");
-//        prenda4.setCategoria(Categoria.Cabeza);
-//        prenda4.setColorSecundario("roko");
-//        prenda4.setColorSecundario("sadas");
-//        prenda4.setTipoDePrenda(new TipoPrendaBasico());
-//        atuendo.getPrendasbasicas().add(prenda1);
-//        atuendo.getPrendasbasicas().add(prenda2);
-//        atuendo.getPrendasbasicas().add(prenda3);
-//        atuendo.getPrendasbasicas().add(prenda4);
-//        evento.setAtuendo(atuendo);
-//		listaEventos.add(evento);
 		listaEventos.forEach(u->u.getFrecuencia().setFechaLinda());
 
 		return listaEventos.stream().filter( e -> e.isEvntoProximo(LocalDateTime.now())).collect(Collectors.toList());

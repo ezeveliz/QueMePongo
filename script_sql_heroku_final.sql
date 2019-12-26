@@ -53,7 +53,6 @@ DROP TABLE IF EXISTS `atuendo`;
 CREATE TABLE `atuendo` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_usuario` int,
-  `nro_sugerencia` int NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
